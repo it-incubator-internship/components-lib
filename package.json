@@ -1,7 +1,7 @@
 {
-  "name": "@it-incubator-internship-mobilnye/ui-kit",
+  "name": "@robur_/ui-kit",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
