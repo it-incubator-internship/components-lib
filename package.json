@@ -1,7 +1,7 @@
 {
   "name": "@robur_/ui-kit",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,6 +14,10 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "dist/style.css"
+  ],
   "exports": {
     ".": {
       "import": {
