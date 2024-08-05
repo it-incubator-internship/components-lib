@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { ComponentPropsWithoutRef } from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
-import { ChevronDown } from "assets/icons/chevron-down";
-import { cn } from "lib/utils";
-import { ComponentPropsWithoutRef } from "react";
+import { ChevronDown } from "../../assets/icons/chevron-down";
+import { cn } from "../../lib/utils";
 
 const Select = ({
   children,
