@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build & tsc",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write src",
+    "lint": "eslint src --ext .jsx,.js,.tsx,.ts  --no-error-on-unmatched-pattern --fix && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "rename-icons": "node scripts/rename-icons.cjs",
+    "replace-colors": "node scripts/replace-colors.cjs",
+    "generate-icons": "pnpm run rename-icons && npx @svgr/cli --out-dir src/assets/components --jsx-runtime automatic --typescript --ref --memo --icon -- src/assets/svg && pnpm run replace-colors && pnpm run format && pnpm run lint"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -32,16 +36,20 @@
     "./style.css": "./dist/style.css"
   },
   "dependencies": {
+    "@it-incubator/prettier-config": "^0.1.2",
+    "@it-incubator/stylelint-config": "^2.0.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "clsx": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sass": "^1.77.8",
+    "stylelint": "^16.8.1",
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
-    "@ladle/react": "^4.1.0",
     "@chromatic-com/storybook": "^1.6.1",
+    "@ladle/react": "^4.1.0",
     "@storybook/addon-essentials": "^8.2.7",
     "@storybook/addon-interactions": "^8.2.7",
     "@storybook/addon-links": "^8.2.7",
