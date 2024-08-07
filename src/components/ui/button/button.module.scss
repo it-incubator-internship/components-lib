@@ -1,0 +1,32 @@
+.buttonRoot {
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+
+  border-radius: 0.25rem;
+}
+
+.buttonRoot.primary {
+  color: white;
+  background-color: blue;
+}
+
+.buttonRoot.secondary {
+  color: blue;
+  background-color: gray;
+}
+
+.buttonRoot:focus-visible {
+  outline: 2px solid blue;
+}
+
+.buttonRoot.fullWidth {
+  justify-content: center;
+  width: 100%;
+}
