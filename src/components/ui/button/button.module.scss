@@ -10,20 +10,101 @@
   padding: 0.5rem 1rem;
 
   border-radius: 0.25rem;
+
+  svg {
+    margin-right: 10px;
+  }
+}
+
+a.buttonRoot {
+  width: fit-content;
 }
 
 .buttonRoot.primary {
-  color: white;
-  background-color: blue;
+  color: var(--color-light-100);
+  background-color: var(--color-accent-500);
+
+  &:hover {
+    background-color: var(--color-accent-100);
+  }
+
+  &:focus {
+    background-color: var(--color-accent-500);
+  }
+
+  &:active {
+    background-color: var(--color-accent-700);
+  }
+
+  &.disabled {
+    background-color: var(--color-accent-900);
+  }
 }
 
 .buttonRoot.secondary {
-  color: blue;
-  background-color: gray;
+  color: var(--color-light-100);
+  background-color: var(--color-dark-300);
+
+  &:focus {
+    background-color: var(--color-dark-300);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
+
+  &:active {
+    background-color: var(--color-dark-600);
+  }
+
+  &.disabled {
+    background-color: var(--color-dark-500);
+  }
 }
 
-.buttonRoot:focus-visible {
-  outline: 2px solid blue;
+.buttonRoot.outlined {
+  color: var(--color-accent-500);
+  border: 1px solid var(--color-accent-500);
+
+  &:hover {
+    color: var(--color-accent-100);
+    border: 1px solid var(--color-accent-100);
+  }
+
+  &:focus {
+    color: var(--color-accent-700);
+    border: 1px solid var(--color-accent-700);
+  }
+
+  &:active {
+    color: var(--color-accent-700);
+    border: 1px solid var(--color-accent-700);
+  }
+
+  &.disabled {
+    color: var(--color-accent-900);
+    border: 1px solid var(--color-accent-900);
+  }
+}
+
+.buttonRoot.ghost {
+  color: var(--color-accent-500);
+
+  &:hover {
+    color: var(--color-accent-100);
+  }
+
+  &:focus {
+    color: var(--color-accent-700);
+  }
+
+  &:active {
+    color: var(--color-accent-700);
+  }
+
+  &.disabled {
+    color: var(--color-accent-900);
+  }
 }
 
 .buttonRoot.fullWidth {

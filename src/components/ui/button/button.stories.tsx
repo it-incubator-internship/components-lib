@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { useRef } from 'react'
 import { Button } from './button'
+import { FlagRussia } from '../../../../src/assets/components'
 
 const meta = {
   component: Button,
@@ -25,28 +25,31 @@ export const Secondary: Story = {
   },
 }
 
+export const Outlined: Story = {
+  args: {
+    variant: 'outlined',
+    children: 'Outlined',
+  },
+}
+
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+    children: 'Ghost',
+  },
+}
+
 export const FullWidth: Story = {
   args: {
     ...Primary.args,
     fullWidth: true,
     children: 'Full Width',
-    variant: 'secondary',
   },
   render: args => {
-    const buttonRef = useRef<HTMLButtonElement>(null)
-    const anchorRef = useRef<HTMLAnchorElement>(null)
     return (
-      <div>
-        <Button {...args} asChild>
-          <a href="https://google.com" target="_blank" ref={anchorRef}>
-            Go to google
-          </a>
-        </Button>
-        <Button {...args} ref={buttonRef} onClick={() => alert('clicked nice button')}>
-          Nice button
-        </Button>
-        <button onClick={() => buttonRef.current?.click()}>Button</button>
-      </div>
+      <Button {...args} onClick={() => alert('clicked nice button')}>
+        Nice button
+      </Button>
     )
   },
 }
@@ -54,6 +57,19 @@ export const FullWidth: Story = {
 export const AsLink: Story = {
   args: {
     ...Primary.args,
-    children: 'Link',
+    asChild: true,
+    children: <a href={'#'}>Link</a>,
+  },
+}
+
+export const WithIcone: Story = {
+  args: {
+    children: (
+      <>
+        <FlagRussia /> Delete
+      </>
+    ),
+    disabled: false,
+    variant: 'primary',
   },
 }

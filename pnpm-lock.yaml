@@ -8,18 +8,18 @@ importers:
 
   .:
     dependencies:
-      '@it-incubator/prettier-config':
-        specifier: ^0.1.2
-        version: 0.1.2
-      '@it-incubator/stylelint-config':
-        specifier: ^2.0.0
-        version: 2.0.0(stylelint-config-clean-order@6.1.0(stylelint@16.8.1(typescript@5.4.2)))(stylelint-config-standard-scss@13.1.0(postcss@8.4.40)(stylelint@16.8.1(typescript@5.4.2)))(stylelint@16.8.1(typescript@5.4.2))
+      '@fontsource-variable/inter':
+        specifier: ^5.0.20
+        version: 5.0.20
       '@radix-ui/react-select':
         specifier: ^2.1.1
         version: 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@storybook/theming':
+        specifier: ^8.2.8
+        version: 8.2.8(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -42,6 +42,12 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^1.6.1
         version: 1.6.1(react@18.3.1)
+      '@it-incubator/prettier-config':
+        specifier: ^0.1.2
+        version: 0.1.2
+      '@it-incubator/stylelint-config':
+        specifier: ^2.0.0
+        version: 2.0.0(stylelint-config-clean-order@6.1.0(stylelint@16.8.1(typescript@5.4.2)))(stylelint-config-standard-scss@13.1.0(postcss@8.4.40)(stylelint@16.8.1(typescript@5.4.2)))(stylelint@16.8.1(typescript@5.4.2))
       '@ladle/react':
         specifier: ^4.1.0
         version: 4.1.0(@types/node@22.1.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(typescript@5.4.2)
@@ -969,6 +975,9 @@ packages:
   '@floating-ui/utils@0.2.5':
     resolution: {integrity: sha512-sTcG+QZ6fdEUObICavU+aB3Mp8HY4n14wYHdxK4fXjPmv3PXZZeY5RaguJmGyeH/CJQhX3fqKUtS4qc1LoHwhQ==}
 
+  '@fontsource-variable/inter@5.0.20':
+    resolution: {integrity: sha512-dhzG4Zls/tIrf8h0FhTNi8jT/uFwNhdTY2vKe6DYqoXDYOfEcTVZDyh1hKml1rlLT44Y7OoKoGz8w7czDW7twQ==}
+
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -1638,10 +1647,10 @@ packages:
     peerDependencies:
       storybook: ^8.2.7
 
-  '@storybook/theming@8.2.7':
-    resolution: {integrity: sha512-+iqm0GfRkshrjjNSOzwl7AD2m+LtJGXJCr93ke1huDK497WUKbX1hbbw51h5E1tEkx0c2wIqUlaqCM+7XMYcpw==}
+  '@storybook/theming@8.2.8':
+    resolution: {integrity: sha512-jt5oUO82LN3z5aygNdHucBZcErSicIAwzhR5Kz9E/C9wUbhyZhbWsWyhpZaytu8LJUj2YWAIPS8kq/jGx+qLZA==}
     peerDependencies:
-      storybook: ^8.2.7
+      storybook: ^8.2.8
 
   '@swc/core-darwin-arm64@1.7.5':
     resolution: {integrity: sha512-Y+bvW9C4/u26DskMbtQKT4FU6QQenaDYkKDi028vDIKAa7v1NZqYG9wmhD/Ih7n5EUy2uJ5I5EWD7WaoLzT6PA==}
@@ -5962,6 +5971,8 @@ snapshots:
 
   '@floating-ui/utils@0.2.5': {}
 
+  '@fontsource-variable/inter@5.0.20': {}
+
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -6772,7 +6783,7 @@ snapshots:
       '@storybook/manager-api': 8.2.7(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
       '@storybook/preview-api': 8.2.7(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
       '@storybook/react-dom-shim': 8.2.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
-      '@storybook/theming': 8.2.7(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
+      '@storybook/theming': 8.2.8(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))
       '@types/escodegen': 0.0.6
       '@types/estree': 0.0.51
       '@types/node': 18.19.43
@@ -6812,7 +6823,7 @@ snapshots:
       - jest
       - vitest
 
-  '@storybook/theming@8.2.7(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))':
+  '@storybook/theming@8.2.8(storybook@8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2)))':
     dependencies:
       storybook: 8.2.7(@babel/preset-env@7.25.3(@babel/core@7.25.2))
 
