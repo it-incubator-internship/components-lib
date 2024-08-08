@@ -9,32 +9,44 @@
   width: 100%;
   padding: 6px 12px;
 
-  color: var(--color-light-100);
+  color: var(--color-light-900);
 
   background-color: inherit;
   border: 1px solid var(--color-dark-100);
   border-radius: 2px;
 
-  &.paginationSelect {
-    gap: 2px;
-    padding: 0 6px;
-    background-color: var(--color-dark-700);
+  .triggerChevron {
+    transition: transform 0.3s ease;
+  }
+
+  &[data-state='open'] {
+    color: var(--color-light-100);
+
+    .triggerChevron {
+      transform: rotate(180deg);
+    }
   }
 
   &[data-disabled] {
     pointer-events: none;
-    color: var(--color-dark-300);
-    border-color: var(--color-dark-300);
+    color: var(--color-dark-100);
+    border-color: var(--color-dark-100);
   }
 
   &:hover {
-    background-color: var(--color-dark-100);
+    color: var(--color-light-100);
   }
 
   &:focus-visible {
     border-color: transparent;
-    outline: 2px solid var(--color-accent-700);
+    outline: 2px solid var(--color-accent-500);
   }
+}
+
+.triggerLabel {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .content {
@@ -43,6 +55,7 @@
 
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-dark-100);
+  border-top: none;
   border-radius: 0 0 2px 2px;
 }
 
@@ -51,7 +64,8 @@
   color: var(--color-light-100);
 
   &:hover {
-    background-color: var(--color-accent-900);
+    color: var(--color-accent-500);
+    background-color: var(--color-dark-300);
   }
 
   &:focus-visible {

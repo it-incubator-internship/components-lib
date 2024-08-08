@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Select, SelectGroup, SelectItem, SelectLabel } from './select'
 import { SelectSeparator } from '@radix-ui/react-select'
+import { FlagRussia } from '../../../../src/assets/components'
 
 const meta = {
   component: Select,
@@ -54,6 +55,22 @@ export const Alt: Story = {
   },
 }
 
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    placeholder: 'Disabled',
+    children: (
+      <>
+        <SelectItem value={'1'}>First option</SelectItem>
+        <SelectItem value={'2'}>Second option</SelectItem>
+        <SelectItem value={'3'}>Third option</SelectItem>
+        <SelectItem value={'4'}>Fourth option</SelectItem>
+        <SelectItem value={'5'}>Fifth option</SelectItem>
+      </>
+    ),
+  },
+}
+
 export const WithGroups: Story = {
   args: {
     placeholder: 'Select a theme',
@@ -72,6 +89,20 @@ export const WithGroups: Story = {
           <SelectItem value={'5'}>5</SelectItem>
           <SelectItem value={'6'}>6</SelectItem>
         </SelectGroup>
+      </>
+    ),
+  },
+}
+
+export const WithIcon: Story = {
+  args: {
+    placeholder: 'WithIcon',
+    triggerIcon: <FlagRussia />,
+    children: (
+      <>
+        <SelectItem value={'1'}>First option</SelectItem>
+        <SelectItem value={'2'}>Second option</SelectItem>
+        <SelectItem value={'3'}>Third option</SelectItem>
       </>
     ),
   },
