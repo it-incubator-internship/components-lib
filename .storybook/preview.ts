@@ -1,7 +1,22 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from '@storybook/react'
+import { themes } from '@storybook/theming'
+import './../src/index.scss'
+import '@fontsource-variable/inter/index.css'
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      theme: themes.dark,
+    },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        {
+          name: 'dark',
+          value: '#000000',
+        },
+      ],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -9,6 +24,6 @@ const preview: Preview = {
       },
     },
   },
-};
+}
 
-export default preview;
+export default preview

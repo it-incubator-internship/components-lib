@@ -10,13 +10,19 @@ type Props = {
 } & ComponentPropsWithoutRef<'button'>
 
 export const Button = forwardRef<ElementRef<'button'>, Props>(
-  ({ variant = 'primary', fullWidth, className, asChild, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button'
+  ({ variant = 'primary', fullWidth, className, asChild, ...rest }, ref) => {
+    const Component = asChild ? Slot : 'button'
     return (
-      <Comp
-        {...props}
+      <Component
+        {...rest}
         ref={ref}
-        className={clsx(s.buttonRoot, s[variant], fullWidth && s.fullWidth, className)}
+        className={clsx(
+          s.buttonRoot,
+          s[variant],
+          fullWidth && s.fullWidth,
+          className,
+          rest.disabled && s.disabled
+        )}
       />
     )
   }
