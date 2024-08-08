@@ -1,10 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Button } from './button'
-import { FlagRussia } from '../../../../src/assets/components'
+import { action } from '@storybook/addon-actions'
+import { FlagRussia } from '@/assets/components'
 
 const meta = {
   component: Button,
   title: 'Components/Button',
+  tags: ['autodocs'],
+  args: { onClick: action('button clicked') },
 } satisfies Meta<typeof Button>
 
 export default meta

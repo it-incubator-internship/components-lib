@@ -5,11 +5,27 @@ import { SelectSeparator } from '@radix-ui/react-select'
 const meta = {
   component: Select,
   title: 'Components/Select',
+  tags: ['autodocs'],
 } satisfies Meta<typeof Select>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
+export const Primary: Story = {
+  args: {
+    placeholder: 'Primary Select',
+    children: (
+      <>
+        <SelectItem value={'1'}>First option</SelectItem>
+        <SelectItem value={'2'}>Second option</SelectItem>
+        <SelectItem value={'3'}>Third option</SelectItem>
+        <SelectItem value={'4'}>Fourth option</SelectItem>
+        <SelectItem value={'5'}>Fifth option</SelectItem>
+      </>
+    ),
+  },
+}
+
 const options = [
   {
     label: 'Option 1',
@@ -24,14 +40,25 @@ const options = [
     value: '3',
   },
 ]
-export const Primary: Story = {
+
+export const Alt: Story = {
   args: {
-    placeholder: 'Select a theme',
+    placeholder: 'Alt Select',
     children: (
       <>
         {options.map(({ label, value }) => {
           return <SelectItem value={value}>{label}</SelectItem>
         })}
+      </>
+    ),
+  },
+}
+
+export const WithGroups: Story = {
+  args: {
+    placeholder: 'Select a theme',
+    children: (
+      <>
         <SelectGroup>
           <SelectLabel>Group 1</SelectLabel>
           <SelectItem value={'1'}>1</SelectItem>
