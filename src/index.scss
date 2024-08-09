@@ -1,6 +1,10 @@
 @forward './styles/colors';
 @forward './styles/typography';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: var(--font-family-primary);
   color: var(--color-light-100);
