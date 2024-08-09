@@ -3,10 +3,10 @@
 import * as React from 'react'
 import { ComponentPropsWithoutRef, ReactNode } from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { cn } from '@/lib/utils'
-import { ChevronDown } from '@/assets/components/chevron-down'
 
 import s from './select.module.scss'
+import { ChevronDown } from '@/assets/components/chevron-down'
+import { cn } from '@/lib/utils'
 
 const Select = ({
   children,

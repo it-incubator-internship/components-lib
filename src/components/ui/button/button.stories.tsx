@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Button } from './button'
 import { action } from '@storybook/addon-actions'
-import { FlagRussia } from '@/assets/components'
+import { FlagRussia } from '../../../assets/components'
 
 const meta = {
   component: Button,
