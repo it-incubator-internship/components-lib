@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef, RefObject } from 'react'
 import styles from './logInput.module.scss'
 import { EyeOutline } from '../../../../assets/components'
 
 interface InputProps {
   state: 'default' | 'error' | 'disabled'
   errorMsg?: string
+  emailRef?: RefObject<HTMLInputElement>
+  passwordRef?: RefObject<HTMLInputElement>
 }
 
-const Input: React.FC<InputProps> = ({ state, errorMsg }) => {
+const Input: React.FC<InputProps> = ({ state, errorMsg, emailRef, passwordRef }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -30,6 +32,7 @@ const Input: React.FC<InputProps> = ({ state, errorMsg }) => {
               disabled={state === 'disabled'}
               name="email"
               required
+              ref={emailRef}
             />
             <div
               className={`${styles.errorMsg} ${state === 'error' && errorMsg ? styles.show : ''}`}
@@ -50,6 +53,7 @@ const Input: React.FC<InputProps> = ({ state, errorMsg }) => {
                 disabled={state === 'disabled'}
                 name="password"
                 required
+                ref={passwordRef}
               />
             </div>
             <div
