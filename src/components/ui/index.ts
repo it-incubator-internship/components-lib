@@ -1,4 +1,4 @@
 export * from './button/button'
 export * from './select/select'
 export * from './input/logInput/logInput'
-export * from './input/seacrhInput/searchInput'
+export * from './input/searchInput/searchInput'
