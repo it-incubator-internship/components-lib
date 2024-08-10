@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Textarea} from './textarea'
-import React from 'react'
+import { Textarea } from './textarea'
+import { Button } from '../button/button'
+import React, { useRef, useState } from 'react'
 
 const meta = {
   component: Textarea,
@@ -11,83 +12,42 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const ErrorOutputInArea: Story = {
   args: {
-
+    error: 'Error text',
+    titleLabel: 'enter message',
   },
-}
-
-export const Active: Story = {
-  args: {
-	message: "Active text"
-  },
-    render: args => {
+  render: args => {
     return (
-      <div style = {{ width: "400px", margin: "0 auto" }}>
-        <Textarea message={args.message} />
+      <div style={{ width: '400px', margin: '0 auto' }}>
+        <Textarea titleLabel={args.titleLabel} error={args.error} />
       </div>
     )
   },
 }
 
-export const Error: Story = {
+export const ControlTextArea: Story = {
   args: {
-	error: "Error text"
+    titleLabel: 'enter message',
   },
   render: args => {
-	return (
-	<div style = {{ width: "400px", margin: "0 auto" }}>
-		<Textarea message={args.message} error={ args.error } />
-	</div>
-	)
- },
-}
+    const [message, setMessage] = useState('')
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
+    const handleSaveMessage = () => {
+      if (textareaRef.current) {
+        setMessage(textareaRef.current.value)
+        textareaRef.current.value = ''
+      }
+    }
 
-export const Disabled: Story = {
-  args: {
-	disabled: true
+    return (
+      <div style={{ width: '400px', margin: '0 auto' }}>
+        <Textarea ref={textareaRef} titleLabel={args.titleLabel} />
+        <Button onClick={handleSaveMessage} style={{ marginTop: '10px' }}>
+          Save message
+        </Button>
+        <p>{message}</p>
+      </div>
+    )
   },
-  render: args => {
-	const myRef = useRef(null);
-	return (
-	<div style = {{ width: "400px", margin: "0 auto" }}>		
-		<Textarea message={args.message} disabled={ args.disabled } ref = {myRef}/>
-	</div>
-	)
- },
 }
-
-// export const Focus: Story = {
-//   args: {
-//     ...Primary.args,
-//     fullWidth: true,
-//     children: 'Full Width',
-//   },
-//   render: args => {
-//     return (
-//       <Button {...args} onClick={() => alert('clicked nice button')}>
-//         Nice button
-//       </Button>
-//     )
-//   },
-// }
-
-// export const Disabled: Story = {
-//   args: {
-//     ...Primary.args,
-//     asChild: true,
-//     children: <a href={'#'}>Link</a>,
-//   },
-// }
-
-// export const WithIcone: Story = {
-//   args: {
-//     children: (
-//       <>
-//         <FlagRussia /> Delete
-//       </>
-//     ),
-//     disabled: false,
-//     variant: 'primary',
-//   },
-// }
