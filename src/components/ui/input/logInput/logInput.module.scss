@@ -1,0 +1,94 @@
+// Container
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 315px;
+}
+
+// Input
+.inputField {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+  background: none;
+  outline: none;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+// Input Group
+.inputGroup {
+  margin-bottom: var(--line-height-s);
+}
+
+// Label
+label {
+  color: var(--color-dark-100);
+}
+
+// Default State
+.default {
+  color: var(--color-light-100);
+
+  &:hover {
+    border-color: var(--color-dark-100);
+  }
+
+  &::placeholder {
+    color: var(--color-dark-100);
+  }
+
+  &:focus {
+    border-color: var(--color-light-100);
+
+    &::placeholder {
+      color: var(--color-light-100);
+    }
+  }
+}
+
+// Error Message
+.errorMsg {
+  color: var(--color-danger-500);
+  margin-top: 4px;
+  font-size: var(--font-size-xs);
+  height: var(--font-size-m);
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+    height: auto;
+  }
+}
+
+// Error State
+.error {
+  border-color: var(--color-danger-500);
+
+  &:focus::placeholder {
+    color: var(--color-light-100);
+  }
+}
+
+// Disabled State
+.disabled {
+  cursor: not-allowed;
+  color: var(--color-dark-300);
+  border-color: var(--color-dark-300);
+
+  &::placeholder {
+    color: var(--color-dark-300);
+  }
+}
+
+// Icon
+.icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-light-100);
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './logInput.module.css'
+import styles from './logInput.module.scss'
 import { EyeOutline } from '../../../../assets/components'
 
 interface InputProps {
