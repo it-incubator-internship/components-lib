@@ -16,7 +16,6 @@ export const Search: Story = {
     type: 'search',
     state: 'default',
     placeholder: 'Input search',
-    iconSearch: true,
   },
 }
 
@@ -25,7 +24,6 @@ export const SearchError: Story = {
     type: 'search',
     state: 'error',
     placeholder: 'Input search',
-    iconSearch: true,
     errorMsg: 'Error text',
   },
 }
@@ -35,7 +33,6 @@ export const SearchDisabled: Story = {
     type: 'search',
     state: 'disabled',
     placeholder: 'Input search',
-    iconSearch: true,
   },
 }
 
@@ -44,7 +41,6 @@ export const ControlSearchInput: Story = {
     type: 'search',
     state: 'default',
     placeholder: 'Input search',
-    iconSearch: true,
   },
   render: args => {
     const [inputValue, setInputValue] = useState('')
@@ -149,22 +145,6 @@ export const Password: Story = {
     state: 'default',
     placeholder: 'Password',
     label: 'Password',
-    iconPassword: true,
-  },
-  render: args => {
-    const [showPassword, setShowPassword] = useState(false)
-
-    const toggleShowPassword = () => {
-      setShowPassword(!showPassword)
-    }
-
-    return (
-      <Input
-        {...args}
-        type={showPassword ? 'text' : 'password'}
-        onToggleShowPassword={toggleShowPassword}
-      />
-    )
   },
 }
 
@@ -174,23 +154,7 @@ export const PasswordError: Story = {
     state: 'error',
     placeholder: 'Password',
     label: 'Password',
-    iconPassword: true,
     errorMsg: 'Error text',
-  },
-  render: args => {
-    const [showPassword, setShowPassword] = useState(false)
-
-    const toggleShowPassword = () => {
-      setShowPassword(!showPassword)
-    }
-
-    return (
-      <Input
-        {...args}
-        type={showPassword ? 'text' : 'password'}
-        onToggleShowPassword={toggleShowPassword}
-      />
-    )
   },
 }
 
@@ -200,7 +164,6 @@ export const PasswordDisabled: Story = {
     state: 'disabled',
     placeholder: 'Password',
     label: 'Password',
-    iconPassword: true,
   },
 }
 
@@ -210,7 +173,6 @@ export const ControlPasswordInput: Story = {
     state: 'default',
     placeholder: 'Password',
     label: 'Password',
-    iconPassword: true,
   },
   render: args => {
     const [inputValue, setInputValue] = useState('')

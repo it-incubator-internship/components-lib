@@ -10,27 +10,13 @@ type InputProps = {
   type: 'password' | 'search' | 'email' | 'text'
   label?: 'Email' | 'Password'
   placeholder: 'Email' | 'Password' | 'Input search'
-  iconSearch?: true | false
-  iconPassword?: true | false
   onToggleShowPassword?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      state,
-      errorMsg,
-      type,
-      label,
-      placeholder,
-      iconSearch,
-      iconPassword,
-      onToggleShowPassword,
-      ...rest
-    },
-    ref
-  ) => {
+  ({ state, errorMsg, type, label, placeholder, onToggleShowPassword, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     return (
       <form>
@@ -40,17 +26,24 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             <div className={clsx(styles.inputContainer, isFocused && styles.active)}>
               <input
                 ref={ref}
-                type={type}
+                type={type === 'password' && showPassword ? 'text' : type}
                 placeholder={placeholder}
-                className={clsx(styles.inputField, styles[state], iconSearch && styles.inputSearch)}
+                className={clsx(
+                  styles.inputField,
+                  styles[state],
+                  type === 'search' && styles.inputSearch
+                )}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 disabled={state === 'disabled'}
                 {...rest}
               />
-              {iconSearch && <Search className={styles.iconSearch} />}
-              {iconPassword && (
-                <EyeOutline onClick={onToggleShowPassword} className={styles.iconPass} />
+              {type === 'search' && <Search className={styles.iconSearch} />}
+              {label === 'Password' && (
+                <EyeOutline
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={styles.iconPass}
+                />
               )}
             </div>
             <div
