@@ -1,8 +1,8 @@
-import { ComponentProps, forwardRef } from 'react'
+import { ComponentProps, forwardRef, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.min.css'
 import * as RDP from 'react-datepicker'
 import { clsx } from 'clsx'
-import { CalendarOutline as CalendarIcon } from '../../../assets/components'
+import { CalendarOutline, Calendar as CalendarIcon } from '../../../assets/components'
 import { FieldValues } from 'react-hook-form'
 
 // import textFieldStyles from '@/components/ui/text-field/text-field.module.scss'
@@ -10,6 +10,7 @@ import s from './date-picker.module.scss'
 import { CustomHeader } from './custom-header/custom-header'
 import { formatWeekDay } from '@/lib/formatWeekDay'
 import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
 
 export type DatePickerProps = {
   placeholder?: string
@@ -47,6 +48,8 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
 
     // textFieldStyles.input
 
+    const [isOpened, setIsOpened] = useState(false)
+
     const classNames = {
       root: clsx(s.root, className),
       inputContainer: s.inputContainer,
@@ -68,6 +71,13 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
       }
     }
 
+    const handleCalendarOpen = () => {
+      setIsOpened(true)
+    }
+    const handleCalendarClose = () => {
+      setIsOpened(false)
+    }
+
     return (
       <div className={classNames.root} {...rest}>
         <RDPC
@@ -79,7 +89,16 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           formatWeekDay={formatWeekDay}
           placeholderText={placeholder}
           renderCustomHeader={params => <CustomHeader {...params} />}
-          customInput={<CustomInput error={errorMessage} disabled={disabled} label={label} />}
+          customInput={
+            <CustomInput
+              isOpened={isOpened}
+              error={errorMessage}
+              disabled={disabled}
+              label={label}
+            />
+          }
+          onCalendarClose={handleCalendarClose}
+          onCalendarOpen={handleCalendarOpen}
           calendarClassName={classNames.calendar}
           className={classNames.input}
           popperClassName={classNames.popper}
@@ -112,10 +131,11 @@ type CustomInputProps = {
   disabled?: boolean
   label?: string
   error?: string
+  isOpened: boolean
 }
 
 const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
-  ({ label, error, disabled, ...rest }, ref) => {
+  ({ label, error, disabled, isOpened, ...rest }, ref) => {
     const classNames = {
       inputContainer: clsx(s.inputContainer, error && s.error),
       icon: clsx(s.icon, disabled && s.disabled),
@@ -125,8 +145,8 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       <Label className={s.label} label={label}>
         <div className={classNames.inputContainer}>
           <input ref={ref} disabled={disabled} {...rest} />
-          <div className={classNames.icon}>
-            <CalendarIcon />
+          <div className={cn(classNames.icon, error && s.errorText)}>
+            {isOpened ? <CalendarIcon /> : <CalendarOutline />}
           </div>
         </div>
       </Label>

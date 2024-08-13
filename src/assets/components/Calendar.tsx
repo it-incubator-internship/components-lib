@@ -18,7 +18,7 @@ const SvgCalendar = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =>
     </g>
     <defs>
       <clipPath id="calendar_svg__a">
-        <path fill="#fff" d="M0 0h24v24H0z" />
+        <path fill="currentcolor" d="M0 0h24v24H0z" />
       </clipPath>
     </defs>
   </svg>
