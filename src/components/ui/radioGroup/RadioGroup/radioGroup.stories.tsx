@@ -13,43 +13,44 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 const itemsForstories = [
-	{ id: '1', titleRadioItem: 'Pre-junior' },
-	{ id: '2', titleRadioItem: 'Junior' },
-	{ id: '3', titleRadioItem: 'Junior +' },
- ]
+  { id: '1', titleRadioItem: 'Pre-junior' },
+  { id: '2', titleRadioItem: 'Junior' },
+  { id: '3', titleRadioItem: 'Junior +' },
+]
 export const ControlledRadioGroupUiKit: Story = {
   args: {},
-  render: (args) => {
+  render: args => {
     const items = itemsForstories
-    const [valueOption, onChangeOption] = useState(items[0].titleRadioItem)
+    const [valueOption, onChangeOption] = useState(items[0]?.titleRadioItem)
     const handleOptionChange = (value: string) => {
       onChangeOption(value)
     }
     return (
-		<div>
-			<RadioGroupUiKit
-			{...args}
-			currentValue={valueOption}
-			callback={handleOptionChange}
-			itemsRadioGroup={items}
-			/>
-			<span style={{marginTop: '15px', display: 'inline-block'}}>{`Selected option: ${valueOption}`}</span>
-		</div>
-    
+      <div>
+        <RadioGroupUiKit
+          {...args}
+          currentValue={valueOption}
+          callback={handleOptionChange}
+          itemsRadioGroup={items}
+        />
+        <span
+          style={{ marginTop: '15px', display: 'inline-block' }}
+        >{`Selected option: ${valueOption}`}</span>
+      </div>
     )
   },
 }
 
 export const DefaultValueRadioGroupUiKit: Story = {
-	args:{
-		defaultValue: 'Junior',
-		itemsRadioGroup: itemsForstories,
-	},
+  args: {
+    defaultValue: 'Junior',
+    itemsRadioGroup: itemsForstories,
+  },
 }
 export const DisabledRadioGroupUiKit: Story = {
-	args:{
-		defaultValue: 'Junior',
-		itemsRadioGroup: itemsForstories,
-		disabled: true,
-	},
+  args: {
+    defaultValue: 'Junior',
+    itemsRadioGroup: itemsForstories,
+    disabled: true,
+  },
 }
