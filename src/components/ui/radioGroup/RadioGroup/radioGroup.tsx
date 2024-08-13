@@ -1,43 +1,36 @@
-import React from 'react';
-import * as RadioGroup from '@radix-ui/react-radio-group';
+import React, { ComponentPropsWithRef } from 'react'
+import * as RadioGroup from '@radix-ui/react-radio-group'
 import s from '@/components/ui/radioGroup/RadioGroup/radioGroup.module.scss'
-import { ItemRadioGroup } from './itemRadioGroup/itemRadioGroup';
+import { ItemRadioGroup } from './itemRadioGroup/itemRadioGroup'
+import clsx from 'clsx'
 
+type Items = {
+	id?: string
+	titleRadioItem: string
+}
 type Props = {
-	asChild?: boolean
-	variant?: 'primary' | 'secondary' | 'outlined' | 'ghost'
-	fullWidth?: boolean
- }
-export const RadioGroupUiKit = () => (
-  <form>
-    <RadioGroup.Root className={s.RadioGroupRoot} defaultValue="default" aria-label="View density">
-      {/* <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RadioGroup.Item className={s.RadioGroupItem} value="default" id="r1" disabled>
-          <RadioGroup.Indicator className={s.RadioGroupIndicator} />
-        </RadioGroup.Item>
-        <label className={s.Label} htmlFor="r1">
-          Default
-        </label>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RadioGroup.Item className={s.RadioGroupItem} value="comfortable" id="r2" disabled>
-          <RadioGroup.Indicator className={s.RadioGroupIndicator} />
-        </RadioGroup.Item>
-        <label className={s.Label} htmlFor="r2">
-          Comfortable
-        </label>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RadioGroup.Item className={s.RadioGroupItem} value="compact" id="r3">
-          <RadioGroup.Indicator className={s.RadioGroupIndicator} />
-        </RadioGroup.Item>
-        <label className={s.Label} htmlFor="r3">
-          Compact
-        </label>
-      </div> */}
-		<ItemRadioGroup/>
-		<ItemRadioGroup/>
+	currentValue?: string
+	itemsRadioGroup?: Items[]
+	callback?: (value: string) => void
+	defaultValue?: string
+	className?: string
+}& ComponentPropsWithRef <typeof RadioGroup.Root>
+export const RadioGroupUiKit = ({itemsRadioGroup, callback, currentValue, defaultValue, ...rest}: Props) => {
+const mapedItemsRadioGroup = itemsRadioGroup?.map((item) => {
+	return (
+		<ItemRadioGroup title={item.titleRadioItem} disabled={rest.disabled} key={item.id} />
+	)
+})
+  return (
+    <RadioGroup.Root
+      className={clsx(s.RadioGroupRoot, rest.className)}
+      defaultValue={defaultValue? defaultValue : currentValue}
+      aria-label="View density"
+      value={currentValue}
+      onValueChange={callback}
+		disabled={rest.disabled}
+    >
+      {mapedItemsRadioGroup}
     </RadioGroup.Root>
-  </form>
-);
-
+  )
+}
