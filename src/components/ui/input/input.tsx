@@ -39,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 {...rest}
               />
               {type === 'search' && <Search className={styles.iconSearch} />}
-              {label === 'Password' && (
+              {(type === 'password' || type === 'text') && (
                 <EyeOutline
                   onClick={() => setShowPassword(!showPassword)}
                   className={styles.iconPass}
