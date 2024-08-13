@@ -5,6 +5,7 @@ import {CheckIcon} from "@radix-ui/react-icons";
 import s from './checkbox.module.scss'
 import clsx from 'clsx';
 
+// radix checkbox component
 
 type RadixCheckboxProps = typeof RadixCheckbox.Root;
 type Props = {
