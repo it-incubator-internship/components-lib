@@ -1,5 +1,5 @@
 import { useState, forwardRef, ComponentPropsWithoutRef } from 'react'
-import styles from './baseInput.module.scss'
+import styles from './input.module.scss'
 import { EyeOutline } from '../../../assets/components'
 import Search from '../../../assets/components/Search'
 import clsx from 'clsx'

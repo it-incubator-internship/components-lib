@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
-import Input from './baseInput'
+import Input from './input'
 
 const meta = {
   component: Input,
