@@ -1,7 +1,7 @@
 import {ComponentPropsWithoutRef, ElementRef, forwardRef} from 'react'
 import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import * as RadixLabel from '@radix-ui/react-label'
-import {CheckIcon} from "@radix-ui/react-icons";
+import CheckmarkOutline from "../../../assets/components/CheckmarkOutline";
 import s from './checkbox.module.scss'
 import clsx from 'clsx';
 
@@ -25,7 +25,7 @@ export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, Props>(
                     onCheckedChange={rest.onCheckedChange}
                 >
                     <RadixCheckbox.Indicator className={clsx(s.CheckboxIndicator)}>
-                        <CheckIcon/>
+                        <CheckmarkOutline/>
                     </RadixCheckbox.Indicator>
                 </RadixCheckbox.Root>
                 <RadixLabel.Root className={clsx(s.Label)}>
