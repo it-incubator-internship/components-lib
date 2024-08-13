@@ -177,11 +177,6 @@ export const ControlPasswordInput: Story = {
   render: args => {
     const [inputValue, setInputValue] = useState('')
     const refValue = useRef<HTMLInputElement>(null)
-    const [showPassword, setShowPassword] = useState(false)
-
-    const toggleShowPassword = () => {
-      setShowPassword(!showPassword)
-    }
 
     const handleSaveMessage = () => {
       if (refValue.current) {
@@ -192,12 +187,7 @@ export const ControlPasswordInput: Story = {
 
     return (
       <div>
-        <Input
-          {...args}
-          ref={refValue}
-          type={showPassword ? 'text' : 'password'}
-          onToggleShowPassword={toggleShowPassword}
-        />
+        <Input {...args} ref={refValue} type={'password'} />
         <button
           style={{
             backgroundColor: 'blue',

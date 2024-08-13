@@ -10,11 +10,10 @@ type InputProps = {
   type: 'password' | 'search' | 'email' | 'text'
   label?: 'Email' | 'Password'
   placeholder: 'Email' | 'Password' | 'Input search'
-  onToggleShowPassword?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ state, errorMsg, type, label, placeholder, onToggleShowPassword, ...rest }, ref) => {
+  ({ state, errorMsg, type, label, placeholder, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
