@@ -1,4 +1,5 @@
 export * from './button/button'
 export * from './select/select'
+export * from './input/input'
 export * from './radioGroup/RadioGroup/radioGroup'
 export * from './textarea/textarea'
