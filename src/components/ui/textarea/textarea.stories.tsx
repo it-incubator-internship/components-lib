@@ -25,6 +25,19 @@ export const ErrorOutputInArea: Story = {
     )
   },
 }
+export const DisabledTextArea: Story = {
+  args: {
+    disabled: true,
+    titleLabel: 'enter message',
+  },
+  render: args => {
+    return (
+      <div style={{ width: '400px', margin: '0 auto' }}>
+        <Textarea titleLabel={args.titleLabel} disabled={args.disabled} />
+      </div>
+    )
+  },
+}
 
 export const ControlTextArea: Story = {
   args: {

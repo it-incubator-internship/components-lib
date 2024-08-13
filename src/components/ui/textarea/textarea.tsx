@@ -5,13 +5,14 @@ import clsx from 'clsx'
 type Props = {
   titleLabel?: string
   error?: string
+  className?: string
 } & ComponentPropsWithoutRef<'textarea'>
 //message: string
 export const Textarea = forwardRef<ElementRef<'textarea'>, Props>(
   ({ error, titleLabel, ...rest }, ref) => {
     const htmlForMessage = 'message'
     return (
-      <div className={s.textareaRoot}>
+      <div className={clsx(s.textareaRoot, rest.className)}>
         <label className={s.textAreaLabel} htmlFor={htmlForMessage}>
           {titleLabel}
         </label>
