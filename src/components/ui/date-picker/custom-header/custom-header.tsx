@@ -1,8 +1,8 @@
 import { ReactDatePickerCustomHeaderProps } from 'react-datepicker'
-import s from '../temp.module.scss'
+import s from '../date-picker.module.scss'
 import { enUS } from 'date-fns/locale'
 import { format } from 'date-fns'
-import { ArrowBackOutline, ArrowForwardOutline } from '@/assets/components'
+import { ArrowIosBack, ArrowIosForward } from '@/assets/components'
 import { capitalizeFirstLetter } from '@/lib/capitalizeFirstLetter'
 
 export const CustomHeader = ({
@@ -16,7 +16,7 @@ export const CustomHeader = ({
     button: s.button,
   }
 
-  const headerText = capitalizeFirstLetter(format(date, 'LLLL Y', { locale: enUS }))
+  const headerText = capitalizeFirstLetter(format(date, 'LLLL y', { locale: enUS }))
 
   return (
     <div className={classNames.header}>
@@ -24,11 +24,11 @@ export const CustomHeader = ({
         <span>{headerText}</span>
         <div className={classNames.buttonBox}>
           <button className={classNames.button} type="button" onClick={decreaseMonth}>
-            <ArrowBackOutline />
+            <ArrowIosBack />
           </button>
 
           <button className={classNames.button} onClick={increaseMonth}>
-            <ArrowForwardOutline />
+            <ArrowIosForward />
           </button>
         </div>
       </div>

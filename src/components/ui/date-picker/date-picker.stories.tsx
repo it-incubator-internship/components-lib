@@ -55,3 +55,35 @@ export const Range: Story = {
     startDate: null,
   },
 }
+
+export const WithError: Story = {
+  render: () => {
+    const [startDate, setStartDate] = useState<Date | null>(new Date())
+
+    return (
+      <DatePicker
+        setStartDate={setStartDate}
+        startDate={startDate}
+        errorMessage={'Please pick date'}
+      />
+    )
+  },
+
+  args: {
+    setStartDate: () => {},
+    startDate: null,
+  },
+}
+
+export const Disabled: Story = {
+  render: () => {
+    const [startDate, setStartDate] = useState<Date | null>(new Date())
+
+    return <DatePicker setStartDate={setStartDate} startDate={startDate} disabled={true} />
+  },
+
+  args: {
+    setStartDate: () => {},
+    startDate: null,
+  },
+}

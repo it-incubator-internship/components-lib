@@ -13,13 +13,6 @@
     color: var(--color-accent-500);
   }
 
-  :global(.react-datepicker__day--selected) {
-    color: var(--color-light-100);
-    background-color: var(--color-accent-900);
-    background-image: radial-gradient(28px circle, var(--color-accent-500) 48%, transparent 51%);
-    border-radius: 50%;
-  }
-
   :global(.react-datepicker__day--keyboard-selected) {
     background-color: transparent;
   }
@@ -87,6 +80,11 @@
   :global(.react-datepicker__day--outside-month) {
     color: var(--color-dark-100);
   }
+
+  :global(.react-datepicker__day--selected) {
+    color: var(--color-accent-500);
+    background: none;
+  }
 }
 
 .calendar {
@@ -112,6 +110,7 @@
 }
 
 .input {
+  cursor: pointer;
   position: relative;
   width: 100%;
   color: var(--color-light-900);
@@ -124,12 +123,12 @@
     color: var(--color-light-100);
   }
 
-  &:active {
-    color: var(--color-light-100);
-  }
-
   &.error {
     color: var(--color-danger-500);
+  }
+
+  &:disabled {
+    cursor: default;
   }
 }
 
@@ -146,10 +145,6 @@
   border-radius: 2px;
 
   transition: 0.2s ease-out;
-
-  &:hover {
-    border: 1px solid var(--color-light-900);
-  }
 
   &.error {
     border-color: var(--color-danger-300);
@@ -263,6 +258,7 @@
   }
 
   &:global(.react-datepicker__day--in-range) {
+    color: var(--color-light-100);
     background-color: var(--color-accent-900);
     border-radius: 0;
   }
@@ -273,13 +269,11 @@
 
   &:global(.react-datepicker__day--range-end) {
     background-color: var(--color-accent-900);
-    background-image: radial-gradient(28px circle, var(--color-accent-500) 48%, transparent 51%);
     border-radius: 0 50% 50% 0;
   }
 
-  .d &:global(.react-datepicker__day--range-start) {
+  &:global(.react-datepicker__day--range-start) {
     background-color: var(--color-accent-900);
-    background-image: radial-gradient(28px circle, var(--color-accent-500) 48%, transparent 51%);
     border-radius: 50% 0 0 50%;
   }
 }
