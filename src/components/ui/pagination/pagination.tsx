@@ -1,10 +1,9 @@
 import { ArrowIosBack, ArrowIosForward } from '@/assets/components'
 import { DOTS, usePagination } from '@/components/ui/pagination/hooks/usePagination'
-import clsx from 'clsx'
 
 import s from './pagination.module.scss'
 import { Button, Select, SelectItem } from '@/components/ui'
-import { cn } from '@/lib/utils'
+import clsx from 'clsx'
 
 type Props = {
   className?: string
@@ -56,16 +55,16 @@ export const Pagination = (props: Props) => {
   const lastPage = paginationRange![paginationRange!.length - 1]
 
   return (
-    <div className={cn(s.wrapContainer, className)}>
-      <button className={cn(s.buttonLeft)} disabled={currentPage === 1} onClick={onPrevious}>
+    <div className={clsx(s.wrapContainer, className)}>
+      <button className={clsx(s.buttonLeft)} disabled={currentPage === 1} onClick={onPrevious}>
         <ArrowIosBack />
       </button>
-      <div className={cn(s.paginationContainer)}>
+      <div className={clsx(s.paginationContainer)}>
         {paginationRange?.map((pageNumber, i) => {
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === DOTS) {
             return (
-              <span className={cn(s.paginationItem, s.dots)} key={i}>
+              <span className={clsx(s.paginationItem, s.dots)} key={i}>
                 &#8230;
               </span>
             )
@@ -74,7 +73,7 @@ export const Pagination = (props: Props) => {
           // Render our Page Pills
           return (
             <Button
-              className={cn(s.paginationItem, pageNumber === currentPage && s.selected)}
+              className={clsx(s.paginationItem, pageNumber === currentPage && s.selected)}
               key={i}
               onClick={() => onPageChange(+pageNumber)}
             >
@@ -83,7 +82,7 @@ export const Pagination = (props: Props) => {
           )
         })}
       </div>
-      <button className={cn(s.buttonRight)} disabled={currentPage === lastPage} onClick={onNext}>
+      <button className={clsx(s.buttonRight)} disabled={currentPage === lastPage} onClick={onNext}>
         <ArrowIosForward />
       </button>
 
