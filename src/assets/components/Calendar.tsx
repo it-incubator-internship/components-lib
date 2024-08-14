@@ -1,15 +1,7 @@
 import type { SVGProps } from 'react'
 import { Ref, forwardRef, memo } from 'react'
 const SvgCalendar = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    fill="none"
-    viewBox="0 0 24 24"
-    ref={ref}
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" ref={ref} {...props}>
     <g clipPath="url(#calendar_svg__a)">
       <path
         fill="currentcolor"
@@ -18,7 +10,7 @@ const SvgCalendar = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =>
     </g>
     <defs>
       <clipPath id="calendar_svg__a">
-        <path fill="#fff" d="M0 0h24v24H0z" />
+        <path fill="currentcolor" d="M0 0h24v24H0z" />
       </clipPath>
     </defs>
   </svg>
