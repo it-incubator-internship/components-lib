@@ -26,7 +26,7 @@ export const Tabs: FC<TabsProps> = ({ tabs, children, fullWidth, className, ...r
   return (
     <Root className={classNames.root} {...rest}>
       <List className={classNames.list}>
-        {tabs.map(tab => (
+        {tabs.map((tab: TabType) => (
           <Trigger
             className={classNames.trigger}
             disabled={tab.disabled}
