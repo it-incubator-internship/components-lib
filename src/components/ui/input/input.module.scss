@@ -1,0 +1,118 @@
+// Container
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 279px;
+}
+
+// Input
+.inputField {
+  display: inline-block;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 12px;
+
+  background: none;
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+  outline: none;
+}
+
+// InputSearch
+.inputSearch {
+  padding: 6px 12px 6px 30px;
+}
+
+// Label
+.label {
+  color: var(--color-dark-100);
+}
+
+// Default State
+.default {
+  color: var(--color-light-100);
+
+  &::placeholder {
+    color: var(--color-dark-100);
+  }
+
+  &:hover {
+    border-color: var(--color-dark-100);
+  }
+
+  &:focus {
+    border-color: var(--color-light-100);
+
+    &::placeholder {
+      color: var(--color-light-100);
+    }
+  }
+}
+
+// Error Message
+.errorMsg {
+  height: var(--font-size-m);
+  margin-top: 4px;
+
+  font-size: var(--font-size-xs);
+  color: var(--color-danger-500);
+
+  visibility: hidden;
+
+  &.show {
+    height: auto;
+    visibility: visible;
+  }
+}
+
+// Error State
+.error {
+  border-color: var(--color-danger-500);
+
+  &:focus::placeholder {
+    color: var(--color-light-100);
+  }
+}
+
+// Disabled State
+.disabled {
+  cursor: not-allowed;
+  color: var(--color-dark-300);
+  border-color: var(--color-dark-300);
+
+  &::placeholder {
+    color: var(--color-dark-300);
+  }
+}
+
+// IconPass
+.iconPass {
+  cursor: pointer;
+
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+
+  color: var(--color-light-100);
+}
+
+.active .iconPass {
+  color: var(--color-light-100);
+}
+
+// IconSearch
+.iconSearch {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+
+  color: var(--color-dark-100);
+}
+
+.active .iconSearch {
+  color: var(--color-light-100);
+}
