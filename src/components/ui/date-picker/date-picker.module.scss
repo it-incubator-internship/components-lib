@@ -106,13 +106,19 @@
 
 .icon {
   position: absolute;
-  right: 12px;
+  right: 18px;
+  width: 24px;
+  height: 24px;
 }
 
 .input {
   cursor: pointer;
+
   position: relative;
+
   width: 100%;
+  padding-right: 35px;
+
   color: var(--color-light-900);
 
   &:hover {
@@ -153,16 +159,6 @@
   &.error:focus-within {
     border-color: var(--color-danger-500);
     outline: 1px solid var(--color-danger-500);
-  }
-
-  &:has(.range) {
-    .icon {
-      position: static;
-    }
-
-    .input {
-      width: 193px;
-    }
   }
 
   &:focus-within:not(.error) {

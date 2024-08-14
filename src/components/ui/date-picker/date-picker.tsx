@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import { CalendarOutline, Calendar as CalendarIcon } from '../../../assets/components'
 import { FieldValues } from 'react-hook-form'
 
-// import textFieldStyles from '@/components/ui/text-field/text-field.module.scss'
+import textFieldStyles from '../input/input.module.scss'
 import s from './date-picker.module.scss'
 import { CustomHeader } from './custom-header/custom-header'
 import { formatWeekDay } from '@/lib/formatWeekDay'
@@ -28,32 +28,27 @@ const RDPC = (((RDP.default as any).default as any) ||
   (RDP as any)) as typeof RDP.default
 
 export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
-  (
-    {
-      startDate,
-      setStartDate,
-      placeholder,
-      label,
-      errorMessage,
-      endDate,
-      setEndDate,
-      disabled,
-      className,
-      ...rest
-    },
-    ref
-  ) => {
+  ({
+    startDate,
+    setStartDate,
+    placeholder,
+    label,
+    errorMessage,
+    endDate,
+    setEndDate,
+    disabled,
+    className,
+    ...rest
+  }) => {
     const isRange = endDate !== undefined
     const showError = !!errorMessage && errorMessage.length > 0
-
-    // textFieldStyles.input
 
     const [isOpened, setIsOpened] = useState(false)
 
     const classNames = {
       root: clsx(s.root, className),
       inputContainer: s.inputContainer,
-      input: clsx(s.input, showError && s.error, isRange && s.range),
+      input: clsx(s.input, textFieldStyles.inputField, showError && s.error, isRange && s.range),
       calendar: s.calendar,
       popper: s.popper,
       errorText: s.errorText,
