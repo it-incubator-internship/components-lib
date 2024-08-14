@@ -16,13 +16,7 @@ type TabsProps = {
   fullWidth?: boolean
 } & ComponentPropsWithoutRef<typeof Root>
 
-export const Tabs: FC<TabsProps> = ({
-  tabs,
-  children,
-  fullWidth,
-  className,
-  ...rest
-}) => {
+export const Tabs: FC<TabsProps> = ({ tabs, children, fullWidth, className, ...rest }) => {
   const classNames = {
     root: clsx(s.root, className),
     list: clsx(s.list),
