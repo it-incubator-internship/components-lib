@@ -1,38 +1,43 @@
-button {
-  all: unset;
-}
-
-.CheckboxContainer {
+.checkboxContainer {
   display: flex;
   align-items: center;
 }
 
-.CheckboxRoot {
-  background-color: white;
+.checkboxShadow {
+  transition: box-shadow 0.3s ease;
+  border-radius: 50%;
+}
+
+.shadowEnabled {
+  box-shadow: 0px 0px 0px 12px var(--color-dark-100);
+}
+
+.checkboxRoot {
+  all: unset;
+  background-color: var(--color-light-100);
   width: 18px;
   height: 18px;
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px var(--black-a7);
-}
-//
-//.CheckboxRoot:hover {
-//  background-color: var(--violet-3);
-//}
-//
-//.CheckboxRoot:focus {
-//  box-shadow: 0 0 0 2px black;
-//}
-//
-.CheckboxIndicator {
-  color: black;
 }
 
-.Label {
-  color: white;
+.checkboxUnchecked {
+  background-color: var(--color-dark-100);
+  border: 2px solid var(--color-light-500);
+  box-sizing: border-box;
+}
+
+.checkboxIndicator {
+  color: var(--color-dark-900);
+}
+
+.checkboxLabel {
   padding-left: 15px;
-  font-size: 15px;
-  line-height: 1;
+  font-family: 'Inter', 'serif';
+  color: var(--color-light-100);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
 }
