@@ -51,7 +51,6 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
       calendar: s.calendar,
       popper: s.popper,
       errorText: s.errorText,
-      day: () => s.day,
     }
 
     const DatePickerHandler = (dates: [Date | any, Date | any] | Date) => {
@@ -96,7 +95,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           calendarClassName={classNames.calendar}
           className={classNames.input}
           popperClassName={classNames.popper}
-          dayClassName={classNames.day}
+          dayClassName={() => s.day || ''}
           dateFormat="dd/MM/yyyy"
           showPopperArrow={false}
           calendarStartDay={1}
