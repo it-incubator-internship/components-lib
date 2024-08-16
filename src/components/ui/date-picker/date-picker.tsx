@@ -13,13 +13,13 @@ import { Label } from '@/components/ui/label'
 
 export type DatePickerProps = {
   placeholder?: string
-  startDate: Date | any
-  setStartDate: (date: Date | any) => void
+  startDate: Date | null
+  setStartDate: (date: Date | null) => void
   label?: string
   errorMessage?: string
   disabled?: boolean
-  endDate?: Date | any
-  setEndDate?: (date: Date | any) => void
+  endDate?: Date | null
+  setEndDate?: (date: Date | null) => void
 } & ComponentProps<'div'>
 
 const RDPC = (((RDP.default as any).default as any) ||
@@ -53,7 +53,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
       errorText: s.errorText,
     }
 
-    const DatePickerHandler = (dates: [Date | any, Date | any] | Date) => {
+    const DatePickerHandler = (dates: [Date | null, Date | null] | Date) => {
       if (Array.isArray(dates)) {
         const [start, end] = dates
 
@@ -103,8 +103,8 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           popperModifiers={[
             {
               name: 'offset',
-              fn(state) {
-                return { ...state, x: 0, y: 400 }
+              options: {
+                offset: [0, 360],
               },
             },
           ]}
