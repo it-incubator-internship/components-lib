@@ -20,7 +20,7 @@ a.buttonRoot {
   width: fit-content;
 }
 
-.buttonRoot.primary {
+.primary {
   color: var(--color-light-100);
   background-color: var(--color-accent-500);
 
@@ -41,7 +41,7 @@ a.buttonRoot {
   }
 }
 
-.buttonRoot.secondary {
+.secondary {
   color: var(--color-light-100);
   background-color: var(--color-dark-300);
 
@@ -62,7 +62,7 @@ a.buttonRoot {
   }
 }
 
-.buttonRoot.outlined {
+.outlined {
   color: var(--color-accent-500);
   border: 1px solid var(--color-accent-500);
 
@@ -87,7 +87,7 @@ a.buttonRoot {
   }
 }
 
-.buttonRoot.ghost {
+.ghost {
   color: var(--color-accent-500);
 
   &:hover {
@@ -107,7 +107,7 @@ a.buttonRoot {
   }
 }
 
-.buttonRoot.fullWidth {
+.fullWidth {
   justify-content: center;
   width: 100%;
 }
