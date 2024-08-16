@@ -2,7 +2,7 @@ import { ComponentProps, forwardRef, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.min.css'
 import * as RDP from 'react-datepicker'
 import { clsx } from 'clsx'
-import { CalendarOutline, Calendar as CalendarIcon } from '../../../assets/components'
+import { Calendar as CalendarIcon, CalendarOutline } from '../../../assets/components'
 import { FieldValues } from 'react-hook-form'
 
 import textFieldStyles from '../input/input.module.scss'
@@ -10,17 +10,16 @@ import s from './date-picker.module.scss'
 import { CustomHeader } from './custom-header/custom-header'
 import { formatWeekDay } from '@/lib/formatWeekDay'
 import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
 
 export type DatePickerProps = {
   placeholder?: string
-  startDate: Date | null
-  setStartDate: (date: Date | null) => void
+  startDate: Date | any
+  setStartDate: (date: Date | any) => void
   label?: string
   errorMessage?: string
   disabled?: boolean
-  endDate?: Date | null
-  setEndDate?: (date: Date | null) => void
+  endDate?: Date | any
+  setEndDate?: (date: Date | any) => void
 } & ComponentProps<'div'>
 
 const RDPC = (((RDP.default as any).default as any) ||
@@ -55,7 +54,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
       day: () => s.day,
     }
 
-    const DatePickerHandler = (dates: [Date | null, Date | null] | Date) => {
+    const DatePickerHandler = (dates: [Date | any, Date | any] | Date) => {
       if (Array.isArray(dates)) {
         const [start, end] = dates
 
@@ -140,7 +139,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       <Label className={s.label} label={label}>
         <div className={classNames.inputContainer}>
           <input ref={ref} disabled={disabled} {...rest} />
-          <div className={cn(classNames.icon, error && s.errorText)}>
+          <div className={clsx(classNames.icon, error && s.errorText)}>
             {isOpened ? <CalendarIcon /> : <CalendarOutline />}
           </div>
         </div>
