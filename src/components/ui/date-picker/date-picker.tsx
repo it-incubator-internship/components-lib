@@ -2,7 +2,7 @@ import { ComponentProps, forwardRef, useState } from 'react'
 import 'react-datepicker/dist/react-datepicker.min.css'
 import * as RDP from 'react-datepicker'
 import { clsx } from 'clsx'
-import { CalendarOutline, Calendar as CalendarIcon } from '../../../assets/components'
+import { Calendar as CalendarIcon, CalendarOutline } from '../../../assets/components'
 import { FieldValues } from 'react-hook-form'
 
 import textFieldStyles from '../input/input.module.scss'
@@ -10,7 +10,6 @@ import s from './date-picker.module.scss'
 import { CustomHeader } from './custom-header/custom-header'
 import { formatWeekDay } from '@/lib/formatWeekDay'
 import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
 
 export type DatePickerProps = {
   placeholder?: string
@@ -52,7 +51,6 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
       calendar: s.calendar,
       popper: s.popper,
       errorText: s.errorText,
-      day: () => s.day,
     }
 
     const DatePickerHandler = (dates: [Date | null, Date | null] | Date) => {
@@ -97,7 +95,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           calendarClassName={classNames.calendar}
           className={classNames.input}
           popperClassName={classNames.popper}
-          dayClassName={classNames.day}
+          dayClassName={() => s.day || ''}
           dateFormat="dd/MM/yyyy"
           showPopperArrow={false}
           calendarStartDay={1}
@@ -105,8 +103,8 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           popperModifiers={[
             {
               name: 'offset',
-              fn(state) {
-                return { ...state, x: 0, y: 400 }
+              options: {
+                offset: [0, 360],
               },
             },
           ]}
@@ -140,7 +138,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       <Label className={s.label} label={label}>
         <div className={classNames.inputContainer}>
           <input ref={ref} disabled={disabled} {...rest} />
-          <div className={cn(classNames.icon, error && s.errorText)}>
+          <div className={clsx(classNames.icon, error && s.errorText)}>
             {isOpened ? <CalendarIcon /> : <CalendarOutline />}
           </div>
         </div>
