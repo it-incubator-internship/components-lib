@@ -14,7 +14,6 @@ export const Button = forwardRef<ElementRef<'button'>, Props>(
     const Component = asChild ? Slot : 'button'
     return (
       <Component
-        {...rest}
         ref={ref}
         className={clsx(
           s.buttonRoot,
@@ -23,6 +22,7 @@ export const Button = forwardRef<ElementRef<'button'>, Props>(
           className,
           rest.disabled && s.disabled
         )}
+        {...rest}
       />
     )
   }
