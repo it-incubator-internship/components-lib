@@ -8,17 +8,19 @@
 
 // Input
 .inputField {
+  display: inline-block;
+
+  box-sizing: border-box;
   width: 100%;
-  padding: 6px 12px 6px 12px;
+  padding: 6px 12px;
+
+  background: none;
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
-  background: none;
   outline: none;
-  display: inline-block;
-  box-sizing: border-box;
 }
 
-//InputSearch
+// InputSearch
 .inputSearch {
   padding: 6px 12px 6px 30px;
 }
@@ -32,12 +34,12 @@
 .default {
   color: var(--color-light-100);
 
-  &:hover {
-    border-color: var(--color-dark-100);
-  }
-
   &::placeholder {
     color: var(--color-dark-100);
+  }
+
+  &:hover {
+    border-color: var(--color-dark-100);
   }
 
   &:focus {
@@ -51,15 +53,17 @@
 
 // Error Message
 .errorMsg {
-  color: var(--color-danger-500);
-  margin-top: 4px;
-  font-size: var(--font-size-xs);
   height: var(--font-size-m);
+  margin-top: 4px;
+
+  font-size: var(--font-size-xs);
+  color: var(--color-danger-500);
+
   visibility: hidden;
 
   &.show {
-    visibility: visible;
     height: auto;
+    visibility: visible;
   }
 }
 
@@ -85,24 +89,27 @@
 
 // IconPass
 .iconPass {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-light-100);
   cursor: pointer;
+
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+
+  color: var(--color-light-100);
 }
 
 .active .iconPass {
   color: var(--color-light-100);
 }
 
-//IconSearch
+// IconSearch
 .iconSearch {
   position: absolute;
-  left: 10px;
   top: 50%;
+  left: 10px;
   transform: translateY(-50%);
+
   color: var(--color-dark-100);
 }
 

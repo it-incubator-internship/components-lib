@@ -1,7 +1,7 @@
 {
   "name": "@robur_/ui-kit",
   "private": false,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -39,16 +39,22 @@
     "@fontsource-variable/inter": "^5.0.20",
     "@radix-ui/react-radio-group": "^1.2.0",
     "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
     "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
     "react": "^18.3.1",
+    "react-datepicker": "4.18.0",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.2",
     "sass": "^1.77.8",
     "stylelint": "^16.8.1",
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
+    "@types/react-datepicker": "^4.15.0",
     "@chromatic-com/storybook": "^1.6.1",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
