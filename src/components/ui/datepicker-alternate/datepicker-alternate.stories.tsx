@@ -43,22 +43,22 @@ export const Range: Story = {
   },
 }
 
-// export const Multiply: Story = {
-//   args: {
-//     isMultiple: true,
-//     startDate: undefined,
-//     setStartDate: () => {
-//     },
-//     selectedDates: undefined,
-//     setSelectedDate: () => {
-//     },
-//   },
-//   render: () => {
-//     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
-//     const [selectedDates, setSelectedDate] = useState<Date[]>([new Date()])
-//     return <DatepickerAlternate isMultiple={true} startDate={startDate} setStartDate={setStartDate} selectedDates={selectedDates} setSelectedDate={setSelectedDate} />
-//   },
-// }
+export const Multiply: Story = {
+  args: {
+    isMultiple: true,
+    startDate: undefined,
+    setStartDate: () => {
+    },
+    selectedDates: [new Date()],
+    setSelectedDate: () => {
+    },
+  },
+  render: () => {
+    const [startDate, setStartDate] = useState<Date | undefined>(new Date())
+    const [selectedDates, setSelectedDate] = useState<Date[]>([new Date()])
+    return <DatepickerAlternate isMultiple={true} startDate={startDate} setStartDate={setStartDate} selectedDates={selectedDates} setSelectedDate={setSelectedDate} />
+  },
+}
 
 
 export const WithError: Story = {
