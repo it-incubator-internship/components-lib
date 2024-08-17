@@ -11,28 +11,40 @@ import { DatepickerHeader } from './datepicker-header/datepicker-header'
 import { formatWeekDay } from '@/lib/formatWeekDay'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
-import { addDays } from 'date-fns'
 
 
 type SingleDatePickerProps = {
   isRange?: never;
   isMultiple?: never;
+  endDate?: never
+  setEndDate?: never
+  selectedDates?: never
+  setSelectedDate?: never
+
 }
 
 type RangeDatePickerProps = {
   isRange: true;
+  endDate: Date | undefined
+  setEndDate: (date: Date | undefined) => void
   isMultiple?: never;
+  selectedDates?: never
+  setSelectedDate?: never
 }
 
 type MultipleDatePickerProps = {
-  isRange?: never;
   isMultiple: true;
+  selectedDates: Date[]
+  setSelectedDate: (date: Date[]) => void
+  isRange?: never;
+  endDate?: never
+  setEndDate?: never
 }
 
 export type DatePickerAlternateProps = {
+  startDate: Date | undefined
+  setStartDate: (date: Date | undefined) => void
   placeholder?: string
-  startDate?: Date | null
-  endDate?: Date | null
   label?: string
   errorMessage?: string
   disabled?: boolean
@@ -43,7 +55,11 @@ export const DatepickerAlternate = forwardRef<FieldValues, DatePickerAlternatePr
     isRange,
     isMultiple,
     startDate,
+    setStartDate,
     endDate,
+    setEndDate,
+    selectedDates,
+    setSelectedDate,
     placeholder,
     label,
     errorMessage,
@@ -51,9 +67,7 @@ export const DatepickerAlternate = forwardRef<FieldValues, DatePickerAlternatePr
     className,
     ...rest
   }) => {
-    const [selectedStartDate, setSelectedStartDate] = useState<Date>(startDate || new Date())
-    const [selectedEndDate, setSelectedEndDate] = useState<Date>(endDate || addDays(selectedStartDate, 5))
-    const [selectedMultiply, setSelectedMultiply] = useState<Date[]>([selectedStartDate])
+
 
     const showError = !!errorMessage && errorMessage.length > 0
 
@@ -77,25 +91,25 @@ export const DatepickerAlternate = forwardRef<FieldValues, DatePickerAlternatePr
     }
 
     const singleHandler = (date: Date): void => {
-      setSelectedStartDate(date)
+      setStartDate(date)
     }
-
-    const rangeHandler = (date: [Date, Date]): void => {
+    const rangeHandler = (date: [Date | undefined, Date | undefined]): void => {
       const [start, end] = date
-      setSelectedStartDate(start)
-      setSelectedEndDate(end)
+      setStartDate(start)
+      if (setEndDate) {setEndDate(end)}
     }
 
     const multipleHandler = (dates: Date[]): void => {
-      setSelectedMultiply(dates)
+      if (setSelectedDate) {setSelectedDate(dates)}
     }
 
     const getDatepickerModeProp = () => {
       if (isRange) {
         return {
+          selected: startDate,
           selectsRange: true as const,
-          startDate: selectedStartDate,
-          endDate: selectedEndDate,
+          startDate: startDate,
+          endDate: endDate,
           shouldCloseOnSelect: false,
           onChange: rangeHandler as (date: [Date | null, Date | null], event?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void,
         }
@@ -103,18 +117,18 @@ export const DatepickerAlternate = forwardRef<FieldValues, DatePickerAlternatePr
       if (isMultiple) {
         return {
           selectsMultiple: true as const,
-          selectedDates: selectedMultiply,
+          selectedDates: selectedDates,
           shouldCloseOnSelect: false,
           disabledKeyboardNavigation: true,
           onChange: multipleHandler as (date: Date[] | null, event?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void,
         }
       }
       return {
-        selected: selectedStartDate,
+        selected: startDate,
         onChange: singleHandler as (date: Date | null, event?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void,
       }
     }
-
+    console.log(startDate)
     return (
       <div className={classNames.root} {...rest}>
         <ReactDatepicker
