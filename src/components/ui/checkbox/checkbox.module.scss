@@ -4,16 +4,16 @@
 }
 
 .checkboxShadow {
-  transition: box-shadow 0.3s ease;
   border-radius: 50%;
+  transition: box-shadow 0.3s ease;
 }
 
 .shadowEnabled {
-  box-shadow: 0px 0px 0px 7px var(--color-dark-100);
+  box-shadow: 0 0 0 7px var(--color-dark-100);
 }
 
 .checkboxShadow:hover {
-  box-shadow: 0px 0px 0px 7px var(--color-dark-300);
+  box-shadow: 0 0 0 7px var(--color-dark-300);
 }
 
 .checkboxShadowNoHover:hover {
@@ -21,7 +21,7 @@
 }
 
 .checkboxShadow:focus {
-  box-shadow: 0px 0px 0px 7px var(--color-dark-500);
+  box-shadow: 0 0 0 7px var(--color-dark-500);
 }
 
 .checkboxShadowNoFocus:focus {
@@ -34,35 +34,42 @@
 
 .checkboxRoot {
   all: unset;
-  background-color: var(--color-light-100);
-  width: 18px;
-  height: 18px;
-  border-radius: 2px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  background-color: var(--color-light-100);
+  border-radius: 2px;
 }
 
 .checkboxUnchecked {
+  box-sizing: border-box;
   background-color: var(--color-dark-900);
   border: 2px solid var(--color-light-500);
-  box-sizing: border-box;
 }
 
 .checkboxIndicator {
-  color: var(--color-dark-900);
   padding-top: 3px;
+  color: var(--color-dark-900);
 }
 
 .checkboxLabel {
+  cursor: pointer;
+
   padding-left: 8px;
-  font-family: 'Inter', 'serif';
-  color: var(--color-light-100);
-  font-weight: 400;
+
+  font-family: Inter, serif;
   font-size: 14px;
+  font-weight: 400;
   line-height: 24px;
+  color: var(--color-light-100);
 }
 
 .checkboxLabelDisabled {
+  cursor: default;
   color: var(--color-light-900);
 }
