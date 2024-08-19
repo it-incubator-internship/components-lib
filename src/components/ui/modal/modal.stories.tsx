@@ -7,6 +7,10 @@ const meta = {
   component: Modal,
   title: 'Components/Modal',
   tags: ['autodocs'],
+  args: {
+    children: (<p>We have sent a link to confirm your email to epam@epam.com</p>),
+    open: true,
+  },
 } satisfies Meta<typeof Modal>
 
 export default meta
@@ -14,27 +18,22 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  name: 'With default button',
-  args: {
-    title: 'Email sent',
-    children: (<p>We have sent a link to confirm your email to epam@epam.com</p>),
-    open: true,
-  },
+  name: 'Default button',
   render: args => {
-    const [open, setOpen] = useState(true)
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     function handleModalOpened() {
-      setOpen(true)
+      setModalIsOpen(true)
     }
 
     function handleModalClosed() {
-      setOpen(false)
+      setModalIsOpen(false)
     }
 
     return (
       <div>
         <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
-        <Modal {...args} onClose={handleModalClosed} open={open}>
+        <Modal {...args} title={'Email sent'} onClose={handleModalClosed} open={modalIsOpen}>
           {args.children}
         </Modal>
       </div>
@@ -43,28 +42,70 @@ export const Default: Story = {
 }
 
 export const FullWidthButton: Story = {
-  name: 'With fullwidth button',
-  args: {
-    title: 'Email sent',
-    children: (<p>We have sent a link to confirm your email to epam@epam.com</p>),
-    open: true,
-    fullwidthButton: true,
-  },
+  name: 'Fullwidth button',
   render: args => {
-    const [open, setOpen] = useState(true)
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     function handleModalOpened() {
-      setOpen(true)
+      setModalIsOpen(true)
     }
 
     function handleModalClosed() {
-      setOpen(false)
+      setModalIsOpen(false)
     }
 
     return (
       <div>
         <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
-        <Modal {...args} onClose={handleModalClosed} open={open} fullwidthButton>
+        <Modal {...args} title={'Email sent'} fullwidthButton onClose={handleModalClosed} open={modalIsOpen}>
+          {args.children}
+        </Modal>
+      </div>
+    )
+  },
+}
+
+export const WithoutTitle: Story = {
+  name: 'Without title and header',
+  render: args => {
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+
+    function handleModalOpened() {
+      setModalIsOpen(true)
+    }
+
+    function handleModalClosed() {
+      setModalIsOpen(false)
+    }
+
+    return (
+      <div>
+        <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
+        <Modal {...args} onClose={handleModalClosed} open={modalIsOpen}>
+          {args.children}
+        </Modal>
+      </div>
+    )
+  },
+}
+
+export const AnotherButtonTitle: Story = {
+  name: 'Another button title',
+  render: args => {
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+
+    function handleModalOpened() {
+      setModalIsOpen(true)
+    }
+
+    function handleModalClosed() {
+      setModalIsOpen(false)
+    }
+
+    return (
+      <div>
+        <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
+        <Modal {...args} title={'Email sent'} buttonTitle={'Confirm'} onClose={handleModalClosed} open={modalIsOpen}>
           {args.children}
         </Modal>
       </div>

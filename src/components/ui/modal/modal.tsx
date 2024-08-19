@@ -1,45 +1,64 @@
-import React, { ReactNode } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
+import React, { ReactNode, useEffect, useState } from 'react'
+import { Root, Portal, Overlay, Content, Title, Close } from '@radix-ui/react-dialog'
 import s from './modal.module.scss'
-import { Close } from '@/assets/components'
+import { Close as CloseSVG } from '@/assets/components'
 import { Button } from '@/components/ui'
 import { clsx } from 'clsx'
 
 type ModalProps = {
   title?: string
+  buttonTitle?: string
   fullwidthButton?: boolean
   children: ReactNode
   open: boolean
   onClose?: () => void
 }
 
-export const Modal = ({ title, children, open, onClose, fullwidthButton }: ModalProps) => {
+export const Modal = ({ title, children, open, onClose, fullwidthButton, buttonTitle = 'OK' }: ModalProps) => {
+  const [playAnimation, setPlayAnimation] = useState<'start' | 'end' | null>(null)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (open) {
+      setPlayAnimation('start')
+      setIsOpen(true)
+    }
+    if (!open) {
+      setPlayAnimation('end')
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 200)
+    }
+  }, [open])
+
 
   function handleModalClosed() {
     onClose?.()
   }
 
   return (
-    <Dialog.Root open={open} onOpenChange={handleModalClosed}>
-      {open && (
-        <Dialog.Portal>
-          <Dialog.Overlay className={s.overlay} />
-          <Dialog.Content className={s.content} onOpenAutoFocus={(e) => e.preventDefault()}>
-            <header className={s.header}>
-              <Dialog.Title asChild>
-                <h2 className={s.title}>{title}</h2>
-              </Dialog.Title>
-              <Dialog.Close asChild><Close /></Dialog.Close>
-            </header>
+    <Root open={isOpen} onOpenChange={handleModalClosed}>
+      {isOpen && (
+        <Portal>
+          <Overlay className={s.overlay} />
+          <Content className={clsx(s.content, playAnimation === 'start' && s.startAnimation, playAnimation === 'end' && s.endAnimation)} onOpenAutoFocus={(e) => e.preventDefault()}>
+            {title && (
+              <header className={s.header}>
+                <Title asChild>
+                  <h2 className={s.title}>{title}</h2>
+                </Title>
+                <Close asChild><CloseSVG /></Close>
+              </header>
+            )}
             <div className={s.contentBox}>{children}</div>
-            <Dialog.Close asChild>
+            <Close asChild>
               <div className={clsx(s.btnBox, fullwidthButton && s.fullwidth)}>
-                <Button className={s.btn} fullWidth>OK</Button>
+                <Button className={s.btn} fullWidth>{buttonTitle}</Button>
               </div>
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Portal>
+            </Close>
+          </Content>
+        </Portal>
       )}
-    </Dialog.Root>
+    </Root>
   )
 }

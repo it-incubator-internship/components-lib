@@ -32,6 +32,15 @@
   }
 }
 
+
+.startAnimation {
+  animation: open-animate 0.2s ease forwards;
+}
+
+.endAnimation {
+  animation: close-animate 0.2s ease forwards;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -79,4 +88,28 @@
 .btn {
   height: 36px !important;
   font-weight: 600 !important;
+}
+
+@keyframes open-animate {
+  from {
+    top: 40%;
+    opacity: 0;
+  }
+
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+@keyframes close-animate {
+  from {
+    top: 50%;
+    opacity: 1;
+  }
+
+  to {
+    top: 60%;
+    opacity: 0;
+  }
 }
