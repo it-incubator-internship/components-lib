@@ -16,7 +16,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const Email: Story = {
   args: {
     label: 'Email',
     name: 'email',
@@ -38,6 +38,34 @@ export const Default: Story = {
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
         <ControlledInput control={control} label={'Email'} name={'email'} />
+        <Button>Submit</Button>
+      </form>
+    )
+  },
+}
+
+export const Password: Story = {
+  args: {
+    label: 'Password',
+    name: 'password',
+  },
+  render: () => {
+    const FormSchema = z.object({
+      password: z.string({ message: 'This field is required' }).min(4, 'Password too short'),
+    })
+    type FormValues = z.infer<typeof FormSchema>
+
+    const { control, handleSubmit } = useForm<FormValues>({
+      resolver: zodResolver(FormSchema),
+    })
+
+    const handleSubmitHandler = (data: FormValues) => {
+      console.log(data)
+    }
+
+    return (
+      <form onSubmit={handleSubmit(handleSubmitHandler)}>
+        <ControlledInput control={control} label={'Password'} name={'password'} type={'password'} />
         <Button>Submit</Button>
       </form>
     )

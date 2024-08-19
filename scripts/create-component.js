@@ -8,11 +8,10 @@ async function createComponent(name) {
   const dirPath = `./src/components/ui/${name}`
   const componentPath = `${dirPath}/${name}.tsx`
   const componentContent = `
-  import React from 'react'
   import s from './${name}.module.scss'
   export type ${capitalizedName}Props = {}
   
-  export const ${capitalizedName}: React.FC<${capitalizedName}Props> = ({}) => {
+  export const ${capitalizedName} = ({}: ${capitalizedName}Props) => {
     return <div>${capitalizedName}</div>
   }
   `
