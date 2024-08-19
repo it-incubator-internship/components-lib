@@ -244,6 +244,7 @@
   }
 
   &:global(.react-datepicker__day--selecting-range-start) {
+    color: var(--color-light-100);
     background-color: var(--color-accent-900);
     background-image: radial-gradient(28px circle, var(--color-accent-500) 48%, transparent 51%);
     border-radius: 50% 0 0 50%;
@@ -263,7 +264,7 @@
     border-radius: 0;
   }
 
-  &:global(.react-datepicker__day--weekend) {
+  &:global(.react-datepicker__day--weekend:not(.react-datepicker__day--selected)) {
     color: var(--color-danger-300);
   }
 
