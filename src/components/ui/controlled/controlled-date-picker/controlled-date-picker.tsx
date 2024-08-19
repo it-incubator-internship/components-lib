@@ -12,6 +12,7 @@ export const ControlledDatePicker = <TFieldValues extends FieldValues>({
   name,
   shouldUnregister,
   disabled,
+  rules,
   defaultValue,
   ...rest
 }: ControlledDatePickerProps<TFieldValues>) => {
@@ -21,6 +22,7 @@ export const ControlledDatePicker = <TFieldValues extends FieldValues>({
   } = useController({
     control,
     name,
+    rules,
     shouldUnregister,
     disabled,
     defaultValue,

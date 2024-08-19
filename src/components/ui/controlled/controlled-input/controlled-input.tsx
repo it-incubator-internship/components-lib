@@ -14,6 +14,8 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
   name,
   rules,
   shouldUnregister,
+  disabled,
+  defaultValue,
   ...inputProps
 }: ControlledInputProps<TFieldValues>) => {
   const {
@@ -24,6 +26,8 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
     name,
     rules,
     shouldUnregister,
+    disabled,
+    defaultValue,
   })
   return <Input {...inputProps} {...field} errorMsg={error?.message} id={name} />
 }
