@@ -18,6 +18,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const [isFocused, setIsFocused] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
+    console.log('errorMsg', errorMsg)
+
     return (
       <form>
         <div className={`${styles.inputContainer} ${isFocused ? styles.active : ''}`}>

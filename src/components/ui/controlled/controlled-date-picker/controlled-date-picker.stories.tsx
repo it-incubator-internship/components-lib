@@ -25,7 +25,7 @@ export const Default: Story = {
       date: Date | null
     }
     const { control } = useForm<FormValues>()
-    const [startDate, _] = useState<Date | null>(new Date())
+    const [startDate] = useState<Date | null>(new Date())
 
     return (
       <ControlledDatePicker
@@ -49,7 +49,7 @@ export const WithRange: Story = {
       dateRange: [Date, null]
     }
     const { control } = useForm<FormValues>()
-    const [startDate, _] = useState<Date | null>(new Date())
+    const [startDate] = useState<Date | null>(new Date())
     const [endDate, setEndDate] = useState<Date | null>(
       startDate ? new Date(startDate.getTime() + 5 * 24 * 60 * 60 * 1000) : null
     )
