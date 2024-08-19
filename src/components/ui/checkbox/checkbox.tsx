@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
 import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import * as RadixLabel from '@radix-ui/react-label'
 import CheckmarkOutline from '../../../assets/components/CheckmarkOutline'
@@ -16,7 +16,8 @@ type Props = {
 
 export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, Props>(
   ({ id, checked, labelText, className, disabled, ...rest }, ref) => {
-    const finalId = id ? id : `id-${Date.now()}`
+    const generatedId = useId()
+    const finalId = id ? id : generatedId
 
     let shadow = s.shadowEnabled
     let noHover = undefined
@@ -41,7 +42,7 @@ export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, Props>(
     }
     return (
       <div className={clsx(s.checkboxContainer)}>
-        <div className={clsx(s.checkboxShadow, shadow, noHover, noFocus)}>
+        <div className={clsx(s.checkboxShadow, shadow, noHover, noFocus, className)}>
           <RadixCheckbox.Root
             id={finalId}
             className={clsx(s.checkboxRoot, checked ? '' : s.checkboxUnchecked)}

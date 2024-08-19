@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 import Input from './input'
 
@@ -14,7 +14,6 @@ type Story = StoryObj<typeof meta>
 export const Search: Story = {
   args: {
     type: 'search',
-    state: 'default',
     placeholder: 'Input search',
   },
 }
@@ -22,7 +21,6 @@ export const Search: Story = {
 export const SearchError: Story = {
   args: {
     type: 'search',
-    state: 'error',
     placeholder: 'Input search',
     errorMsg: 'Error text',
   },
@@ -31,15 +29,14 @@ export const SearchError: Story = {
 export const SearchDisabled: Story = {
   args: {
     type: 'search',
-    state: 'disabled',
     placeholder: 'Input search',
+    disabled: true,
   },
 }
 
 export const ControlSearchInput: Story = {
   args: {
     type: 'search',
-    state: 'default',
     placeholder: 'Input search',
   },
   render: args => {
@@ -76,7 +73,6 @@ export const ControlSearchInput: Story = {
 export const Email: Story = {
   args: {
     type: 'email',
-    state: 'default',
     placeholder: 'Email',
     label: 'Email',
   },
@@ -85,7 +81,6 @@ export const Email: Story = {
 export const EmailError: Story = {
   args: {
     type: 'email',
-    state: 'error',
     placeholder: 'Email',
     label: 'Email',
     errorMsg: 'Error text',
@@ -95,16 +90,15 @@ export const EmailError: Story = {
 export const EmailDisabled: Story = {
   args: {
     type: 'email',
-    state: 'disabled',
     placeholder: 'Email',
     label: 'Email',
+    disabled: true,
   },
 }
 
 export const ControlEmailInput: Story = {
   args: {
     type: 'email',
-    state: 'default',
     placeholder: 'Email',
     label: 'Email',
   },
@@ -142,7 +136,6 @@ export const ControlEmailInput: Story = {
 export const Password: Story = {
   args: {
     type: 'password',
-    state: 'default',
     placeholder: 'Password',
     label: 'Password',
   },
@@ -151,7 +144,6 @@ export const Password: Story = {
 export const PasswordError: Story = {
   args: {
     type: 'password',
-    state: 'error',
     placeholder: 'Password',
     label: 'Password',
     errorMsg: 'Error text',
@@ -161,16 +153,15 @@ export const PasswordError: Story = {
 export const PasswordDisabled: Story = {
   args: {
     type: 'password',
-    state: 'disabled',
     placeholder: 'Password',
     label: 'Password',
+    disabled: true,
   },
 }
 
 export const ControlPasswordInput: Story = {
   args: {
     type: 'password',
-    state: 'default',
     placeholder: 'Password',
     label: 'Password',
   },

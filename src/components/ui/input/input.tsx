@@ -1,58 +1,59 @@
-import { useState, forwardRef, ComponentPropsWithoutRef } from 'react'
+import { useState, forwardRef, ComponentPropsWithoutRef, useId } from 'react'
 import styles from './input.module.scss'
 import { EyeOutline } from '../../../assets/components'
 import Search from '../../../assets/components/Search'
 import clsx from 'clsx'
 
-type InputProps = {
-  state: 'default' | 'error' | 'disabled'
+export type InputProps = {
   errorMsg?: string
-  type: 'password' | 'search' | 'email' | 'text'
-  label?: 'Email' | 'Password'
-  placeholder: 'Email' | 'Password' | 'Input search'
+  type?: 'password' | 'search' | 'email' | 'text'
+  label?: string
+  placeholder?: string
 } & ComponentPropsWithoutRef<'input'>
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ state, errorMsg, type, label, placeholder, ...rest }, ref) => {
+  ({ id, errorMsg, type = 'text', label, placeholder, ...rest }, ref) => {
+    const generatedId = useId()
+    const finalId = id ? id : generatedId
     const [isFocused, setIsFocused] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
     return (
-      <form>
-        <div className={`${styles.inputContainer} ${isFocused ? styles.active : ''}`}>
-          <div>
-            {label && <div className={styles.label}>{label}</div>}
-            <div className={clsx(styles.inputContainer, isFocused && styles.active)}>
-              <input
-                ref={ref}
-                type={type === 'password' && showPassword ? 'text' : type}
-                placeholder={placeholder}
-                className={clsx(
-                  styles.inputField,
-                  styles[state],
-                  type === 'search' && styles.inputSearch
-                )}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                disabled={state === 'disabled'}
-                {...rest}
-              />
-              {type === 'search' && <Search className={styles.iconSearch} />}
-              {(type === 'password' || type === 'text') && (
-                <EyeOutline
-                  onClick={() => setShowPassword(!showPassword)}
-                  className={styles.iconPass}
-                />
+      <div className={`${styles.inputContainer} ${isFocused ? styles.active : ''}`}>
+        <div>
+          {label && (
+            <label className={styles.label} htmlFor={finalId}>
+              {label}
+            </label>
+          )}
+          <div className={clsx(styles.inputContainer, isFocused && styles.active)}>
+            <input
+              id={finalId}
+              ref={ref}
+              type={type === 'password' && showPassword ? 'text' : type}
+              placeholder={placeholder}
+              className={clsx(
+                styles.inputField,
+                type === 'search' && styles.inputSearch,
+                errorMsg && styles.error,
+                rest.disabled && styles.disabled
               )}
-            </div>
-            <div
-              className={`${styles.errorMsg} ${state === 'error' && errorMsg ? styles.show : ''}`}
-            >
-              {errorMsg}
-            </div>
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              disabled={rest.disabled}
+              {...rest}
+            />
+            {type === 'search' && <Search className={styles.iconSearch} />}
+            {type === 'password' && (
+              <EyeOutline
+                onClick={() => setShowPassword(!showPassword)}
+                className={styles.iconPass}
+              />
+            )}
           </div>
+          <div className={`${styles.errorMsg} ${errorMsg ? styles.show : ''}`}>{errorMsg}</div>
         </div>
-      </form>
+      </div>
     )
   }
 )

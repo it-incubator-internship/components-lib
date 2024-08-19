@@ -1,9 +1,21 @@
+// Label
+.label {
+  cursor: pointer;
+  color: var(--color-light-900);
+}
+
 // Container
 .inputContainer {
   position: relative;
   display: flex;
   align-items: center;
   width: 279px;
+
+  &:has(.disabled) {
+    .label {
+      cursor: default;
+    }
+  }
 }
 
 // Input
@@ -14,28 +26,15 @@
   width: 100%;
   padding: 6px 12px;
 
-  background: none;
-  border: 1px solid var(--color-dark-300);
-  border-radius: 2px;
-  outline: none;
-}
-
-// InputSearch
-.inputSearch {
-  padding: 6px 12px 6px 30px;
-}
-
-// Label
-.label {
-  color: var(--color-dark-100);
-}
-
-// Default State
-.default {
   color: var(--color-light-100);
 
+  background: none;
+  border: 1px solid var(--color-light-900);
+  border-radius: 2px;
+  outline: none;
+
   &::placeholder {
-    color: var(--color-dark-100);
+    color: var(--color-light-900);
   }
 
   &:hover {
@@ -49,6 +48,11 @@
       color: var(--color-light-100);
     }
   }
+}
+
+// InputSearch
+.inputSearch {
+  padding: 6px 12px 6px 30px;
 }
 
 // Error Message
@@ -67,23 +71,40 @@
   }
 }
 
+// IconSearch
+.iconSearch {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+
+  color: var(--color-light-900);
+}
+
+.active .iconSearch {
+  color: var(--color-light-100);
+}
+
 // Error State
 .error {
   border-color: var(--color-danger-500);
 
+  &::placeholder {
+    color: var(--color-danger-500);
+  }
+
+  ~ .iconSearch {
+    color: var(--color-danger-500);
+  }
+
   &:focus::placeholder {
     color: var(--color-light-100);
   }
-}
 
-// Disabled State
-.disabled {
-  cursor: not-allowed;
-  color: var(--color-dark-300);
-  border-color: var(--color-dark-300);
-
-  &::placeholder {
-    color: var(--color-dark-300);
+  &:focus {
+    ~ .iconSearch {
+      color: var(--color-light-100);
+    }
   }
 }
 
@@ -99,20 +120,22 @@
   color: var(--color-light-100);
 }
 
-.active .iconPass {
-  color: var(--color-light-100);
-}
-
-// IconSearch
-.iconSearch {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-
+// Disabled State
+.disabled {
+  cursor: not-allowed;
   color: var(--color-dark-100);
+  border-color: var(--color-dark-100);
+
+  &::placeholder {
+    color: var(--color-dark-100);
+  }
+
+  ~ .iconPass {
+    cursor: not-allowed;
+    color: var(--color-dark-100);
+  }
 }
 
-.active .iconSearch {
+.active .iconPass {
   color: var(--color-light-100);
 }
