@@ -11,7 +11,7 @@ export type InputProps = {
   placeholder?: string
 } & ComponentPropsWithoutRef<'input'>
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ id, errorMsg, type = 'text', label, placeholder, ...rest }, ref) => {
     const generatedId = useId()
     const finalId = id ? id : generatedId
@@ -57,5 +57,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     )
   }
 )
-
-export default Input
