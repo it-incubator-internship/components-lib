@@ -6,16 +6,17 @@ import s from './checkbox.module.scss'
 import clsx from 'clsx'
 
 type RadixCheckboxProps = typeof RadixCheckbox.Root
-type Props = {
+export type CheckboxProps = {
   id?: string
   checked?: boolean
   className?: string
   labelText: string
   disabled?: boolean
+  errorMsg?: string
 } & ComponentPropsWithoutRef<RadixCheckboxProps>
 
-export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, Props>(
-  ({ id, checked, labelText, className, disabled, ...rest }, ref) => {
+export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, CheckboxProps>(
+  ({ id, checked, labelText, errorMsg, className, disabled, ...rest }, ref) => {
     const generatedId = useId()
     const finalId = id ? id : generatedId
 
@@ -41,24 +42,31 @@ export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, Props>(
         shadow = undefined
     }
     return (
-      <div className={clsx(s.checkboxContainer)}>
-        <div className={clsx(s.checkboxShadow, shadow, noHover, noFocus, className)}>
-          <RadixCheckbox.Root
-            id={finalId}
-            className={clsx(s.checkboxRoot, checked ? '' : s.checkboxUnchecked)}
-            checked={checked}
-            ref={ref}
-            disabled={disabled}
-            onCheckedChange={rest.onCheckedChange}
-          >
-            <RadixCheckbox.Indicator className={clsx(s.checkboxIndicator)}>
-              <CheckmarkOutline />
-            </RadixCheckbox.Indicator>
-          </RadixCheckbox.Root>
+      <div>
+        <div className={clsx(s.checkboxContainer)}>
+          <div className={clsx(s.checkboxShadow, shadow, noHover, noFocus, className)}>
+            <RadixCheckbox.Root
+              id={finalId}
+              className={clsx(
+                s.checkboxRoot,
+                checked ? '' : s.checkboxUnchecked,
+                errorMsg && s.error
+              )}
+              checked={checked}
+              ref={ref}
+              disabled={disabled}
+              onCheckedChange={rest.onCheckedChange}
+            >
+              <RadixCheckbox.Indicator className={clsx(s.checkboxIndicator)}>
+                <CheckmarkOutline />
+              </RadixCheckbox.Indicator>
+            </RadixCheckbox.Root>
+          </div>
+          <RadixLabel.Root htmlFor={finalId} className={clsx(s.checkboxLabel, labelDisabled)}>
+            {labelText}
+          </RadixLabel.Root>
         </div>
-        <RadixLabel.Root htmlFor={finalId} className={clsx(s.checkboxLabel, labelDisabled)}>
-          {labelText}
-        </RadixLabel.Root>
+        <div className={clsx(s.errorMsg, errorMsg && s.show)}>{errorMsg}</div>
       </div>
     )
   }
