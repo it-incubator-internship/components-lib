@@ -1,29 +1,29 @@
-import type { Meta, StoryObj } from '@storybook/react'
-
-import { useForm } from 'react-hook-form'
-
-import { ControlledInput } from './controlled-input'
-import { Button } from '../../button/button'
+import { Meta, StoryObj } from '@storybook/react'
 import { z } from 'zod'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui'
+import { FormCheckbox } from './form-checkbox'
 
 const meta = {
-  component: ControlledInput,
+  component: FormCheckbox,
   tags: ['autodocs'],
-  title: 'Controlled/ControlledInput',
-} satisfies Meta<typeof ControlledInput>
+  title: 'Form/FormCheckbox',
+} satisfies Meta<typeof FormCheckbox>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    label: 'Email',
-    name: 'email',
+    labelText: 'Agree to terms',
+    name: 'terms_agreement',
   },
   render: () => {
     const FormSchema = z.object({
-      email: z.string({ message: 'This field is required' }).email({ message: 'Not valid email' }),
+      terms_agreement: z.literal(true, {
+        errorMap: () => ({ message: 'Please, mark the checkbox, if you agree to our terms' }),
+      }),
     })
     type FormValues = z.infer<typeof FormSchema>
 
@@ -37,7 +37,7 @@ export const Default: Story = {
 
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <ControlledInput control={control} label={'Email'} name={'email'} />
+        <FormCheckbox control={control} labelText={'Agree to terms'} name={'terms_agreement'} />
         <Button>Submit</Button>
       </form>
     )
