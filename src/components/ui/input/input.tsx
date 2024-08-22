@@ -1,6 +1,6 @@
 import { useState, forwardRef, ComponentPropsWithoutRef, useId } from 'react'
 import styles from './input.module.scss'
-import { EyeOutline } from '../../../assets/components'
+import { EyeOutline, EyeOffOutline } from '../../../assets/components'
 import Search from '../../../assets/components/Search'
 import clsx from 'clsx'
 
@@ -9,17 +9,18 @@ export type InputProps = {
   type?: 'password' | 'search' | 'email' | 'text'
   label?: string
   placeholder?: string
+  width?: string
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ id, errorMsg, type = 'text', label, placeholder, ...rest }, ref) => {
+  ({ id, errorMsg, type = 'text', label, placeholder, width, ...rest }, ref) => {
     const generatedId = useId()
     const finalId = id ? id : generatedId
     const [isFocused, setIsFocused] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
     return (
-      <div className={`${styles.inputContainer} ${isFocused ? styles.active : ''}`}>
+      <div style={{ width }}>
         <div>
           {label && (
             <label className={styles.label} htmlFor={finalId}>
@@ -44,12 +45,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {...rest}
             />
             {type === 'search' && <Search className={styles.iconSearch} />}
-            {type === 'password' && (
-              <EyeOutline
-                onClick={() => setShowPassword(!showPassword)}
-                className={styles.iconPass}
-              />
-            )}
+            {type === 'password' &&
+              (showPassword ? (
+                <EyeOffOutline onClick={() => setShowPassword(false)} className={styles.iconPass} />
+              ) : (
+                <EyeOutline onClick={() => setShowPassword(true)} className={styles.iconPass} />
+              ))}
           </div>
           <div className={`${styles.errorMsg} ${errorMsg ? styles.show : ''}`}>{errorMsg}</div>
         </div>

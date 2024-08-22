@@ -1,7 +1,7 @@
 import { FieldValues, UseControllerProps, useController, Control } from 'react-hook-form'
 import { Input, InputProps } from '@/components/ui/input/input'
 
-export type ControlledInputProps<TFieldValues extends FieldValues> = Omit<
+export type FormInputProps<TFieldValues extends FieldValues> = Omit<
   InputProps,
   'id' | 'name' | 'onChange' | 'value'
 > &
@@ -9,7 +9,7 @@ export type ControlledInputProps<TFieldValues extends FieldValues> = Omit<
     control: Control<TFieldValues>
   }
 
-export const ControlledInput = <TFieldValues extends FieldValues>({
+export const FormInput = <TFieldValues extends FieldValues>({
   control,
   name,
   rules,
@@ -17,7 +17,7 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
   disabled,
   defaultValue,
   ...inputProps
-}: ControlledInputProps<TFieldValues>) => {
+}: FormInputProps<TFieldValues>) => {
   const {
     field,
     fieldState: { error },
