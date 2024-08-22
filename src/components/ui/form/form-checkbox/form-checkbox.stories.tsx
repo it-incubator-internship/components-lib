@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui'
-import { FormCheckbox } from '@/components/ui'
+import { FormCheckbox } from './form-checkbox'
 
 const meta = {
   component: FormCheckbox,

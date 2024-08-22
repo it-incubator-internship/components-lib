@@ -12,9 +12,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "outDir": "dist",
-    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "noEmitOnError": false,
     "declaration": true,
     "jsx": "react-jsx",
+
 
     /* Linting */
     "strict": true,
@@ -23,6 +25,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noImplicitAny": true,
+
     "paths": {
       "@/*": ["./src/*"]
     }
