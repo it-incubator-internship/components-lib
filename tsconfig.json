@@ -12,8 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "outDir": "dist",
-    "noEmit": false,
-    "noEmitOnError": false,
+    "emitDeclarationOnly": true,
     "declaration": true,
     "jsx": "react-jsx",
 
