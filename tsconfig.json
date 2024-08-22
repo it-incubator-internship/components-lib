@@ -31,6 +31,6 @@
     }
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-//  "exclude": [ "node_modules"],
+  "exclude": ["./src/**/*.stories.*"],
   "references": [{ "path": "./tsconfig.node.json" }],
 }
