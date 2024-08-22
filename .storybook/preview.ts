@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react'
 import { themes } from '@storybook/theming'
 import './../src/index.scss'
-import '@fontsource-variable/inter/index.css'
+import '@fontsource/inter'
 
 const preview: Preview = {
   parameters: {

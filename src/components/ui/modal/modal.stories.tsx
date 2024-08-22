@@ -8,8 +8,8 @@ const meta = {
   title: 'Components/Modal',
   tags: ['autodocs'],
   args: {
-    children: (<p>We have sent a link to confirm your email to epam@epam.com</p>),
-    open: true,
+    children: <p>We have sent a link to confirm your email to epam@epam.com</p>,
+    open: false,
   },
 } satisfies Meta<typeof Modal>
 
@@ -32,7 +32,9 @@ export const Default: Story = {
 
     return (
       <div>
-        <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
+        <Button variant={'secondary'} onClick={handleModalOpened}>
+          Open modal
+        </Button>
         <Modal {...args} title={'Email sent'} onClose={handleModalClosed} open={modalIsOpen}>
           {args.children}
         </Modal>
@@ -56,8 +58,16 @@ export const FullWidthButton: Story = {
 
     return (
       <div>
-        <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
-        <Modal {...args} title={'Email sent'} fullwidthButton onClose={handleModalClosed} open={modalIsOpen}>
+        <Button variant={'secondary'} onClick={handleModalOpened}>
+          Open modal
+        </Button>
+        <Modal
+          {...args}
+          title={'Email sent'}
+          fullwidthButton
+          onClose={handleModalClosed}
+          open={modalIsOpen}
+        >
           {args.children}
         </Modal>
       </div>
@@ -80,7 +90,9 @@ export const WithoutTitle: Story = {
 
     return (
       <div>
-        <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
+        <Button variant={'secondary'} onClick={handleModalOpened}>
+          Open modal
+        </Button>
         <Modal {...args} onClose={handleModalClosed} open={modalIsOpen}>
           {args.children}
         </Modal>
@@ -104,8 +116,16 @@ export const AnotherButtonTitle: Story = {
 
     return (
       <div>
-        <Button variant={'secondary'} onClick={handleModalOpened}>Open modal</Button>
-        <Modal {...args} title={'Email sent'} buttonTitle={'Confirm'} onClose={handleModalClosed} open={modalIsOpen}>
+        <Button variant={'secondary'} onClick={handleModalOpened}>
+          Open modal
+        </Button>
+        <Modal
+          {...args}
+          title={'Email sent'}
+          buttonTitle={'Confirm'}
+          onClose={handleModalClosed}
+          open={modalIsOpen}
+        >
           {args.children}
         </Modal>
       </div>
