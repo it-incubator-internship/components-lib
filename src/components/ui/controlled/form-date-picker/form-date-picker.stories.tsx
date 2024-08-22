@@ -2,15 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useForm } from 'react-hook-form'
 
-import { ControlledDatePicker } from './controlled-date-picker'
+import { FormDatePicker } from './form-date-picker'
 import { useState } from 'react'
-import { Button } from '../../button/button'
+import { Button } from '@/components/ui'
 
 const meta = {
-  component: ControlledDatePicker,
+  component: FormDatePicker,
   tags: ['autodocs'],
-  title: 'Controlled/ControlledDatePicker',
-} satisfies Meta<typeof ControlledDatePicker>
+  title: 'Form/FormDatePicker',
+} satisfies Meta<typeof FormDatePicker>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -34,7 +34,7 @@ export const Default: Story = {
 
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <ControlledDatePicker
+        <FormDatePicker
           control={control}
           label={'Pick date'}
           name={'date'}
@@ -68,7 +68,7 @@ export const WithRange: Story = {
 
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <ControlledDatePicker
+        <FormDatePicker
           label={'Pick range date'}
           control={control}
           name={'dateRange'}

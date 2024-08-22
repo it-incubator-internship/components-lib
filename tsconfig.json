@@ -28,6 +28,6 @@
     }
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["./src/**/*.stories.*"],
+  "exclude": [ "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }],
 }

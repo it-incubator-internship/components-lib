@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useForm } from 'react-hook-form'
 
-import { ControlledInput } from './controlled-input'
-import { Button } from '../../button/button'
+import { Button } from '@/components/ui'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FormInput } from './form-input'
 
 const meta = {
-  component: ControlledInput,
+  component: FormInput,
   tags: ['autodocs'],
-  title: 'Controlled/ControlledInput',
-} satisfies Meta<typeof ControlledInput>
+  title: 'Form/FormInput',
+} satisfies Meta<typeof FormInput>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -37,7 +37,7 @@ export const Email: Story = {
 
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <ControlledInput control={control} label={'Email'} name={'email'} />
+        <FormInput control={control} label={'Email'} name={'email'} />
         <Button>Submit</Button>
       </form>
     )
@@ -65,7 +65,7 @@ export const Password: Story = {
 
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <ControlledInput control={control} label={'Password'} name={'password'} type={'password'} />
+        <FormInput control={control} label={'Password'} name={'password'} type={'password'} />
         <Button>Submit</Button>
       </form>
     )
