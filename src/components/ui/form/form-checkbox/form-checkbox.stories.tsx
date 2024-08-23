@@ -1,22 +1,22 @@
-import { ControlledCheckbox } from './controlled-checkbox'
 import { Meta, StoryObj } from '@storybook/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '../../button/button'
+import { Button } from '@/components/ui'
+import { FormCheckbox } from './form-checkbox'
 
 const meta = {
-  component: ControlledCheckbox,
+  component: FormCheckbox,
   tags: ['autodocs'],
-  title: 'Controlled/ControlledCheckbox',
-} satisfies Meta<typeof ControlledCheckbox>
+  title: 'Form/FormCheckbox',
+} satisfies Meta<typeof FormCheckbox>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    label: 'Agree to terms',
+    labelText: 'Agree to terms',
     name: 'terms_agreement',
   },
   render: () => {
@@ -37,11 +37,7 @@ export const Default: Story = {
 
     return (
       <form onSubmit={handleSubmit(handleSubmitHandler)}>
-        <ControlledCheckbox
-          control={control}
-          labelText={'Agree to terms'}
-          name={'terms_agreement'}
-        />
+        <FormCheckbox control={control} labelText={'Agree to terms'} name={'terms_agreement'} />
         <Button>Submit</Button>
       </form>
     )

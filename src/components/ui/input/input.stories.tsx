@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
-import Input from './input'
+import { Input } from './input'
 
 const meta = {
   component: Input,
@@ -15,6 +15,7 @@ export const Search: Story = {
   args: {
     type: 'search',
     placeholder: 'Input search',
+    width: '279px',
   },
 }
 
@@ -23,6 +24,7 @@ export const SearchError: Story = {
     type: 'search',
     placeholder: 'Input search',
     errorMsg: 'Error text',
+    width: '279px',
   },
 }
 
@@ -31,6 +33,7 @@ export const SearchDisabled: Story = {
     type: 'search',
     placeholder: 'Input search',
     disabled: true,
+    width: '279px',
   },
 }
 
@@ -38,6 +41,7 @@ export const ControlSearchInput: Story = {
   args: {
     type: 'search',
     placeholder: 'Input search',
+    width: '279px',
   },
   render: args => {
     const [inputValue, setInputValue] = useState('')
@@ -75,6 +79,7 @@ export const Email: Story = {
     type: 'email',
     placeholder: 'Email',
     label: 'Email',
+    width: '279px',
   },
 }
 
@@ -84,6 +89,7 @@ export const EmailError: Story = {
     placeholder: 'Email',
     label: 'Email',
     errorMsg: 'Error text',
+    width: '279px',
   },
 }
 
@@ -93,6 +99,7 @@ export const EmailDisabled: Story = {
     placeholder: 'Email',
     label: 'Email',
     disabled: true,
+    width: '279px',
   },
 }
 
@@ -101,6 +108,7 @@ export const ControlEmailInput: Story = {
     type: 'email',
     placeholder: 'Email',
     label: 'Email',
+    width: '279px',
   },
   render: args => {
     const [inputValue, setInputValue] = useState('')
@@ -138,6 +146,7 @@ export const Password: Story = {
     type: 'password',
     placeholder: 'Password',
     label: 'Password',
+    width: '279px',
   },
 }
 
@@ -147,6 +156,7 @@ export const PasswordError: Story = {
     placeholder: 'Password',
     label: 'Password',
     errorMsg: 'Error text',
+    width: '279px',
   },
 }
 
@@ -156,6 +166,7 @@ export const PasswordDisabled: Story = {
     placeholder: 'Password',
     label: 'Password',
     disabled: true,
+    width: '279px',
   },
 }
 
@@ -164,6 +175,7 @@ export const ControlPasswordInput: Story = {
     type: 'password',
     placeholder: 'Password',
     label: 'Password',
+    width: '279px',
   },
   render: args => {
     const [inputValue, setInputValue] = useState('')

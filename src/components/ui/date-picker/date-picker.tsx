@@ -1,5 +1,5 @@
 import { ComponentProps, forwardRef, useState } from 'react'
-import 'react-datepicker/dist/react-datepicker.min.css'
+import './react-datepicker.min.css'
 import * as RDP from 'react-datepicker'
 import { clsx } from 'clsx'
 import { Calendar as CalendarIcon, CalendarOutline } from '../../../assets/components'
