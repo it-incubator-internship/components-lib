@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
-import s from '@/components/ui/textarea/textarea.module.scss'
+import s from './textarea.module.scss'
 import clsx from 'clsx'
 
 type Props = {
