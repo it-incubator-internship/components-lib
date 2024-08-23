@@ -5,12 +5,10 @@ import clsx from 'clsx'
 
 type Props = {
   title: string
-  id?: string
   className?: string
   disabled?: boolean
 } & Omit<ComponentPropsWithoutRef<typeof Item>, 'value' | 'id'>
-export const RadioGroupItem = ({ title, id, className, ...rest }: Props) => {
-  const idItemRadioGroup = id ? id : `id-${Date.now()}`
+export const RadioGroupItem = ({ title, className, ...rest }: Props) => {
   const classesLabelDisabled = rest.disabled ? s.LabelColorDisabled : ''
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -18,7 +16,6 @@ export const RadioGroupItem = ({ title, id, className, ...rest }: Props) => {
         <Item
           className={clsx(s.RadioGroupItem, className)}
           value={title}
-          id={idItemRadioGroup}
           {...rest}
         >
           <Indicator className={s.RadioGroupIndicator} />

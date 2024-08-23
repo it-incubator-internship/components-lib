@@ -1,7 +1,7 @@
 import React from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { RadioGroup } from '@/components/ui/radio-group/radioGroup'
+import { RadioGroup } from './radioGroup'
 
 const meta = {
   component: RadioGroup,
@@ -13,16 +13,16 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 const userGradeOptions = [
-  { value: '1', label: 'Pre-junior' },
-  { value: '2', label: 'Junior' },
-  { value: '3', label: 'Junior +' },
+  { label: 'Pre-junior', value: 'pre-junior' },
+  { label: 'Junior', value: 'junior' },
+  { label: 'Junior +', value: 'junior-plus' },
 ]
 export const ControlledRadioGroup: Story = {
   args: {
     options: userGradeOptions,
   },
   render: args => {
-    const [valueOption, onChangeOption] = useState(userGradeOptions[0]?.label)
+    const [valueOption, onChangeOption] = useState(userGradeOptions[0]?.value)
     const handleOptionChange = (value: string) => {
       onChangeOption(value)
     }
@@ -30,8 +30,8 @@ export const ControlledRadioGroup: Story = {
       <div>
         <RadioGroup
           {...args}
-          currentValue={valueOption}
-          callback={handleOptionChange}
+          value={valueOption}
+          onValueChange={handleOptionChange}
         />
         <span
           style={{ marginTop: '15px', display: 'inline-block' }}

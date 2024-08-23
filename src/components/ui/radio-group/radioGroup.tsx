@@ -12,31 +12,35 @@ export type Option = {
 type RadixRadioGroupProps = ComponentPropsWithoutRef<typeof Root>
 
 export type RadioGroupProps = {
-  currentValue?: string
+  value?: string
+  onValueChange?: (value: string) => void
   options: Option[]
-  callback?: (value: string) => void
   defaultValue?: string
   className?: string
+  errorMsg?: string
 } & RadixRadioGroupProps
 
-export const RadioGroup = forwardRef<ElementRef<typeof Root>, RadioGroupProps>(({ options, callback, currentValue, defaultValue, ...rest }, ref) => {
-    const renderRadioGroup = options.map((option: Option) => {
+export const RadioGroup = forwardRef<ElementRef<typeof Root>, RadioGroupProps>(({ options, onValueChange, value, defaultValue, errorMsg, ...rest }, ref) => {
+    const renderedRadioGroup = options.map((option: Option) => {
       return (
         <RadioGroupItem title={option.label} disabled={rest.disabled} key={option.value} />
       )
     })
     return (
-      <Root
-        ref={ref}
-        className={clsx(s.RadioGroupRoot, rest.className)}
-        defaultValue={defaultValue ? defaultValue : currentValue}
-        aria-label="View density"
-        value={currentValue}
-        onValueChange={callback}
-        disabled={rest.disabled}
-      >
-        {renderRadioGroup}
-      </Root>
+      <div className={s.wrapper}>
+        <Root
+          ref={ref}
+          className={clsx(s.RadioGroupRoot, rest.className)}
+          defaultValue={defaultValue ? defaultValue : value}
+          aria-label="View density"
+          value={value}
+          onValueChange={onValueChange}
+          disabled={rest.disabled}
+        >
+          {renderedRadioGroup}
+        </Root>
+        <div className={clsx(s.errorMsg, errorMsg && s.show)}>{errorMsg}</div>
+      </div>
     )
   },
 )
