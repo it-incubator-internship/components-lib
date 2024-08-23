@@ -1,10 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { FormRadioGroup } from './form-radio-group'
 import { Button } from '../../button/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { FormRadioGroup } from './form-radio-group'
+import { Option } from '../../radio-group/radioGroup'
 
 const userGradeOptions = [
   { label: 'Pre-junior', value: 'pre-junior' },
@@ -16,7 +17,7 @@ const FormSchema = z.object({
   userGrade: z.string({ message: 'A variant must be selected' }),
 })
 
-const FakeForm = ({ name, options, defaultValue }: { name: string, options: Array<typeof userGradeOptions>, defaultValue?: string }) => {
+const FakeForm = ({ name, options, defaultValue }: { name: string, options: Option[], defaultValue?: string }) => {
   const { control, handleSubmit } = useForm({ resolver: zodResolver(FormSchema) })
   const [data, setData] = useState<string>('')
 
@@ -47,14 +48,14 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 
-export const WithoutPreset = {
+export const WithoutPreset: Story = {
   args: {
     name: 'userGrade',
     options: userGradeOptions,
   },
 }
 
-export const WithPreset = {
+export const WithPreset: Story = {
   args: {
     name: 'userGrade',
     options: userGradeOptions,

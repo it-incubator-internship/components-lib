@@ -3,7 +3,7 @@ import React from 'react'
 import { Control, FieldValues, useController, UseControllerProps } from 'react-hook-form'
 import { RadioGroup, RadioGroupProps } from '@/components/ui'
 
-export type FormCheckbox<T extends FieldValues> = Omit<UseControllerProps<T>, 'control' | 'rules'>
+type FormRadioGroup<T extends FieldValues> = Omit<UseControllerProps<T>, 'control' | 'rules'>
   & Omit<RadioGroupProps, 'value' | 'onValueChange' | 'onBlur' | 'onChange'>
   & { control: Control<T> }
 
@@ -14,7 +14,7 @@ export const FormRadioGroup = <T extends FieldValues>({
   disabled,
   defaultValue,
   ...rest
-}: FormCheckbox<T>) => {
+}: FormRadioGroup<T>) => {
 
   const {
     field: { value, onChange, ...otherFields },
