@@ -1,4 +1,3 @@
-import React from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { RadioGroup } from './radioGroup'
@@ -22,20 +21,21 @@ export const ControlledRadioGroup: Story = {
     options: userGradeOptions,
   },
   render: args => {
-    const [valueOption, onChangeOption] = useState(userGradeOptions[0]?.value)
+    const [selectedOption, setSelectedOption] = useState(userGradeOptions[0] || { label: '', value: '' })
     const handleOptionChange = (value: string) => {
-      onChangeOption(value)
+      const option = userGradeOptions.find(option => option.label === value)
+      option && setSelectedOption(option)
     }
     return (
       <div>
         <RadioGroup
           {...args}
-          value={valueOption}
+          value={selectedOption.label}
           onValueChange={handleOptionChange}
         />
         <span
           style={{ marginTop: '15px', display: 'inline-block' }}
-        >{`Selected option: ${valueOption}`}</span>
+        >{`Selected option: ${selectedOption.value}`}</span>
       </div>
     )
   },
