@@ -9,25 +9,29 @@ export type InputProps = {
   type?: 'password' | 'search' | 'email' | 'text'
   label?: string
   placeholder?: string
-  width?: string
+  styleContainer?: React.CSSProperties
+  styleInput?: React.CSSProperties
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ id, errorMsg, type = 'text', label, placeholder, width, ...rest }, ref) => {
+  (
+    { id, errorMsg, type = 'text', label, placeholder, styleContainer, styleInput, ...rest },
+    ref
+  ) => {
     const generatedId = useId()
     const finalId = id ? id : generatedId
     const [isFocused, setIsFocused] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
     return (
-      <div style={{ width }}>
+      <div style={styleContainer}>
         <div>
           {label && (
             <label className={styles.label} htmlFor={finalId}>
               {label}
             </label>
           )}
-          <div className={clsx(styles.inputContainer, isFocused && styles.active)}>
+          <div className={clsx(styles.inputContainer, styleContainer, isFocused && styles.active)}>
             <input
               id={finalId}
               ref={ref}
@@ -42,6 +46,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               disabled={rest.disabled}
+              style={styleInput}
               {...rest}
             />
             {type === 'search' && <Search className={styles.iconSearch} />}
