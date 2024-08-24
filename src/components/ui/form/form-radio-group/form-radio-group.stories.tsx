@@ -5,7 +5,7 @@ import { Button } from '../../button/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { FormRadioGroup } from './form-radio-group'
-import { Option } from '../../radio-group/radioGroup'
+import { Option } from '../../radio-group'
 
 const userGradeOptions = [
   { label: 'Pre-junior', value: 'pre-junior' },
