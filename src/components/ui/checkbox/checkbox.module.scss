@@ -3,6 +3,10 @@
   align-items: center;
 }
 
+.SignUpContainer{
+ background-color: transparent;
+}
+
 .checkboxShadow {
   border-radius: 50%;
   transition: box-shadow 0.3s ease;
@@ -92,3 +96,4 @@
     visibility: visible;
   }
 }
+
