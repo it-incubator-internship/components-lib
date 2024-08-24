@@ -67,9 +67,7 @@ export const Disabled: Story = {
       }
     }
     return (
-      <div>
         <Checkbox {...args} checked={checked} ref={checkRef} onCheckedChange={handleCheckbox} />
-      </div>
     )
   },
 }
