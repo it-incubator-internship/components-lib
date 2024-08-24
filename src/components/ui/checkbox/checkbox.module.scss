@@ -1,10 +1,15 @@
 .checkboxContainer {
   display: flex;
-  align-items: center;
+  align-items: start;
 }
 
-.SignUpContainer{
- background-color: transparent;
+.SignUpContainer {
+  flex-direction: column;
+}
+
+.CheckboxBlock {
+  display: flex;
+  align-items: center;
 }
 
 .checkboxShadow {

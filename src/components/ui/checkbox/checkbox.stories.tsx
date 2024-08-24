@@ -14,7 +14,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
     args: {
         labelText: 'Check-box',
-        containerClassName: 'SignUpContainer'
+        containerClassName: 'SignUpContainer',
+        errorMsg: 'errro!!!!'
     },
     render: args => {
         const [checked, setChecked] = useState(false)
@@ -26,7 +27,7 @@ export const Default: Story = {
             }
         }
         return (
-                <Checkbox {...args} checked={checked} ref={checkRef} onCheckedChange={handleCheckbox}/>
+            <Checkbox {...args} checked={checked} ref={checkRef} onCheckedChange={handleCheckbox}/>
         )
     },
 }
