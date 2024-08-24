@@ -28,7 +28,7 @@ export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, CheckboxProps
          ...rest
      },
      ref) => {
-        console.log(`helll`);
+
         const generatedId = useId()
         const finalId = id ? id : generatedId
 
@@ -55,7 +55,7 @@ export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, CheckboxProps
         }
 
         return (
-            <div className={clsx(s.checkboxContainer, s[`${containerClassName}`])}>
+            <div className={clsx(s.CheckboxContainer, s[`${containerClassName}`])}>
                 <div className={s.CheckboxBlock}>
                     <div className={clsx(s.checkboxShadow, shadow, noHover, noFocus, className)}>
                         <RadixCheckbox.Root

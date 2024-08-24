@@ -15,7 +15,7 @@ export const Default: Story = {
     args: {
         labelText: 'Check-box',
         containerClassName: 'SignUpContainer',
-        errorMsg: 'errro!!!!'
+        // errorMsg: 'errro!!!!'
     },
     render: args => {
         const [checked, setChecked] = useState(false)
