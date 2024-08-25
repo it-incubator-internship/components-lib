@@ -29,6 +29,9 @@ export const Email: Story = {
 
     const { control, handleSubmit } = useForm<FormValues>({
       resolver: zodResolver(FormSchema),
+      defaultValues: {
+        email: '',
+      },
     })
 
     const handleSubmitHandler = (data: FormValues) => {
