@@ -58,7 +58,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <EyeOutline onClick={() => setShowPassword(true)} className={styles.iconPass} />
             ))}
         </div>
-        <div className={`${styles.errorMsg} ${errorMsg ? styles.show : ''}`}>{errorMsg}</div>
+        <p className={`${styles.errorMsg} ${errorMsg ? styles.show : ''}`}>{errorMsg}</p>
       </>
     )
   }
