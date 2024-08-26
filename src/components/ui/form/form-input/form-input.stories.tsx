@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useForm } from 'react-hook-form'
 
-import { Button } from '@/components/ui'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormInput } from './form-input'
+import { Button } from '../../button/button'
 
 const meta = {
   component: FormInput,
@@ -29,6 +29,9 @@ export const Email: Story = {
 
     const { control, handleSubmit } = useForm<FormValues>({
       resolver: zodResolver(FormSchema),
+      defaultValues: {
+        email: '',
+      },
     })
 
     const handleSubmitHandler = (data: FormValues) => {

@@ -2,6 +2,7 @@
 .label {
   cursor: pointer;
   color: var(--color-light-900);
+  font-size: var(--font-size-s);
 }
 
 // Container
@@ -19,18 +20,17 @@
 
 // Input
 .inputField {
-  display: inline-block;
-
   box-sizing: border-box;
+  display: inline-block;
   width: 100%;
+  height: var(--line-height-l);
   padding: 6px 12px;
-
   color: var(--color-light-100);
-
-  background: none;
+  background-color: black;
   border: 1px solid var(--color-light-900);
   border-radius: 2px;
   outline: none;
+  font-size: var(--font-size-m);
 
   &::placeholder {
     color: var(--color-light-900);
@@ -49,6 +49,14 @@
   }
 }
 
+//autofill
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px black inset;
+  -webkit-text-fill-color: var(--color-light-100);
+}
+
 // InputSearch
 .inputSearch {
   padding: 6px 12px 6px 30px;
@@ -56,12 +64,9 @@
 
 // Error Message
 .errorMsg {
-  height: var(--font-size-m);
-  margin: 4px 0;
-
+  margin-top: 2px;
   font-size: var(--font-size-xs);
   color: var(--color-danger-500);
-
   visibility: hidden;
 
   &.show {
