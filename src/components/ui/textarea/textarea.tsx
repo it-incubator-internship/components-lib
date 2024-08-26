@@ -18,7 +18,7 @@ export const Textarea = forwardRef<ElementRef<'textarea'>, Props>(
         </label>
         <textarea
           className={clsx(s.textArea, error && s.errorBorder)}
-          placeholder={titleLabel}
+          placeholder={rest.placeholder}
           id={htmlForMessage}
           ref={ref}
           disabled={rest.disabled}

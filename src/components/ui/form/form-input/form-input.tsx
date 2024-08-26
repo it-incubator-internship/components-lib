@@ -27,5 +27,13 @@ export const FormInput = <TFieldValues extends FieldValues>({
     disabled,
     defaultValue,
   })
-  return <Input {...inputProps} {...field} errorMsg={error?.message} id={name} />
+  return (
+    <Input
+      {...inputProps}
+      {...field}
+      errorMsg={error?.message}
+      id={name}
+      value={field.value ?? ''}
+    />
+  )
 }
