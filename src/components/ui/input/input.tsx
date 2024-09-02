@@ -24,15 +24,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [showPassword, setShowPassword] = useState(false)
 
     return (
-      <>
+      <div className={containerClassName}>
         {label && (
           <label className={styles.label} htmlFor={finalId}>
             {label}
           </label>
         )}
-        <div
-          className={clsx(styles.inputContainer, isFocused && styles.active, containerClassName)}
-        >
+        <div className={clsx(styles.inputContainer, isFocused && styles.active)}>
           <input
             id={finalId}
             ref={ref}
@@ -59,7 +57,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ))}
         </div>
         <p className={`${styles.errorMsg} ${errorMsg ? styles.show : ''}`}>{errorMsg}</p>
-      </>
+      </div>
     )
   }
 )
