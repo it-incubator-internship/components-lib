@@ -12,9 +12,13 @@ type ModalProps = {
   children: ReactNode
   open: boolean
   onClose?: () => void
+  //props for modal with confirmation
+  withConfirmation?: boolean
+  buttonRejectionTitle?: string
+  onCloseWithApproval?: () => void
 }
 
-export const Modal = ({ title, children, open, onClose, fullwidthButton, buttonTitle = 'OK' }: ModalProps) => {
+export const Modal = ({ withConfirmation, title, children, open, onClose, onCloseWithApproval, fullwidthButton, buttonTitle = 'OK', buttonRejectionTitle = 'NO' }: ModalProps) => {
   const [playAnimation, setPlayAnimation] = useState<'start' | 'end' | null>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -36,6 +40,10 @@ export const Modal = ({ title, children, open, onClose, fullwidthButton, buttonT
     onClose?.()
   }
 
+  function handleModalCloseWithApproval() {
+    onCloseWithApproval?.()
+  }
+
   return (
     <Root open={isOpen} onOpenChange={handleModalClosed}>
       {isOpen && (
@@ -53,7 +61,8 @@ export const Modal = ({ title, children, open, onClose, fullwidthButton, buttonT
             <div className={s.contentBox}>{children}</div>
             <Close asChild>
               <div className={clsx(s.btnBox, fullwidthButton && s.fullwidth)}>
-                <Button className={s.btn} fullWidth>{buttonTitle}</Button>
+                <Button onClick={withConfirmation ? handleModalCloseWithApproval : handleModalClosed} variant={withConfirmation ? 'outlined' : 'primary'} className={clsx(s.btn, withConfirmation && s.buttonConfirm)} fullWidth>{buttonTitle}</Button>
+                {withConfirmation && <Button className={clsx(s.btn, withConfirmation && s.buttonConfirm)} fullWidth>{buttonRejectionTitle}</Button>}
               </div>
             </Close>
           </Content>
