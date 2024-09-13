@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    labelText: 'Check-box',
+    children: <span>Check-box</span>,
   },
   render: args => {
     const [checked, setChecked] = useState(false)
@@ -34,7 +34,7 @@ export const Default: Story = {
 
 export const Checked: Story = {
   args: {
-    labelText: 'Check-box',
+    children: <span>Check-box</span>,
   },
   render: args => {
     const [checked, setChecked] = useState(true)
@@ -55,7 +55,7 @@ export const Checked: Story = {
 
 export const Disabled: Story = {
   args: {
-    labelText: 'Check-box',
+    children: <span>Check-box</span>,
     disabled: true,
   },
   render: args => {

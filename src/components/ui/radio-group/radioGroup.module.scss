@@ -2,6 +2,10 @@ button {
   all: unset;
 }
 
+.wrapper {
+  position: relative;
+}
+
 .RadioGroupRoot {
   display: flex;
   flex-direction: column;
@@ -98,10 +102,10 @@ button {
   }
 
   .Label {
-	  cursor: pointer;
+    cursor: pointer;
 
     display: flex;
-	gap: 8px;
+    gap: 8px;
     align-items: center;
 
     padding-left: 15px;
@@ -113,5 +117,24 @@ button {
 
   .LabelColorDisabled {
     color: var(--color-dark-300);
+  }
+}
+
+.errorMsg {
+  position: absolute;
+  bottom: -27px;
+  left: 10px;
+
+  display: none;
+
+  width: 300px;
+  height: var(--font-size-m);
+  margin: 4px 0;
+
+  font-size: var(--font-size-xs);
+  color: var(--color-danger-500);
+
+  &.show {
+    display: block;
   }
 }

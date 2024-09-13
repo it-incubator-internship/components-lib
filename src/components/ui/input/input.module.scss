@@ -29,6 +29,7 @@
 
   font-size: var(--font-size-m);
   color: var(--color-light-100);
+
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-light-900);
   border-radius: 2px;
@@ -67,10 +68,11 @@ input:-webkit-autofill:focus {
 
 // Error Message
 .errorMsg {
-  min-height: 18px;
-  margin-top: 4px;
+  position: absolute;
+  margin-top: 2px;
   font-size: var(--font-size-xs);
   color: var(--color-danger-500);
+
   visibility: hidden;
   transition:
     visibility 0.3s ease,
