@@ -132,3 +132,45 @@ export const AnotherButtonTitle: Story = {
     )
   },
 }
+
+export const WithConfirmation: Story = {
+  name: 'Button with confirmation',
+  args: {
+    children: <p>Do you really want to close the edition of the publication? If you close changes won’t be saved</p>,
+  },
+  render: args => {
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+
+    function handleModalOpened() {
+      setModalIsOpen(true)
+    }
+
+    function handleModalClosed() {
+      setModalIsOpen(false)
+    }
+
+    function handleModalApproved() {
+      alert('Your post edition has been closed.')
+    }
+
+    return (
+      <div>
+        <Button variant={'secondary'} onClick={handleModalOpened}>
+          Open modal
+        </Button>
+        <Modal
+          {...args}
+          withConfirmation
+          title={'Close Post'}
+          buttonTitle={'Yes'}
+          buttonRejectionTitle={'No'}
+          onClose={handleModalClosed}
+          onCloseWithApproval={handleModalApproved}
+          open={modalIsOpen}
+        >
+          {args.children}
+        </Modal>
+      </div>
+    )
+  },
+}

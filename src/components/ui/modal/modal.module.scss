@@ -72,10 +72,12 @@
 }
 
 .btnBox {
+  display: flex;
+  gap: 24px;
   align-self: flex-end;
+
   min-width: 96px;
   margin: 0 24px 36px;
-
 }
 
 .fullwidth {
@@ -88,6 +90,10 @@
 .btn {
   height: 36px !important;
   font-weight: 600 !important;
+}
+
+.buttonConfirm {
+  width: 96px !important;
 }
 
 @keyframes open-animate {
