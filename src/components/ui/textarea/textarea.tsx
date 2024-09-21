@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import s from './textarea.module.scss'
 import clsx from 'clsx'
 
-type Props = {
+export type Props = {
   titleLabel?: string
   error?: string
   className?: string
