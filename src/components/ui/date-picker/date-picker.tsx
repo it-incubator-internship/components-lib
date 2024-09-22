@@ -12,6 +12,7 @@ import { formatWeekDay } from '@/lib/formatWeekDay'
 import { Label } from '@/components/ui/label'
 
 export type DatePickerProps = {
+  years: number[]
   placeholder?: string
   startDate: Date | null
   setStartDate: (date: Date | null) => void
@@ -29,6 +30,7 @@ const RDPC = (((RDP.default as any).default as any) ||
 export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
   (
     {
+      years,
       startDate,
       setStartDate,
       placeholder,
@@ -84,7 +86,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           selectsRange={isRange}
           formatWeekDay={formatWeekDay}
           placeholderText={placeholder}
-          renderCustomHeader={params => <CustomHeader {...params} />}
+          renderCustomHeader={params => <CustomHeader years={years} {...params} />}
           customInput={
             <CustomInput
               isOpened={isOpened}
