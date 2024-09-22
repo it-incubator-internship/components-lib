@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import s from './textarea.module.scss'
 import clsx from 'clsx'
 
-type Props = {
+export type Props = {
   titleLabel?: string
   error?: string
   className?: string
@@ -22,6 +22,7 @@ export const Textarea = forwardRef<ElementRef<'textarea'>, Props>(
           id={htmlForMessage}
           ref={ref}
           disabled={rest.disabled}
+			{...rest}
         />
         {error && <span className={s.textAreaError}>{error}</span>}
       </div>
