@@ -22,6 +22,7 @@ export const Textarea = forwardRef<ElementRef<'textarea'>, Props>(
           id={htmlForMessage}
           ref={ref}
           disabled={rest.disabled}
+			{...rest}
         />
         {error && <span className={s.textAreaError}>{error}</span>}
       </div>
