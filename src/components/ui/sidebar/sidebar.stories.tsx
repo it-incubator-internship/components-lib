@@ -25,7 +25,7 @@ type Story = StoryObj<typeof meta>
 
 export const SidebarScroll: Story = {
   args: {
-    children: TAGS.map(tag => <ItemSideBar Icon={Home} item="Home" key={tag} />),
+    children: TAGS.map(tag => <ItemSideBar Icon={Home} item="Page home" key={tag} />),
   },
 }
 
