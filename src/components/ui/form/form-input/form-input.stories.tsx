@@ -6,8 +6,6 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormInput } from './form-input'
 import { Button } from '../../button/button'
-import React from 'react'
-import { error } from 'console'
 
 const FakeForm = () => {
   const FormSchema = z.object({
@@ -49,7 +47,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Form: Story = {
-  args: {
-	error
-  },
+  args: {},
 }
