@@ -123,7 +123,7 @@
 
   border-color: var(--color-dark-300);
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--color-light-100);
   }
 
@@ -171,12 +171,20 @@
   &:active:not(.error) {
     background: var(--color-dark-500);
   }
+
+  &:has(input:disabled) {
+    color: var(--color-dark-300);
+  }
 }
 
 .header {
   display: flex;
   flex-direction: column;
   padding-left: 8px;
+}
+
+.headerHeader {
+  margin-bottom: 10px;
 }
 
 .headerFooter {
