@@ -4,11 +4,14 @@ import { useForm } from 'react-hook-form'
 
 import { FormDatePicker } from './form-date-picker'
 import { Button } from '../../button/button'
+import { range } from '../../../../lib/range'
+import { getYear } from 'date-fns'
 
 const FakeForm = () => {
   type FormValues = {
     date: Date | null
   }
+  const years = range(1940, getYear(new Date()) + 1)
   const { control, handleSubmit } = useForm<FormValues>()
 
   const handleSubmitHandler = (data: FormValues) => {
@@ -18,6 +21,7 @@ const FakeForm = () => {
   return (
     <form onSubmit={handleSubmit(handleSubmitHandler)}>
       <FormDatePicker
+        years={years}
         control={control}
         label={'Pick date'}
         name={'date'}
