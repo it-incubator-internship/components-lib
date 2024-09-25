@@ -28,22 +28,19 @@ const RDPC = (((RDP.default as any).default as any) ||
   (RDP as any)) as typeof RDP.default
 
 export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
-  (
-    {
-      years,
-      startDate,
-      setStartDate,
-      placeholder,
-      label,
-      errorMessage,
-      endDate,
-      setEndDate,
-      disabled,
-      className,
-      ...rest
-    },
-    ref
-  ) => {
+  ({
+    years,
+    startDate,
+    setStartDate,
+    placeholder,
+    label,
+    errorMessage,
+    endDate,
+    setEndDate,
+    disabled,
+    className,
+    ...rest
+  }) => {
     const isRange = endDate !== undefined
     const showError = !!errorMessage && errorMessage.length > 0
 
@@ -106,11 +103,12 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
           showPopperArrow={false}
           calendarStartDay={1}
           disabled={disabled}
+          popperPlacement="auto-start"
           popperModifiers={[
             {
               name: 'offset',
               options: {
-                offset: [0, 360],
+                offset: [0, 36],
               },
             },
           ]}
@@ -126,6 +124,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
     )
   }
 )
+
 type CustomInputProps = {
   disabled?: boolean
   label?: string
