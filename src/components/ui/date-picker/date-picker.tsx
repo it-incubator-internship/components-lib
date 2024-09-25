@@ -95,6 +95,7 @@ export const DatePicker = forwardRef<FieldValues, DatePickerProps>(
               label={label}
             />
           }
+          closeOnScroll
           onCalendarClose={handleCalendarClose}
           onCalendarOpen={handleCalendarOpen}
           calendarClassName={classNames.calendar}
