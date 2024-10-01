@@ -26,7 +26,11 @@ export const Default: Story = {
     const [startDate, setStartDate] = useState<Date | null>(new Date())
     const years = range(1940, getYear(new Date()) + 1)
 
-    return <DatePicker years={years} setStartDate={setStartDate} startDate={startDate} />
+    return (
+      <>
+        <DatePicker years={years} setStartDate={setStartDate} startDate={startDate} />
+      </>
+    )
   },
 
   args: {
