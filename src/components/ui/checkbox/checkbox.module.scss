@@ -1,10 +1,4 @@
-.CheckboxContainer {
-  display: flex;
-  align-items: start;
-  flex-direction: column;
-}
-
-.CheckboxBlock {
+.checkboxContainer {
   display: flex;
   align-items: center;
 }
@@ -98,4 +92,3 @@
     visibility: visible;
   }
 }
-

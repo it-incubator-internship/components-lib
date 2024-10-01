@@ -36,7 +36,7 @@ export const FormTextarea = <TFieldValues extends FieldValues>({
     <Textarea
       {...textareaProps} 
       {...field} 
-      error={error?.message} 
+      error={error?.message}
       id={name} 
       value={field.value ?? ''} 
     />
