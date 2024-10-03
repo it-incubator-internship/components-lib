@@ -31,12 +31,12 @@
 
 .ScrollAreaThumb {
   flex: 1;
-  background: var(--color-dark-500);
+  background: var(--color-dark-300);
   border-radius: var(--scrollbar-size);
   position: relative;
 
   &:hover {
-    background: var(--color-dark-200);
+    background: var(--color-light-900);
     cursor: pointer;
   }
 
