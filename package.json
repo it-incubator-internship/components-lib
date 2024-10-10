@@ -1,7 +1,7 @@
 {
-  "name": "@robur_/ui-kit",
+  "name": "@demorest49de/ui-kit",
   "private": false,
-  "version": "0.0.36",
+  "version": "0.0.52",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -50,15 +50,19 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
+    "@types/react-window": "^1.8.8",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "lucide-react": "^0.446.0",
     "react": "^18.3.1",
     "react-datepicker": "4.18.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.2",
+    "react-window": "^1.8.10",
     "sass": "^1.77.8",
     "stylelint": "^16.8.1",
     "tailwind-merge": "^2.4.0",
+    "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -80,6 +84,7 @@
     "@types/react": "^18.3.3",
     "@types/react-datepicker": "^4.15.0",
     "@types/react-dom": "^18.3.0",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
