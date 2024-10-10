@@ -1,170 +1,186 @@
-import {ChangeEvent, Fragment, MouseEventHandler, ReactNode} from 'react'
-
-import {Close, ArrowIosDownOutline} from '../../../assets/components'
-import {ScrollAreaComponent} from '../../ui/scroll/scrollArea'
-import {Spinner} from "../spinner/spinner"
-import {Label} from '../label'
-import {Combobox as ComboboxHeadlessUI} from '@headlessui/react'
-import {Float} from '@headlessui-float/react'
-import {clsx} from 'clsx'
-
+import {
+    ChangeEvent,
+    Dispatch,
+    Fragment,
+    MouseEventHandler,
+    ReactNode,
+    SetStateAction,
+    forwardRef,
+} from 'react'
+import { Combobox as ComboboxUI } from '@headlessui/react'
+import { Close, ArrowIosDownOutline } from '../../../assets/components'
+import { ScrollAreaComponent } from '../../ui/scroll/scrollArea'
+import { Spinner } from '../spinner/spinner'
+import { Label } from '../label'
+import { Float } from '@headlessui-float/react'
+import { clsx } from 'clsx'
 import selectStyle from './select.module.scss'
 import s from './combobox.module.scss'
+import { FixedSizeList as List } from 'react-window'
+import { FieldValues, Path } from "react-hook-form"
 
 export type ComboboxOptionProps<T> = {
-    label: string
-    value: T
+    label: T
+    value: { id: number; name: string }
 }
 
-export type ComboboxProps<T> = {
-    // todo ???
+export type ComboboxProps<T, TFieldValues extends FieldValues> = {
+    name: Path<TFieldValues>
+    options: ComboboxOptionProps<T>[]
+    onInputClick: () => void
+    onChange: (value: T | null) => void
+    setValue: (name: Path<TFieldValues>, value: string | null) => void;
+    getDataForCombobox: Dispatch<SetStateAction<ComboboxOptionProps<T | any> | null>>
+
+    placeholder?: string
     isAsync?: boolean
     isLoading?: boolean
-
-    // todo name для формы
-    name?: string
     disabled?: boolean
     errorMessage?: string
-    // todo уже сохраненное значение от пользователя (по-умолчанию передается "")
-    inputValue: string
     label?: ReactNode
-
-    // todo функция для выбора новой опции
-    onChange: (value: T | null) => void
-    onClear?: () => void
-    onInputChange: (value: string) => void
-
-    options: ComboboxOptionProps<T>[]
-    placeholder?: string
-
     portal?: boolean
-    showClearButton?: boolean
-    value: T | null
+    value: string
+    onBlur?: () => void
 }
 
-export const Combobox = <T extends number | string>({
-                                                        disabled = false,
-                                                        errorMessage,
-                                                        inputValue,
-                                                        isAsync,
-                                                        isLoading,
-                                                        label,
-                                                        name,
-                                                        onChange,
-                                                        onClear,
-                                                        onInputChange,
-                                                        options,
-                                                        placeholder,
-                                                        portal = true,
-                                                        showClearButton = true,
-                                                        value,
-                                                    }: ComboboxProps<T>) => {
+export const Combobox = forwardRef<HTMLInputElement, ComboboxProps<string, FieldValues>>(
+    (
+        {
+            name,
+            options,
+            onChange,
+            getDataForCombobox,
+            onInputClick,
+            placeholder,
+            isAsync,
+            isLoading,
+            errorMessage,
+            label,
+            portal = true,
+            value,
+            disabled,
+            setValue,
+            ...comboboxProps
+        },
+        ref
+    ) => {
+        const showError = !!errorMessage && errorMessage.length > 0
+        const isClearButtonVisible = !!value
 
-
-    const showError = !!errorMessage && errorMessage.length > 0
-    const isClearButtonVisible = showClearButton && !!value
-
-    const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(' e.currentTarget.value: ', e.currentTarget.value);
-        if (e.currentTarget.value === '') {
+        const handleClearButtonClicked: MouseEventHandler<HTMLDivElement> = () => {
+            setValue(name, null)
             onChange(null)
         }
-        onInputChange(e.currentTarget.value)
-    }
 
-    const handleClearButtonClicked: MouseEventHandler<HTMLDivElement> = () => {
-        onInputChange('')
-        onChange(null)
-    }
+        const filteredOptions =
+            value && !isAsync
+                ? options.filter(option =>
+                    option.label?.toLowerCase().includes(value?.toLowerCase())
+                )
+                : options
 
-    const filteredOptions =
-        inputValue === '' && !isAsync
-            ? options
-            : options.filter(option => option.label.toLowerCase().includes(inputValue.toLowerCase()))
+        const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            const newValue = e.currentTarget.value as string | ''
+            setValue(name, newValue || null)
 
-    const classNames = {
-        box: s.box,
-        button: clsx(s.button),
-        clearButton: s.clearButton,
-        content: clsx(selectStyle.content, filteredOptions.length === 0 && s.empty),
-        icon: clsx(s.icon),
-        input: clsx(
-            s.input,
-            showError && s.error,
-        ),
-        errorMessage: clsx(showError && s.errorMessage),
-        item: selectStyle.item,
-        optionsBlock: selectStyle.optionsBlock,
-        root: s.root,
-        spinner: s.spinner,
-        label: s.label,
-    }
-
-    const getDisplayingValue = (value: number | string) =>
-        options?.find(option => option.value === value)?.label || ''
-
-    return (
-        <ComboboxHeadlessUI
-            {
-                ...{
-                    disabled,
-                    name,
-                    onChange,
-                    value,
-                }
+            if (newValue === '') {
+                onChange(null)
+            } else {
+                onChange(newValue)
             }
-            as={'div'}
-            className={classNames.root}
-        >
+        }
 
-            <Float adaptiveWidth as={'div'} floatingAs={Fragment} placement={'bottom'} portal={portal}>
-                <div className={classNames.box}>
-                    <Label label={label} className={classNames.label}>
-                        <ComboboxHeadlessUI.Button as={'div'}>
+        const getDisplayingValue = (optionValue: string) => {
+            const optionResult = options?.find(option => option.value.name === optionValue)
+            getDataForCombobox(optionResult || null)
+            return optionResult?.label || ''
+        }
 
-                            <ComboboxHeadlessUI.Input
-                                className={classNames.input}
-                                displayValue={getDisplayingValue}
-                                onChange={inputChangeHandler}
-                                placeholder={placeholder}
-                            />
+        const classNames = {
+            box: s.box,
+            button: clsx(s.button),
+            clearButton: s.clearButton,
+            content: clsx(selectStyle.content, filteredOptions.length === 0 && s.empty),
+            icon: clsx(s.icon),
+            input: clsx(s.input, showError && s.error),
+            errorMessage: clsx(showError && s.errorMessage),
+            item: selectStyle.item,
+            optionsBlock: selectStyle.optionsBlock,
+            root: s.root,
+            spinner: s.spinner,
+            label: s.label,
+        }
 
-                            <div className={classNames.button}>
-                                <ArrowIosDownOutline className={classNames.icon}/>
-                            </div>
-                            {isLoading && (
-                                <div className={classNames.spinner}>
-                                    <Spinner className={""}/>
+        const itemHeight = 40
+        const listHeight = Math.min(filteredOptions.length * itemHeight, 200)
+
+        return (
+            <ComboboxUI
+                {...{ disabled, name, onChange }}
+                {...comboboxProps}
+                as={'div'}
+                className={classNames.root}
+            >
+                <Float adaptiveWidth as={'div'} floatingAs={Fragment} placement={'bottom'} portal={portal}>
+                    <div className={classNames.box}>
+                        <Label label={label} className={classNames.label}>
+                            <ComboboxUI.Button as={'div'}>
+                                <ComboboxUI.Input
+                                    className={classNames.input}
+                                    displayValue={getDisplayingValue}
+                                    onChange={inputChangeHandler}
+                                    placeholder={placeholder}
+                                    onClick={onInputClick}
+                                    value={value || ''}
+                                    disabled={disabled}
+                                    ref={ref}
+                                />
+                                <div className={classNames.button}>
+                                    <ArrowIosDownOutline className={classNames.icon} />
                                 </div>
-                            )}
-                        </ComboboxHeadlessUI.Button>
-                    </Label>
-                    {isClearButtonVisible && (
-                        <div className={classNames.clearButton} onClick={onClear ?? handleClearButtonClicked}>
-                            <Close/>
-                        </div>
-                    )}
-                </div>
-
-                <ComboboxHeadlessUI.Options as={'div'} className={classNames.content}>
-                    <ScrollAreaComponent>
-                        <div className={classNames.optionsBlock}>{
-                            filteredOptions.map(option => (
-                                <ComboboxHeadlessUI.Option
-                                    as={'button'}
-                                    className={classNames.item}
-                                    key={option.value}
-                                    type={'button'}
-                                    value={option.value}
-                                >
-                                    <span>{option.label}</span>
-                                </ComboboxHeadlessUI.Option>
-                            ))}
-                        </div>
-                    </ScrollAreaComponent>
-                </ComboboxHeadlessUI.Options>
-            </Float>
-            <>{showError && <span className={s.errorMessage}>{errorMessage}</span>}</>
-        </ComboboxHeadlessUI>
-    )
-}
+                                {isLoading && (
+                                    <div className={classNames.spinner}>
+                                        <Spinner />
+                                    </div>
+                                )}
+                            </ComboboxUI.Button>
+                        </Label>
+                        {isClearButtonVisible && (
+                            <div className={classNames.clearButton} onClick={handleClearButtonClicked}>
+                                <Close />
+                            </div>
+                        )}
+                    </div>
+                    <ComboboxUI.Options as={'div'} className={classNames.content}>
+                        <ScrollAreaComponent>
+                            <List
+                                height={listHeight}
+                                itemCount={filteredOptions.length}
+                                itemSize={itemHeight}
+                                width="100%"
+                            >
+                                {({ index, style }) => {
+                                    const option = filteredOptions[index]
+                                    return (
+                                        <ComboboxUI.Option
+                                            as={'button'}
+                                            className={classNames.item}
+                                            key={option?.value.id}
+                                            type={'button'}
+                                            value={option?.value.name}
+                                            style={style}
+                                            onClick={() => onChange(option?.label as string)}
+                                        >
+                                            <span>{option?.label}</span>
+                                        </ComboboxUI.Option>
+                                    )
+                                }}
+                            </List>
+                        </ScrollAreaComponent>
+                    </ComboboxUI.Options>
+                </Float>
+                {showError && <span className={s.errorMessage}>{errorMessage}</span>}
+            </ComboboxUI>
+        )
+    }
+)
