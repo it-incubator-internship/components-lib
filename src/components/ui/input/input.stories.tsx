@@ -22,8 +22,7 @@ export const SearchError: Story = {
   args: {
     type: 'search',
     placeholder: 'Input search',
-    errorMsg:
-      'Error text Error textError textError textError textError textError textError textError textError textError textError textError textError textError textError textError textError textError text',
+    errorMsg: 'Error text',
   },
 }
 
