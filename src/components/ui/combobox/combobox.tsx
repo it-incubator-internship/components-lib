@@ -10,7 +10,6 @@ import {
 import { Combobox as ComboboxUI } from '@headlessui/react'
 import { Close, ArrowIosDownOutline } from '../../../assets/components'
 import { ScrollAreaComponent } from '../../ui/scroll/scrollArea'
-import { Spinner } from '../spinner/spinner'
 import { Label } from '../label'
 import { Float } from '@headlessui-float/react'
 import { clsx } from 'clsx'
@@ -32,7 +31,6 @@ export type ComboboxProps<T, TFieldValues extends FieldValues> = {
   onChange: (value: T | null) => void
   setValue: (name: Path<TFieldValues>, value: string | null) => void
   getDataForCombobox: Dispatch<SetStateAction<ComboboxOptionProps<T | any> | null>>
-
   placeholder?: string
   isAsync?: boolean
   isLoading?: boolean
@@ -75,10 +73,16 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps<string, Field
       onChange(null)
     }
 
-    const filteredOptions =
-      value && !isAsync
-        ? options.filter(option => option.label?.toLowerCase().includes(value?.toLowerCase()))
-        : options
+    function filterOptions() {
+      const filteredOptions =
+        value && !isAsync
+          ? options.filter(option => option.label?.toLowerCase().includes(value?.toLowerCase()))
+          : options
+
+      return filteredOptions.sort((a, b) => a.label.localeCompare(b.label))
+    }
+
+    const filteredOptions = filterOptions()
 
     const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       const newValue = e.currentTarget.value as string | ''
@@ -117,6 +121,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps<string, Field
 
     return (
       <ComboboxUI
+        immediate={true}
         {...{ disabled, name, onChange }}
         {...comboboxProps}
         as={'div'}
@@ -125,33 +130,28 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps<string, Field
         <Float adaptiveWidth as={'div'} floatingAs={Fragment} placement={'bottom'} portal={portal}>
           <div className={classNames.box}>
             <Label label={label} className={classNames.label}>
-              <ComboboxUI.Button as={'div'} className={s.buttonAsDiv}>
-                <ComboboxUI.Input
-                  className={classNames.input}
-                  displayValue={getDisplayingValue}
-                  onChange={inputChangeHandler}
-                  placeholder={placeholder}
-                  onClick={onInputClick}
-                  value={value || ''}
-                  disabled={disabled}
-                  //todo поправить
-                  onDoubleClick={e => {
-                    const input = e.currentTarget
-                    input.select()
-                  }}
-                  onKeyDown={e => {
-                    if (e.key === 'ArrowDown') {
-                      console.log('Arrow down key pressed')
-                      requestItemOnKeyDown && requestItemOnKeyDown()
-                    }
-                  }}
-                  ref={ref}
-                />
-                {isLoading && <ThreeDotsSpinner spinnerclassName={s.threeDotsSpinner} />}
-                <div className={classNames.button}>
+              <ComboboxUI.Input
+                className={classNames.input}
+                displayValue={getDisplayingValue}
+                onChange={inputChangeHandler}
+                placeholder={placeholder}
+                onClick={onInputClick}
+                value={value || ''}
+                disabled={disabled}
+                onKeyDown={e => {
+                  if (e.key === 'ArrowDown') {
+                    console.log('Arrow down key pressed')
+                    requestItemOnKeyDown && requestItemOnKeyDown()
+                  }
+                }}
+                ref={ref}
+              />
+              {isLoading && <ThreeDotsSpinner spinnerclassName={s.threeDotsSpinner} />}
+              <div className={classNames.button}>
+                <ComboboxUI.Button as={'div'} className={s.buttonAsDiv}>
                   <ArrowIosDownOutline className={classNames.icon} />
-                </div>
-              </ComboboxUI.Button>
+                </ComboboxUI.Button>
+              </div>
             </Label>
             {isClearButtonVisible && (
               <div className={classNames.clearButton} onClick={handleClearButtonClicked}>
