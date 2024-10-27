@@ -1,7 +1,7 @@
 // Label
 .label {
-  cursor: pointer;
   display: block;
+  cursor: pointer;
   font-size: var(--font-size-s);
   color: var(--color-light-900);
 }
@@ -22,7 +22,6 @@
 // Input
 .inputField {
   display: inline-block;
-
   box-sizing: border-box;
   width: 100%;
   height: var(--line-height-l);
@@ -45,8 +44,8 @@
   }
 
   &:focus {
-    background-color: var(--color-dark-500);
     border-color: var(--color-light-100);
+    background-color: var(--color-dark-500);
 
     &::placeholder {
       color: var(--color-light-100);
@@ -59,7 +58,6 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   box-shadow: 0 0 0 1000px black inset;
-
   -webkit-text-fill-color: var(--color-light-100);
 }
 
@@ -70,24 +68,16 @@ input:-webkit-autofill:focus {
 
 // Error Message
 .errorMsg {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-
-  height: 20px;
+  position: absolute;
   margin-top: 2px;
-
   font-size: var(--font-size-xs);
   color: var(--color-danger-500);
-  text-overflow: ellipsis;
 
   visibility: hidden;
-  opacity: 0;
-
   transition:
     visibility 0.3s ease,
     opacity 0.3s ease;
+  opacity: 0;
 
   &.show {
     visibility: visible;
@@ -101,7 +91,6 @@ input:-webkit-autofill:focus {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-
   color: var(--color-light-900);
 }
 
@@ -135,12 +124,10 @@ input:-webkit-autofill:focus {
 // IconPass
 .iconPass {
   cursor: pointer;
-
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-
   color: var(--color-light-100);
 }
 

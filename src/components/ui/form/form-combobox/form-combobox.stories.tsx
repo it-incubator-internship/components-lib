@@ -1,211 +1,168 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { v4 as uuid } from 'uuid'
 
-import {z} from 'zod'
-import {zodResolver} from '@hookform/resolvers/zod'
-import {FormCombobox} from './form-combobox'
-import {Button} from "../../button/button"
-import {useState} from "react";
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormCombobox } from './form-combobox'
+import { useEffect, useState } from 'react'
+import { optionType } from '../../combobox/combobox.stories'
+import { ComboboxOptionProps } from '../../combobox'
+import { Button } from '../../button/button'
 
-const options = [
-    {
-        label: 'Apple',
-        value: 'apple',
+const options1: optionType[] = [
+  {
+    label: 'Apple',
+    value: {
+      id: 1,
+      name: 'Apple',
     },
-    {
-        label: 'Banana',
-        value: 'banana',
+  },
+  {
+    label: 'Banana',
+    value: {
+      name: 'Banana',
+      id: 2,
     },
-    {
-        label: 'Blueberry',
-        value: 'blueberry',
+  },
+  {
+    label: 'Blueberry',
+    value: {
+      name: 'Blueberry',
+      id: 3,
     },
-    {
-        label: 'Grapes',
-        value: 'grapes',
-    },
-    {
-        label: 'Pineapple',
-        value: 'pineapple',
-    },
-    {
-        label: 'Cherry',
-        value: 'cherry',
-    },
-    {
-        label: 'Grapefruit',
-        value: 'grapefruit',
-    },
-    {
-        label: 'Lemon',
-        value: 'lemon',
-    },
-    {
-        label: 'Mango',
-        value: 'mango',
-    },
-    {
-        label: 'Apple',
-        value: 'apple',
-    },
-    {
-        label: 'Banana',
-        value: 'banana',
-    },
-    {
-        label: 'Blueberry',
-        value: 'blueberry',
-    },
-    {
-        label: 'Grapes',
-        value: 'grapes',
-    },
-    {
-        label: 'Pineapple',
-        value: 'pineapple',
-    },
-    {
-        label: 'Cherry',
-        value: 'cherry',
-    },
-    {
-        label: 'Grapefruit',
-        value: 'grapefruit',
-    },
-    {
-        label: 'Lemon',
-        value: 'lemon',
-    },
-    {
-        label: 'Mango',
-        value: 'mango',
-    },
+  },
 ]
 
-const options2 = [
-    {
-        label: 'Apple',
-        value: 'apple',
+const options2: optionType[] = [
+  {
+    label: 'Banana',
+    value: {
+      name: 'Banana',
+      id: 2,
     },
-    {
-        label: 'Banana',
-        value: 'banana',
+  },
+  {
+    label: 'Blueberry',
+    value: {
+      name: 'Blueberry',
+      id: 3,
     },
-    {
-        label: 'Blueberry',
-        value: 'blueberry',
+  },
+  {
+    label: 'Apple',
+    value: {
+      id: 1,
+      name: 'Apple',
     },
-    {
-        label: 'Grapes',
-        value: 'grapes',
-    },
-    {
-        label: 'Pineapple',
-        value: 'pineapple',
-    },
-    {
-        label: 'Cherry',
-        value: 'cherry',
-    },
-    {
-        label: 'Grapefruit',
-        value: 'grapefruit',
-    },
-    {
-        label: 'Lemon',
-        value: 'lemon',
-    },
-    {
-        label: 'Mango',
-        value: 'mango',
-    },
-    {
-        label: 'Apple',
-        value: 'apple',
-    },
-    {
-        label: 'Banana',
-        value: 'banana',
-    },
-    {
-        label: 'Blueberry',
-        value: 'blueberry',
-    },
-    {
-        label: 'Grapes',
-        value: 'grapes',
-    },
-    {
-        label: 'Pineapple',
-        value: 'pineapple',
-    },
-    {
-        label: 'Cherry',
-        value: 'cherry',
-    },
-    {
-        label: 'Grapefruit',
-        value: 'grapefruit',
-    },
-    {
-        label: 'Lemon',
-        value: 'lemon',
-    },
-    {
-        label: 'Mango',
-        value: 'mango',
-    },
+  },
 ]
 
 const FakeForm = () => {
+  const [countriesValues, setCountriesValues] = useState<optionType[]>(options1)
 
-    const [valueCountry, setValueCountry] = useState<string | number | null>(null)
-    const [inputValueCountry, setInputValueCountry] = useState('')
+  const [citiesValues, setCitiesValues] = useState<optionType[] | null>(options2)
 
-    const [valueCity, setValueCity] = useState<string | number | null>(null)
-    const [inputValueCity, setInputValueCity] = useState('')
+  const [dataForCountry, setGetDataForCountry] = useState<ComboboxOptionProps<string> | null>(null)
 
-    const FormSchema = z.object({
-        country: z.string({message: 'This field is required'}),
-        city: z.string({message: 'This field is required'}),
-    })
-    type FormValues = z.infer<typeof FormSchema>
+  const [dataForCity, setGetDataForCity] = useState<ComboboxOptionProps<string> | null>(null)
 
-    const {control, handleSubmit} = useForm<FormValues>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {},
-    })
+  const FormSchema = z.object({
+    country: z.string({ message: 'This field is required' }),
+    city: z.string({ message: 'This field is required' }),
+  })
+  type FormValues = z.infer<typeof FormSchema>
 
-    const handleSubmitHandler = (data: FormValues) => {
-        console.log(data)
+  const { reset, setValue, control, handleSubmit, watch } = useForm<FormValues>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {},
+  })
+  
+  const countryValue = watch('country')
+
+  useEffect(() => {
+    if (!countryValue) {
+      setValue('city', '') // Очистка значения city
+      setCitiesValues(null) // Также очищаем список городов, если необходимо
     }
+  }, [countryValue, setValue])
 
-    return (
-        <>
-            <h2 style={{margin: '10px 180px'}}>Form</h2>
-            <form onSubmit={handleSubmit(handleSubmitHandler)}>
-                <FormCombobox
-                    value={valueCountry}
-                    inputValue={inputValueCountry} control={control} name={'country'} options={options} onChange={setValueCountry}
-                              onInputChange={setInputValueCountry}/>
-                <FormCombobox value={valueCity} inputValue={inputValueCity} control={control} name={'city'} options={options2} onChange={setValueCity}
-                              onInputChange={setInputValueCity}/>
-                <Button>Submit</Button>
-            </form>
-        </>
-    )
+
+  useEffect(() => {
+    reset({
+      country: undefined,
+      city: undefined,
+    })
+  }, [])
+
+  const handleSubmitHandler = (data: FormValues) => {
+    console.log(data)
+  }
+
+  function addRandnomValues() {
+    options1.length = 0
+    options2.length = 0
+    options1.push(...pusharrayhandler())
+    options2.push(...pusharrayhandler())
+  }
+
+  addRandnomValues()
+
+  function pusharrayhandler() {
+    return new Array<optionType>(80)
+      .fill({ label: '', value: { id: 0, name: '' } })
+      .map((_, index) => {
+        const guid = uuid()
+        return { label: guid, value: { id: index, name: guid } }
+      })
+  }
+
+  const h2Styles: React.CSSProperties = { textAlign: 'center' }
+  const formStyles = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '10px',
+  }
+
+  return (
+    <>
+      <h2 style={h2Styles}>Form</h2>
+      <form style={formStyles} onSubmit={handleSubmit(handleSubmitHandler)}>
+        <FormCombobox
+          control={control}
+          name={'country'}
+          options={options1}
+          onInputClick={() => {}}
+          getDataForCombobox={setGetDataForCountry}
+          setValue={value => setValue('country', value)}
+          isLoading={false}
+        />
+        <FormCombobox
+          control={control}
+          name={'city'}
+          options={options2}
+          onInputClick={() => {}}
+          getDataForCombobox={setGetDataForCity}
+          setValue={value => setValue('city', value)}
+          disabled={!countryValue}
+          isLoading={false}
+        />
+        <Button type={'submit'}>submit</Button>
+      </form>
+    </>
+  )
 }
 
 const meta = {
-    component: FakeForm,
-    tags: ['autodocs'],
-    title: 'Form/FormCombobox',
+  component: FakeForm,
+  tags: ['autodocs'],
+  title: 'Form/FormCombobox',
 } satisfies Meta<typeof FakeForm>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Form: Story = {
-    args: {},
+  args: {},
 }
