@@ -132,21 +132,25 @@ const FakeForm = () => {
         <FormCombobox
           control={control}
           name={'country'}
+          label={'Country'}
           options={options1}
           onInputClick={() => {}}
           getDataForCombobox={setGetDataForCountry}
           setValue={value => setValue('country', value)}
           isLoading={false}
+          markedAsRequired
         />
         <FormCombobox
           control={control}
           name={'city'}
+          label={'City'}
           options={options2}
           onInputClick={() => {}}
           getDataForCombobox={setGetDataForCity}
           setValue={value => setValue('city', value)}
           disabled={!countryValue}
           isLoading={false}
+          markedAsRequired
         />
         <Button type={'submit'}>submit</Button>
       </form>
