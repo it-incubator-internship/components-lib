@@ -51,27 +51,31 @@ export default function ComboBox({ options }: ComboboxProps) {
             overflowY: 'auto',
           }}
         >
-          {options
-            .filter(item => item.toLowerCase().includes(inputValue.toLowerCase()))
-            .map(item => (
-              <div
-                key={item}
-                onClick={() => {
-                  setInputValue(item)
-                  setOpen(false)
-                }}
-                style={{
-                  padding: '8px',
-                  cursor: 'pointer',
-                  borderBottom: '1px solid #f0f0f0',
-                }}
-              >
-                {item}
-              </div>
-            ))}
+          {options?.length > 0 ? (
+            options
+              .filter(item => item.toLowerCase().includes(inputValue.toLowerCase()))
+              .map(item => (
+                <div
+                  key={item}
+                  onClick={() => {
+                    setInputValue(item)
+                    setOpen(false)
+                  }}
+                  style={{
+                    padding: '8px',
+                    cursor: 'pointer',
+                    borderBottom: '1px solid #f0f0f0',
+                  }}
+                >
+                  {item}
+                </div>
+              ))
+          ) : (
+            <div style={{ padding: '8px', color: '#999' }}>No options found</div>
+          )}
 
-          {options.filter(item => item.toLowerCase().includes(inputValue.toLowerCase())).length ===
-            0 && <div style={{ padding: '8px', color: '#999' }}>No options found</div>}
+          {/*{options.filter(item => item.toLowerCase().includes(inputValue.toLowerCase())).length ===*/}
+          {/*  0 && <div style={{ padding: '8px', color: '#999' }}>No options found</div>}*/}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
