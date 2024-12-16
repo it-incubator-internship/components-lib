@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as Popover from '@radix-ui/react-popover'
-import {cn} from "@/components/ui/shadcn/combobox/cn";
+import { cn } from '@/components/ui/shadcn/combobox/cn'
+import {Command, CommandGroup} from 'cmdk'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
@@ -25,16 +26,18 @@ export default function ComboBox({ options }: ComboboxProps) {
             setInputValue(e.target.value)
             setOpen(true)
           }}
-          className={cn('w-[200px] p-2 rounded cursor-text border-[1px] border-solid border-[#ccc]',
-              )}
+          className={cn(
+            'w-[200px] p-2 rounded cursor-text border-[1px] border-solid border-[#ccc]'
+          )}
         />
       </Popover.Trigger>
       <Popover.Portal forceMount>
         <Popover.Content
-            className={cn(
-                open ? `opacity-100 transition-all duration-500 visible` : `opacity-0 transition-all duration-500 invisible`,
-
-            )}
+          className={cn(
+            open
+              ? `opacity-100 transition-all duration-500 visible`
+              : `opacity-0 transition-all duration-500 invisible`
+          )}
           onOpenAutoFocus={e => e.preventDefault()}
           side="bottom"
           align="start"
