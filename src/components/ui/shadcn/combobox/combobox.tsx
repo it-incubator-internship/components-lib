@@ -73,9 +73,6 @@ export default function ComboBox({ options }: ComboboxProps) {
           ) : (
             <div style={{ padding: '8px', color: '#999' }}>No options found</div>
           )}
-
-          {/*{options.filter(item => item.toLowerCase().includes(inputValue.toLowerCase())).length ===*/}
-          {/*  0 && <div style={{ padding: '8px', color: '#999' }}>No options found</div>}*/}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
