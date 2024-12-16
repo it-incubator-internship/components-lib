@@ -29,8 +29,12 @@ export default function ComboBox({ options }: ComboboxProps) {
               )}
         />
       </Popover.Trigger>
-      <Popover.Portal>
+      <Popover.Portal forceMount>
         <Popover.Content
+            className={cn(
+                open ? `opacity-100 transition-all duration-500 visible` : `opacity-0 transition-all duration-500 invisible`,
+
+            )}
           onOpenAutoFocus={e => e.preventDefault()}
           side="bottom"
           align="start"
