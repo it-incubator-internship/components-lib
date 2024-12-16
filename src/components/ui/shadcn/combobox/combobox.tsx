@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as Popover from '@radix-ui/react-popover'
+import {cn} from "@/components/ui/shadcn/combobox/cn";
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
@@ -12,10 +13,9 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
 export default function ComboBox({ options }: ComboboxProps) {
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false)
-  const [modal, setModal] = useState(false)
 
   return (
-    <Popover.Root open={open} onOpenChange={setOpen} modal={modal}>
+    <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
         <input
           type="text"
@@ -25,14 +25,8 @@ export default function ComboBox({ options }: ComboboxProps) {
             setInputValue(e.target.value)
             setOpen(true)
           }}
-          style={{
-            width: '200px',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            boxSizing: 'border-box',
-            cursor: 'text',
-          }}
+          className={cn('w-[200px] p-2 rounded cursor-text border-[1px] border-solid border-[#ccc]',
+              )}
         />
       </Popover.Trigger>
       <Popover.Portal>
