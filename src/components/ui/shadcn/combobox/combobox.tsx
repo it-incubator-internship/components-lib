@@ -16,7 +16,7 @@ export default function ComboBox({ options }: ComboboxProps) {
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
   const [currentOptions, setCurrentOptions] = useState<string[]>(options)
-  const [textWasTyped, setTextWasTyped] = useState<boolean>(false)
+  const [filterRequired, setfilterRequired] = useState<boolean>(false)
 
   useEffect(() => {
     if (selectedIndex >= 0) {
@@ -38,11 +38,11 @@ export default function ComboBox({ options }: ComboboxProps) {
   }, [inputValue])
 
   useEffect(() => {
-    if (textWasTyped) {
+    if (filterRequired) {
       filterOptions()
-      setTextWasTyped(false)
+      setfilterRequired(false)
     }
-  }, [textWasTyped])
+  }, [filterRequired])
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -95,7 +95,7 @@ export default function ComboBox({ options }: ComboboxProps) {
       } else if (currentOptions.length > 0 && inputValue) {
         setSelectedIndex(0)
       }
-      setTextWasTyped(true)
+      setfilterRequired(true)
       setOpen(prevValue => !prevValue)
     }
   }
@@ -111,7 +111,7 @@ export default function ComboBox({ options }: ComboboxProps) {
           onChange={e => {
             setInputValue(e.currentTarget.value)
             setOpen(true)
-            setTextWasTyped(true)
+            setfilterRequired(true)
           }}
           onKeyDown={handleKeyDown}
           className={cn(
@@ -138,7 +138,7 @@ export default function ComboBox({ options }: ComboboxProps) {
                   setOpen(false)
                   setSelectedIndex(index)
                   inputRef.current?.focus()
-                  setTextWasTyped(true)
+                  setfilterRequired(true)
                 }}
                 style={{
                   padding: '8px',
