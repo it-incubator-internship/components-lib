@@ -55,8 +55,8 @@ export default function ComboBox({ options }: ComboboxProps) {
       setSelectedIndex(-1)
     }
   }
-
-  console.log(' selectedIndex: ', selectedIndex)
+  console.log(' inputValue: ', inputValue);
+  // console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
