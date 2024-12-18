@@ -34,22 +34,25 @@ export default function ComboBox({ options }: ComboboxProps) {
       setCurrentOptions(options)
       setSelectedIndex(-1)
     }
+    filterOptions()
   }, [inputValue])
 
   const filterOptions = () => {
-    setCurrentOptions(options.filter(item => item.toLowerCase().includes(inputValue.toLowerCase())))
+    const filteredOptions = options.filter(item => item.toLowerCase().includes(inputValue.toLowerCase()))
+    setCurrentOptions(filteredOptions)
     if (!inputValue) {
       setSelectedIndex(-1)
     }
   }
 
-  console.log(' selectedIndex: ', selectedIndex)
+  // console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
 
       if (!open) {
         setOpen(true)
+        return
       }
 
       setSelectedIndex(prevIndex => {
@@ -62,16 +65,24 @@ export default function ComboBox({ options }: ComboboxProps) {
 
     if (e.key === 'ArrowUp') {
       e.preventDefault()
+
+      if (!open) {
+        setOpen(true)
+        return
+      }
+
       setSelectedIndex(prevIndex => {
         return Math.max(-1, prevIndex - 1)
       })
     }
 
-    if (e.key === 'Enter' && selectedIndex >= -1) {
+    if (e.key === 'Enter') {
       e.preventDefault()
       const selectedOption = currentOptions[selectedIndex]
       if (selectedOption) {
         setInputValue(selectedOption)
+      } else if (currentOptions.length > 0) {
+        setSelectedIndex(0)
       }
       setOpen(prevValue => !prevValue)
     }
@@ -87,7 +98,6 @@ export default function ComboBox({ options }: ComboboxProps) {
           onChange={e => {
             setInputValue(e.currentTarget.value)
             setOpen(true)
-            filterOptions()
           }}
           onKeyDown={handleKeyDown}
           className={cn(
@@ -109,10 +119,6 @@ export default function ComboBox({ options }: ComboboxProps) {
             currentOptions.map((item, index) => (
               <div
                 key={item}
-                onSelect={() => {
-                  setInputValue(item)
-                  setOpen(false)
-                }}
                 onClick={() => {
                   setInputValue(item)
                   setOpen(false)
