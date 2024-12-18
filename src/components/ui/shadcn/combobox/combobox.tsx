@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, useEffect } from 'react'
+import React, { useState, KeyboardEvent, useEffect, useRef } from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as Popover from '@radix-ui/react-popover'
@@ -25,7 +25,7 @@ export default function ComboBox({ options }: ComboboxProps) {
       }
     } else {
       setInputValue('')
-      setOpen(false)
+      // setOpen(false)
     }
   }, [selectedIndex])
 
@@ -37,15 +37,19 @@ export default function ComboBox({ options }: ComboboxProps) {
     filterOptions()
   }, [inputValue])
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const filterOptions = () => {
-    const filteredOptions = options.filter(item => item.toLowerCase().includes(inputValue.toLowerCase()))
+    const filteredOptions = options.filter(item =>
+      item.toLowerCase().includes(inputValue.toLowerCase())
+    )
     setCurrentOptions(filteredOptions)
     if (!inputValue) {
       setSelectedIndex(-1)
     }
   }
 
-  // console.log(' selectedIndex: ', selectedIndex)
+  console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -92,6 +96,7 @@ export default function ComboBox({ options }: ComboboxProps) {
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
         <input
+          ref={inputRef}
           type="text"
           placeholder="Select an option..."
           value={inputValue}
@@ -123,6 +128,7 @@ export default function ComboBox({ options }: ComboboxProps) {
                   setInputValue(item)
                   setOpen(false)
                   setSelectedIndex(index)
+                  inputRef.current?.focus()
                 }}
                 style={{
                   padding: '8px',
