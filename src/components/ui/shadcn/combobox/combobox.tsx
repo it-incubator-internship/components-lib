@@ -38,11 +38,11 @@ export default function ComboBox({ options }: ComboboxProps) {
   }, [inputValue])
 
   useEffect(() => {
-    if(textWasTyped){
+    if (textWasTyped) {
       filterOptions()
       setTextWasTyped(false)
     }
-  }, [textWasTyped]);
+  }, [textWasTyped])
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -95,6 +95,7 @@ export default function ComboBox({ options }: ComboboxProps) {
       } else if (currentOptions.length > 0 && inputValue) {
         setSelectedIndex(0)
       }
+      setTextWasTyped(true)
       setOpen(prevValue => !prevValue)
     }
   }
@@ -137,6 +138,7 @@ export default function ComboBox({ options }: ComboboxProps) {
                   setOpen(false)
                   setSelectedIndex(index)
                   inputRef.current?.focus()
+                  setTextWasTyped(true)
                 }}
                 style={{
                   padding: '8px',
