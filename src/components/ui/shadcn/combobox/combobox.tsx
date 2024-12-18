@@ -16,6 +16,7 @@ export default function ComboBox({ options }: ComboboxProps) {
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
   const [currentOptions, setCurrentOptions] = useState<string[]>(options)
+  const [textWasTyped, setTextWasTyped] = useState<boolean>(false)
 
   useEffect(() => {
     if (selectedIndex >= 0) {
@@ -34,8 +35,14 @@ export default function ComboBox({ options }: ComboboxProps) {
       setCurrentOptions(options)
       setSelectedIndex(-1)
     }
-    filterOptions()
   }, [inputValue])
+
+  useEffect(() => {
+    if(textWasTyped){
+      filterOptions()
+      setTextWasTyped(false)
+    }
+  }, [textWasTyped]);
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -85,7 +92,7 @@ export default function ComboBox({ options }: ComboboxProps) {
       const selectedOption = currentOptions[selectedIndex]
       if (selectedOption) {
         setInputValue(selectedOption)
-      } else if (currentOptions.length > 0) {
+      } else if (currentOptions.length > 0 && inputValue) {
         setSelectedIndex(0)
       }
       setOpen(prevValue => !prevValue)
@@ -103,6 +110,7 @@ export default function ComboBox({ options }: ComboboxProps) {
           onChange={e => {
             setInputValue(e.currentTarget.value)
             setOpen(true)
+            setTextWasTyped(true)
           }}
           onKeyDown={handleKeyDown}
           className={cn(
