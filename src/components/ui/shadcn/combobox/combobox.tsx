@@ -119,21 +119,25 @@ export default function ComboBox({ options }: ComboboxProps) {
             }}
             onKeyDown={handleKeyDown}
             className={cn(
-              `w-[210px] p-2 rounded cursor-text border-[1px] border-solid border-[#ccc]`
+              `w-[210px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`
             )}
           />
-          {inputValue && (
+          {/*inputValue &&*/ (
             <Button
               variant="ghost"
               className={cn(
-                `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+                `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`,
               )}
               onClick={() => {
                 setInputValue('')
                 setOpen(false)
               }}
             >
-              <Close className={cn(`!m-0`)} />
+              <Close className={cn(`!m-0`,
+                  inputValue
+                      ? `opacity-100 transition-all duration-1000 visible`
+                      : `opacity-0 transition-all duration-500 invisible`,
+              )} />
             </Button>
           )}
           <Button
@@ -141,14 +145,10 @@ export default function ComboBox({ options }: ComboboxProps) {
             className={cn(
               `!top-[8px] !right-[0] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
             )}
-            // onClick={() => {
-            //   setInputValue('')
-            //   setOpen(false)
-            // }}
           >
-            <ArrowIosDownOutline className={cn(`!m-0`,
-                open ? `rotate-180 duration-300` : 'duration-300'
-                )} />
+            <ArrowIosDownOutline
+              className={cn(`!m-0`, open ? `rotate-180 duration-300` : 'duration-300')}
+            />
           </Button>
         </div>
       </Popover.Trigger>
@@ -158,7 +158,8 @@ export default function ComboBox({ options }: ComboboxProps) {
             open
               ? `opacity-100 transition-all duration-500 visible`
               : `opacity-0 transition-all duration-500 invisible`,
-            'bg-white border-[1px] border-solid border-[#ccc] rounded w-[210px] max-h-[150px] overflow-y-auto'
+            'bg-white border-[1px] border-solid border-[#ccc]',
+              `rounded w-[210px] max-h-[150px] overflow-y-auto`,
           )}
           onOpenAutoFocus={e => e.preventDefault()}
         >
@@ -173,6 +174,9 @@ export default function ComboBox({ options }: ComboboxProps) {
                   inputRef.current?.focus()
                   setfilterRequired(true)
                 }}
+                className={cn(`hover:bg-theme-accent-900`,
+                    selectedIndex === index ? 'bg-success-700' : ''
+                )}
                 style={{
                   padding: '8px',
                   cursor: 'pointer',
