@@ -3,6 +3,9 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import * as Popover from '@radix-ui/react-popover'
 import { cn } from '@/components/ui/shadcn/combobox/cn'
+import { Button } from '@/components/ui'
+import Close from '@/assets/components/Close'
+import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
@@ -55,7 +58,7 @@ export default function ComboBox({ options }: ComboboxProps) {
       setSelectedIndex(-1)
     }
   }
-  console.log(' inputValue: ', inputValue);
+  // console.log(' inputValue: ', inputValue)
   // console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
@@ -103,21 +106,51 @@ export default function ComboBox({ options }: ComboboxProps) {
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
-        <input
-          ref={inputRef}
-          type="text"
-          placeholder="Select an option..."
-          value={inputValue}
-          onChange={e => {
-            setInputValue(e.currentTarget.value)
-            setOpen(true)
-            setfilterRequired(true)
-          }}
-          onKeyDown={handleKeyDown}
-          className={cn(
-            'w-[200px] p-2 rounded cursor-text border-[1px] border-solid border-[#ccc]'
+        <div className={cn(`relative w-[210px]`)}>
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Select an option..."
+            value={inputValue}
+            onChange={e => {
+              setInputValue(e.currentTarget.value)
+              setOpen(true)
+              setfilterRequired(true)
+            }}
+            onKeyDown={handleKeyDown}
+            className={cn(
+              `w-[210px] p-2 rounded cursor-text border-[1px] border-solid border-[#ccc]`
+            )}
+          />
+          {inputValue && (
+            <Button
+              variant="ghost"
+              className={cn(
+                `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+              )}
+              onClick={() => {
+                setInputValue('')
+                setOpen(false)
+              }}
+            >
+              <Close className={cn(`!m-0`)} />
+            </Button>
           )}
-        />
+          <Button
+            variant="ghost"
+            className={cn(
+              `!top-[8px] !right-[0] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+            )}
+            // onClick={() => {
+            //   setInputValue('')
+            //   setOpen(false)
+            // }}
+          >
+            <ArrowIosDownOutline className={cn(`!m-0`,
+                open ? `rotate-180 duration-300` : 'duration-300'
+                )} />
+          </Button>
+        </div>
       </Popover.Trigger>
       <Popover.Portal forceMount>
         <Popover.Content
@@ -125,7 +158,7 @@ export default function ComboBox({ options }: ComboboxProps) {
             open
               ? `opacity-100 transition-all duration-500 visible`
               : `opacity-0 transition-all duration-500 invisible`,
-            'bg-white border-[1px] border-solid border-[#ccc] rounded w-[200px] max-h-[150px] overflow-y-auto'
+            'bg-white border-[1px] border-solid border-[#ccc] rounded w-[210px] max-h-[150px] overflow-y-auto'
           )}
           onOpenAutoFocus={e => e.preventDefault()}
         >
