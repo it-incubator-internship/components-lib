@@ -16,12 +16,12 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
 }
 
 export default function ComboBox({ options, parentClassName }: ComboboxProps) {
-  const [inputValue, setInputValue] = useState<string>('')
+  const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
   const [currentOptions, setCurrentOptions] = useState<string[]>(options)
-  const [filterRequired, setfilterRequired] = useState<boolean>(false)
+  const [filterRequired, setFilterRequired] = useState<boolean>(false)
 
   useEffect(() => {
     if (selectedIndex >= 0) {
@@ -30,7 +30,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
         setInputValue(selectedOption)
       }
     } else {
-      setInputValue('')
+      setInputValue(undefined)
       // setOpen(false)
     }
   }, [selectedIndex])
@@ -45,7 +45,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
   useEffect(() => {
     if (filterRequired) {
       filterOptions()
-      setfilterRequired(false)
+      setFilterRequired(false)
     }
   }, [filterRequired])
 
@@ -53,7 +53,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
 
   const filterOptions = () => {
     const filteredOptions = options.filter(item =>
-      item.toLowerCase().includes(inputValue.toLowerCase())
+      item.toLowerCase().includes(inputValue?.toLowerCase() ?? '')
     )
     setCurrentOptions(filteredOptions)
     if (!inputValue) {
@@ -61,7 +61,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
     }
   }
   // console.log(' inputValue: ', inputValue)
-  // console.log(' selectedIndex: ', selectedIndex)
+  console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -72,7 +72,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       }
 
       setSelectedIndex(prevIndex => {
-        if (prevIndex + 1 === currentOptions.length) {
+        if (prevIndex + 1 >= currentOptions.length) {
           return 0
         }
         return prevIndex + 1
@@ -100,7 +100,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       } else if (currentOptions.length > 0 && inputValue) {
         setSelectedIndex(0)
       }
-      setfilterRequired(true)
+      setFilterRequired(true)
       setOpen(prevValue => !prevValue)
     }
   }
@@ -113,11 +113,11 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
             ref={inputRef}
             type="text"
             placeholder="Select an option..."
-            value={inputValue}
+            value={inputValue ?? ''}
             onChange={e => {
               setInputValue(e.currentTarget.value)
               setOpen(true)
-              setfilterRequired(true)
+              setFilterRequired(true)
             }}
             onKeyDown={handleKeyDown}
             className={cn(
@@ -131,7 +131,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
                 `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
               )}
               onClick={() => {
-                setInputValue('')
+                setInputValue(undefined)
                 setOpen(false)
                 inputRef.current?.focus()
               }}
@@ -178,7 +178,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
                   setOpen(false)
                   setSelectedIndex(index)
                   inputRef.current?.focus()
-                  setfilterRequired(true)
+                  setFilterRequired(true)
                 }}
                 className={cn(
                   `hover:bg-theme-accent-900`,
