@@ -31,7 +31,6 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       }
     } else {
       setInputValue(undefined)
-      // setOpen(false)
     }
   }, [selectedIndex])
 
@@ -59,8 +58,8 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
     }
   }
   // console.log(' inputValue: ', inputValue)
-  console.log(' filterRequired: ', filterRequired)
-  console.log(' selectedIndex: ', selectedIndex)
+  // console.log(' filterRequired: ', filterRequired)
+  // console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -91,7 +90,6 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
           return currentOptions.length - 1
         }
         return prevIndex - 1
-        // return Math.max(-1, prevIndex - 1)
       })
     }
 
@@ -128,7 +126,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
             )}
           />
           {
-            /*inputValue &&*/ <Button
+            <Button
               variant="ghost"
               className={cn(
                 `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
