@@ -56,12 +56,10 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
 
     if (!inputValue) {
       setSelectedIndex(-1)
-    } else {
-      setSelectedIndex(0)
     }
   }
   console.log(' inputValue: ', inputValue)
-  // console.log(' filterRequired: ', filterRequired)
+  console.log(' currentOptions: ', currentOptions)
   console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
@@ -101,7 +99,10 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       const selectedOption = currentOptions[selectedIndex]
       if (selectedOption) {
         setInputValue(selectedOption)
-      } else if (currentOptions.length > 0 && inputValue) {
+      } else if (
+        currentOptions.length > 0 &&
+        currentOptions[0]?.toLowerCase().includes(inputValue?.toLowerCase() as string)
+      ) {
         setSelectedIndex(0)
       }
       setFilterRequired(true)
@@ -120,7 +121,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
             value={inputValue ?? ''}
             onChange={e => {
               setInputValue(e.currentTarget.value)
-              setOpen(true)
+              !open && setOpen(true)
               setFilterRequired(true)
             }}
             onKeyDown={handleKeyDown}
@@ -180,7 +181,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
                 onClick={() => {
                   setInputValue(item)
                   setOpen(false)
-                  setSelectedIndex(index)
+                  setSelectedIndex(0)
                   inputRef.current?.focus()
                   setFilterRequired(true)
                 }}
