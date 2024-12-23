@@ -1,6 +1,6 @@
 import ComboBox from './combobox'
 import { Meta, StoryObj } from '@storybook/react'
-import { useForm } from 'react-hook-form'
+import {useForm, UseFormReturn} from 'react-hook-form'
 
 const meta = {
   component: ComboBox,
@@ -10,7 +10,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-type FormTypes = {
+export type FormTypes = {
   country: string
   // city: string
 }
@@ -18,19 +18,21 @@ type FormTypes = {
 export const Primary = {
   args: {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
+    useFormObj: {} as  UseFormReturn<FormTypes, unknown, undefined>
   },
   render: args => {
-    const { handleSubmit, register } = useForm<FormTypes>()
+    const useFormObj = useForm<FormTypes>()
+    const { handleSubmit } = useFormObj
     const onSubmit = handleSubmit(data => {
       console.log(' data: ', data)
     })
-    console.log(' register: ', register("country"));
+
     return (
       <div className={`h-screen grid place-items-center `}>
         <div className={`text-center`}>
           <div className={`p-2`}>select element 1 and element 2</div>
           <form onSubmit={onSubmit} className={`flex flex-col text-center items-center`}>
-            <ComboBox {...args} parentClassName={`mb-3.5`} />
+            <ComboBox {...args} useFormObj={ useFormObj} parentClassName={`mb-3.5`} />
 
             {/*<label htmlFor="email">email</label>*/}
             {/*<input*/}

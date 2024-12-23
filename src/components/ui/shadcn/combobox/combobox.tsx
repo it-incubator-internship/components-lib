@@ -6,18 +6,22 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
+import { FormTypes } from '@/components/ui/shadcn/combobox/combobox.stories'
+import { UseFormReturn } from 'react-hook-form'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   asChild?: boolean
   options: string[]
   parentClassName?: string
+  // ???
+  useFormObj: UseFormReturn<FormTypes, unknown, undefined>
   // elementClassName?: string
 }
 /*
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=7165
  */
-export default function ComboBox({ options, parentClassName }: ComboboxProps) {
+export default function ComboBox({ options, parentClassName, useFormObj }: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
 
@@ -111,7 +115,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       setOpen(prevValue => !prevValue)
     }
   }
-
+  const { register } = useFormObj
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
