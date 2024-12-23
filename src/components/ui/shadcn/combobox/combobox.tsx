@@ -53,13 +53,16 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       item.toLowerCase().includes(inputValue?.toLowerCase() ?? '')
     )
     setCurrentOptions(filteredOptions)
+
     if (!inputValue) {
       setSelectedIndex(-1)
+    } else {
+      setSelectedIndex(0)
     }
   }
-  // console.log(' inputValue: ', inputValue)
+  console.log(' inputValue: ', inputValue)
   // console.log(' filterRequired: ', filterRequired)
-  // console.log(' selectedIndex: ', selectedIndex)
+  console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()

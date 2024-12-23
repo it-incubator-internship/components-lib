@@ -10,21 +10,28 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
+type FormTypes = {
+  country: string
+  // city: string
+}
+
 export const Primary = {
   args: {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
   },
   render: args => {
-    const { handleSubmit, register } = useForm()
+    const { handleSubmit, register } = useForm<FormTypes>()
     const onSubmit = handleSubmit(data => {
       console.log(' data: ', data)
     })
+    console.log(' register: ', register("country"));
     return (
       <div className={`h-screen grid place-items-center `}>
         <div className={`text-center`}>
           <div className={`p-2`}>select element 1 and element 2</div>
           <form onSubmit={onSubmit} className={`flex flex-col text-center items-center`}>
-            <ComboBox {...args} parentClassName={`mb-3.5`} />
+            <ComboBox {...args} {...register("country")} parentClassName={`mb-3.5`} />
+
             {/*<label htmlFor="email">email</label>*/}
             {/*<input*/}
             {/*    id="email"*/}
