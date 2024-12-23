@@ -30,7 +30,7 @@ export const Primary = {
         <div className={`text-center`}>
           <div className={`p-2`}>select element 1 and element 2</div>
           <form onSubmit={onSubmit} className={`flex flex-col text-center items-center`}>
-            <ComboBox {...args} {...register("country")} parentClassName={`mb-3.5`} />
+            <ComboBox {...args} parentClassName={`mb-3.5`} />
 
             {/*<label htmlFor="email">email</label>*/}
             {/*<input*/}

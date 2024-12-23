@@ -14,7 +14,9 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   parentClassName?: string
   // elementClassName?: string
 }
-
+/*
+https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=7165
+ */
 export default function ComboBox({ options, parentClassName }: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
