@@ -16,7 +16,7 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
 }
 
 export default function ComboBox({ options, parentClassName }: ComboboxProps) {
-  const [inputValue, setInputValue] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
@@ -133,6 +133,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
               onClick={() => {
                 setInputValue('')
                 setOpen(false)
+                inputRef.current?.focus()
               }}
             >
               <Close
