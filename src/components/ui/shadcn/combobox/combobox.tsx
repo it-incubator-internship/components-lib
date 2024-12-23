@@ -11,10 +11,12 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   asChild?: boolean
   options: string[]
+  parentClassName?: string
+  // elementClassName?: string
 }
 
-export default function ComboBox({ options }: ComboboxProps) {
-  const [inputValue, setInputValue] = useState<string>('')
+export default function ComboBox({ options, parentClassName }: ComboboxProps) {
+  const [inputValue, setInputValue] = useState<string | null>(null)
   const [open, setOpen] = useState<boolean>(false)
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
@@ -106,7 +108,7 @@ export default function ComboBox({ options }: ComboboxProps) {
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
-        <div className={cn(`relative w-[210px]`)}>
+        <div className={cn(`relative w-[210px]`, parentClassName)}>
           <input
             ref={inputRef}
             type="text"
