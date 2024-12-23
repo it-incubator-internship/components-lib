@@ -42,16 +42,14 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
     }
   }, [inputValue])
 
-  useEffect(() => {
-    if (filterRequired) {
-      filterOptions()
-      setFilterRequired(false)
-    }
-  }, [filterRequired])
-
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const filterOptions = () => {
+  if (filterRequired) {
+    filterOptions()
+    setFilterRequired(false)
+  }
+
+  function filterOptions() {
     const filteredOptions = options.filter(item =>
       item.toLowerCase().includes(inputValue?.toLowerCase() ?? '')
     )
@@ -61,6 +59,7 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
     }
   }
   // console.log(' inputValue: ', inputValue)
+  console.log(' filterRequired: ', filterRequired)
   console.log(' selectedIndex: ', selectedIndex)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
@@ -88,7 +87,11 @@ export default function ComboBox({ options, parentClassName }: ComboboxProps) {
       }
 
       setSelectedIndex(prevIndex => {
-        return Math.max(-1, prevIndex - 1)
+        if (prevIndex - 1 <= -1) {
+          return currentOptions.length - 1
+        }
+        return prevIndex - 1
+        // return Math.max(-1, prevIndex - 1)
       })
     }
 
