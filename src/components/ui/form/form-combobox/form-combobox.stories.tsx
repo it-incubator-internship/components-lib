@@ -72,14 +72,16 @@ const FakeForm = () => {
     country: z.string({ message: 'This field is required' }),
     city: z.string({ message: 'This field is required' }),
   })
+
   type FormValues = z.infer<typeof FormSchema>
 
   const { reset, setValue,
-    control, handleSubmit, watch } = useForm<FormValues>({
+    control, handleSubmit,
+    watch } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {},
   })
-  
+
   const countryValue = watch('country')
 
   useEffect(() => {
@@ -88,7 +90,6 @@ const FakeForm = () => {
       setCitiesValues(null) // Также очищаем список городов, если необходимо
     }
   }, [countryValue, setValue])
-
 
   useEffect(() => {
     reset({

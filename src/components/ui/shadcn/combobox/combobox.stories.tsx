@@ -1,6 +1,8 @@
 import ComboBox from './combobox'
 import { Meta, StoryObj } from '@storybook/react'
-import {useForm, UseFormReturn} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 const meta = {
   component: ComboBox,
@@ -10,29 +12,34 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export type FormTypes = {
-  country: string
-  // city: string
-}
+const FormSchema = z.object({
+  country: z.string({ message: 'This field is required' }),
+  city: z.string({ message: 'This field is required' }),
+})
+
+export type FormTypes = z.infer<typeof FormSchema>
 
 export const Primary = {
   args: {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
-    useFormObj: {} as  UseFormReturn<FormTypes, unknown, undefined>
   },
   render: args => {
-    const useFormObj = useForm<FormTypes>()
-    const { handleSubmit } = useFormObj
+    const { handleSubmit,
+      register } = useForm<FormTypes>({
+      resolver: zodResolver(FormSchema),
+      defaultValues: {},
+    })
     const onSubmit = handleSubmit(data => {
       console.log(' data: ', data)
     })
-
+    console.log(' register: ', register("country"));
+    const {onChange, ref, name} = register("country")
     return (
       <div className={`h-screen grid place-items-center `}>
         <div className={`text-center`}>
           <div className={`p-2`}>select element 1 and element 2</div>
           <form onSubmit={onSubmit} className={`flex flex-col text-center items-center`}>
-            <ComboBox {...args} useFormObj={ useFormObj} parentClassName={`mb-3.5`} />
+            <ComboBox {...args} register={register} parentClassName={`mb-3.5`} />
 
             {/*<label htmlFor="email">email</label>*/}
             {/*<input*/}

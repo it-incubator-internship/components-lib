@@ -6,22 +6,20 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
+import { UseFormRegister } from 'react-hook-form'
 import { FormTypes } from '@/components/ui/shadcn/combobox/combobox.stories'
-import { UseFormReturn } from 'react-hook-form'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   asChild?: boolean
   options: string[]
   parentClassName?: string
-  // ???
-  useFormObj: UseFormReturn<FormTypes, unknown, undefined>
-  // elementClassName?: string
+  register: UseFormRegister<FormTypes>
 }
 /*
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=7165
  */
-export default function ComboBox({ options, parentClassName, useFormObj }: ComboboxProps) {
+export default function ComboBox({ options, parentClassName, register }: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
 
@@ -67,6 +65,7 @@ export default function ComboBox({ options, parentClassName, useFormObj }: Combo
   console.log(' inputValue: ', inputValue)
   console.log(' currentOptions: ', currentOptions)
   console.log(' selectedIndex: ', selectedIndex)
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -115,13 +114,14 @@ export default function ComboBox({ options, parentClassName, useFormObj }: Combo
       setOpen(prevValue => !prevValue)
     }
   }
-  const { register } = useFormObj
+  const { onChange, ref,name } = register('country')
+
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
         <div className={cn(`relative w-[210px]`, parentClassName)}>
           <input
-            ref={inputRef}
+            ref={ref}
             type="text"
             placeholder="Select an option..."
             value={inputValue ?? ''}
