@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent, useEffect, useRef } from 'react'
+import React, { useState, KeyboardEvent, useEffect, useRef, ChangeEvent } from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as Popover from '@radix-ui/react-popover'
@@ -6,20 +6,20 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
-import { UseFormRegister } from 'react-hook-form'
-import { FormTypes } from '@/components/ui/shadcn/combobox/combobox.stories'
+import { RefCallBack } from 'react-hook-form'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   asChild?: boolean
   options: string[]
   parentClassName?: string
-  register: UseFormRegister<FormTypes>
-}
+  // 2варианта передать реф из register или обернуть все в forwardRef
+  ref:  RefCallBack
+} & ComponentPropsWithoutRef<'input'>
 /*
-https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=7165
+https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12850
  */
-export default function ComboBox({ options, parentClassName, register }: ComboboxProps) {
+export default function ComboBox({ options, parentClassName,onChange, name, ref }: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
 
@@ -114,7 +114,14 @@ export default function ComboBox({ options, parentClassName, register }: Combobo
       setOpen(prevValue => !prevValue)
     }
   }
-  const { onChange, ref,name } = register('country')
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.currentTarget.value)
+    onChange&&onChange(e)
+    !open && setOpen(true)
+    setFilterRequired(true)
+  }
+
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -124,12 +131,9 @@ export default function ComboBox({ options, parentClassName, register }: Combobo
             ref={ref}
             type="text"
             placeholder="Select an option..."
+
             value={inputValue ?? ''}
-            onChange={e => {
-              setInputValue(e.currentTarget.value)
-              !open && setOpen(true)
-              setFilterRequired(true)
-            }}
+            onChange={handleOnChange}
             onKeyDown={handleKeyDown}
             className={cn(
               `w-[210px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`
