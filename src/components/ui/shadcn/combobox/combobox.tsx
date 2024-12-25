@@ -13,20 +13,21 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   asChild?: boolean
   options: string[]
   parentClassName?: string
-  // 2варианта передать реф из register или обернуть все в forwardRef
-  ref:  RefCallBack
 } & ComponentPropsWithoutRef<'input'>
 /*
+//
+https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=10709
+// переход к юзконтроллеру тк форвадРеф  дальше использовать не получится
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
 */
-export default function ComboBox({ options, parentClassName,onChange, name, ref }: ComboboxProps) {
+export default function ComboBox({ options, parentClassName, onChange, ...rest }: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
   const [currentOptions, setCurrentOptions] = useState<string[]>(options)
   const [filterRequired, setFilterRequired] = useState<boolean>(false)
-// region close
+  // region close
   useEffect(() => {
     if (selectedIndex >= 0) {
       const selectedOption = currentOptions[selectedIndex]
@@ -117,22 +118,20 @@ export default function ComboBox({ options, parentClassName,onChange, name, ref 
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value)
-    onChange&&onChange(e)
+    onChange && onChange(e)
     !open && setOpen(true)
     setFilterRequired(true)
   }
 
-
-// endregion close
+  // endregion close
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
         <div className={cn(`relative w-[210px]`, parentClassName)}>
           <input
-            ref={ref}
+            {...rest}
             type="text"
             placeholder="Select an option..."
-
             value={inputValue ?? ''}
             onChange={handleOnChange}
             onKeyDown={handleKeyDown}
