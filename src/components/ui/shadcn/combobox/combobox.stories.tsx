@@ -15,7 +15,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const FormSchema = z.object({
-  country: z.string({ message: 'This field is required' }).min(3, { message: 'min 3' }),
+  country: z.string({ message: 'This field is required' }),
   city: z.string({ message: 'This field is required' }),
 })
 
@@ -55,9 +55,7 @@ export const Primary = {
             />
             <button
               onClick={() => setBtnclicked(true)}
-              className={cn(
-                  `cursor-pointer z-[1] p-1.5 rounded border-solid border-2`
-              )}
+              className={cn(`cursor-pointer z-[1] p-1.5 rounded border-solid border-2`)}
             >
               submit
             </button>

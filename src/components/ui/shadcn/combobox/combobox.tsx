@@ -41,6 +41,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [selectedIndex, setSelectedIndex] = useState<number>(-1)
     const [currentOptions, setCurrentOptions] = useState<string[]>(options)
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
+
     useEffect(() => {
       if (selectedIndex >= 0) {
         const selectedOption = currentOptions[selectedIndex]
@@ -132,7 +133,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.currentTarget.value)
       console.log(' e.currentTarget.value: ', e.currentTarget.value)
-      onChange && onChange(e)
+      onChange?.(e)
       !open && setOpen(true)
       setFilterRequired(true)
     }
@@ -140,7 +141,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     // endregion close
     const generatedId = useId()
     const finalId = id ?? generatedId
-
     console.log(' errorMsg: ', errorMsg)
     // @ts-ignore
     console.log(' ref: ', ref?.current?.value)
@@ -200,7 +200,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
           </div>
         </Popover.Trigger>
         <Popover.Portal
-            // forceMount
+        // forceMount
         >
           <Popover.Content
             className={cn(
