@@ -34,7 +34,8 @@ export const Primary = {
     })
     console.log(' register: ', register("country"));
     const {onChange, ref, name} = register("country")
-    const argsToPass ={onChange,  ref, name, ...args}
+`1`    const {options} = args
+    const argsToPass ={onChange,  ref, name, options}
     return (
       <div className={`h-screen grid place-items-center `}>
         <div className={`text-center`}>

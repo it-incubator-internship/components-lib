@@ -17,8 +17,8 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   ref:  RefCallBack
 } & ComponentPropsWithoutRef<'input'>
 /*
-https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12850
- */
+https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
+*/
 export default function ComboBox({ options, parentClassName,onChange, name, ref }: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
@@ -26,7 +26,7 @@ export default function ComboBox({ options, parentClassName,onChange, name, ref 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
   const [currentOptions, setCurrentOptions] = useState<string[]>(options)
   const [filterRequired, setFilterRequired] = useState<boolean>(false)
-
+// region close
   useEffect(() => {
     if (selectedIndex >= 0) {
       const selectedOption = currentOptions[selectedIndex]
@@ -123,6 +123,7 @@ export default function ComboBox({ options, parentClassName,onChange, name, ref 
   }
 
 
+// endregion close
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
