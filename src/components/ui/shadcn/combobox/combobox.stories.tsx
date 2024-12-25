@@ -1,8 +1,8 @@
 import ComboBox from './combobox'
 import { Meta, StoryObj } from '@storybook/react'
 import { useForm } from 'react-hook-form'
-import {z} from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const meta = {
   component: ComboBox,
@@ -20,22 +20,22 @@ const FormSchema = z.object({
 export type FormTypes = z.infer<typeof FormSchema>
 
 export const Primary = {
+  // @ts-ignore
   args: {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
   },
   render: args => {
-    const { handleSubmit,
-      register } = useForm<FormTypes>({
+    const { handleSubmit, register } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
       defaultValues: {},
     })
     const onSubmit = handleSubmit(data => {
       console.log(' data: ', data)
     })
-    console.log(' register: ', register("country"));
-    const {onChange, ref, name} = register("country")
-`1`    const {options} = args
-    const argsToPass ={onChange,  ref, name, options}
+    console.log(' register: ', register('country'))
+    const { onChange, ref, name } = register('country')
+    const { options } = args
+    const argsToPass = { onChange, ref, name, options }
     return (
       <div className={`h-screen grid place-items-center `}>
         <div className={`text-center`}>
