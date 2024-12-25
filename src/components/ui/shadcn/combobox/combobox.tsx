@@ -1,4 +1,13 @@
-import React, { useState, KeyboardEvent, useEffect, useRef, ChangeEvent } from 'react'
+import React, {
+  useState,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  ReactNode,
+  useId,
+  Fragment,
+} from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as Popover from '@radix-ui/react-popover'
@@ -6,21 +15,29 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
-import { RefCallBack } from 'react-hook-form'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   asChild?: boolean
   options: string[]
+  errorMsg?: string
+  label?: ReactNode
   parentClassName?: string
 } & ComponentPropsWithoutRef<'input'>
 /*
 //
-https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=10709
+https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=10410
 // переход к юзконтроллеру тк форвадРеф  дальше использовать не получится
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
 */
-export default function ComboBox({ options, parentClassName, onChange, ...rest }: ComboboxProps) {
+export default function ComboBox({
+  options,
+  parentClassName,
+  onChange,
+  errorMsg,
+  name,
+  ...rest
+}: ComboboxProps) {
   const [inputValue, setInputValue] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState<boolean>(false)
 
@@ -124,12 +141,18 @@ export default function ComboBox({ options, parentClassName, onChange, ...rest }
   }
 
   // endregion close
+  const generatedId = useId()
+  console.log(' name: ', name)
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
         <div className={cn(`relative w-[210px]`, parentClassName)}>
+          <label htmlFor={generatedId}>
+            {(name?.charAt(0).toUpperCase() as string) + (name?.slice(1) as string)}
+          </label>
           <input
             {...rest}
+            id={generatedId}
             type="text"
             placeholder="Select an option..."
             value={inputValue ?? ''}
@@ -139,6 +162,7 @@ export default function ComboBox({ options, parentClassName, onChange, ...rest }
               `w-[210px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`
             )}
           />
+          {errorMsg && <p className={`text-red-500 text-sm`}>{errorMsg}</p>}
           {
             <Button
               variant="ghost"
