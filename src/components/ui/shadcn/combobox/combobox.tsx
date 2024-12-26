@@ -4,11 +4,8 @@ import React, {
   useEffect,
   useRef,
   ChangeEvent,
-  ReactNode,
   useId,
-  Fragment,
   forwardRef,
-  ElementRef,
 } from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
@@ -17,27 +14,39 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
-import { Control } from 'react-hook-form'
-import { FormTypes } from '@/components/ui/shadcn/combobox/form-combobox.stories'
 
-type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text'
-  asChild?: boolean
+type ComboboxProps = ComponentPropsWithoutRef<'input'> & {
+  // variant?: 'primary' | 'secondary' | 'outlined' | 'text'
+  // asChild?: boolean
+  // label?: ReactNode
+  // onChange: () => void
+  // name: string
+
   options: string[]
-  errorMsg?: string
-  label?: ReactNode
   parentClassName?: string
-  control: Control<FormTypes, any>
-  name: string
-} & ComponentPropsWithoutRef<'input'>
+  errorMsg?: string
+}
+
 /*
 //
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=10410
 // переход к юзконтроллеру тк форвадРеф  дальше использовать не получится
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
 */
+
 export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
-  ({ options, parentClassName, errorMsg, name, id, ...rest }, ref) => {
+  (
+    {
+        options,
+        parentClassName,
+        name,
+        errorMsg,
+        onChange,
+        value,
+        id,
+        ...rest },
+    ref
+  ) => {
     // region close
     const [inputValue, setInputValue] = useState<string | undefined>(undefined)
     const [open, setOpen] = useState<boolean>(false)

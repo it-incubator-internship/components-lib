@@ -1,6 +1,5 @@
-import { ComboBox } from './combobox'
 import { Meta, StoryObj } from '@storybook/react'
-import { useController, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from './cn'
@@ -8,8 +7,8 @@ import { useState } from 'react'
 import { FormCombobox } from './form-combobox'
 
 const meta = {
-  component: ComboBox,
-} satisfies Meta<typeof ComboBox>
+  component: FormCombobox,
+} satisfies Meta<typeof FormCombobox>
 
 export default meta
 
@@ -28,12 +27,7 @@ export const Primary = {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
   },
   render: args => {
-    const [btnclicked, setBtnclicked] = useState(false)
-
-    const {
-      handleSubmit,
-      control,
-    } = useForm<FormTypes>({
+    const { handleSubmit, control } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
     })
 
@@ -56,7 +50,6 @@ export const Primary = {
               name={'country'}
             />
             <button
-              onClick={() => setBtnclicked(true)}
               className={cn(
                 `cursor-pointer z-[1] p-1.5 rounded border-solid border-2`
               )}

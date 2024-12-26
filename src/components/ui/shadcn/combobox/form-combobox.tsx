@@ -17,7 +17,10 @@ export const FormCombobox = ({
   options,
   parentClassName,
 }: ComboboxFormFields) => {
-  const {} = useController({
+  const {
+    field: { ref, name: fieldName, onChange, value },
+    fieldState: { error },
+  } = useController({
     control,
     name,
   })
@@ -25,9 +28,12 @@ export const FormCombobox = ({
   return (
     <ComboBox
       options={options}
-      control={control}
-      name={name}
       parentClassName={parentClassName}
+      name={fieldName}
+      errorMsg={error?.message}
+      ref={ref}
+      value={value}
+      onChange={onChange}
     />
   )
 }
