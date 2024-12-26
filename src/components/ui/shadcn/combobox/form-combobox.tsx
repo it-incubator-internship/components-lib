@@ -7,8 +7,8 @@ export type ComboboxFormFields = {
   options: string[]
   parentClassName?: string
   control: Control<FormTypes, any>
-  name: 'country' | 'city'
-  setValue: UseFormSetValue<{ country: string; city: string }>
+  name: 'country'
+  setValue: UseFormSetValue<{ country: string }>
 }
 
 export const FormCombobox = ({
@@ -25,7 +25,8 @@ export const FormCombobox = ({
     control,
     name,
   })
-
+  console.log(' onChange: ', onChange)
+  console.log(' value: ', value)
   return (
     <ComboBox
       options={options}

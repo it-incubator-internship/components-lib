@@ -16,13 +16,17 @@ import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { UseFormSetValue } from 'react-hook-form'
 
+type EarthType = 'country'
+
 type ComboboxProps = ComponentPropsWithoutRef<'input'> & {
   options: string[]
   parentClassName?: string
   errorMsg: string
-  setValue: UseFormSetValue<{ country: string; city: string }>
-  name: 'country' | 'city'
-  onChange: (value: string | undefined) => void
+  setValue: UseFormSetValue<{
+    country: string
+  }>
+  name: EarthType
+  onChange: (value: string | undefined | null) => void
 }
 
 /*
@@ -48,7 +52,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     ref
   ) => {
     // region close
-    const [inputValue, setInputValue] = useState<string | undefined>(undefined)
+    // const [inputValue, setInputValue] = useState<string | undefined>(undefined)
     const [open, setOpen] = useState<boolean>(false)
 
     const [selectedIndex, setSelectedIndex] = useState<number>(-1)
@@ -56,27 +60,28 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
 
     useEffect(() => {
-      setValue(name, inputValue as string)
-    }, [inputValue])
+      setValue(name, value as string)
+    }, [name, value, setValue])
 
     useEffect(() => {
       if (selectedIndex >= 0) {
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
-          setInputValue(selectedOption)
+          setValue(name, value as string)
         }
       } else {
-        setInputValue(undefined)
+        setValue(name as EarthType, '')
       }
     }, [selectedIndex])
 
     useEffect(() => {
-      if (!inputValue) {
+      if (!value) {
         setCurrentOptions(options)
         setSelectedIndex(-1)
       }
-    }, [inputValue])
+    }, [value])
 
+    // взять из контроллера и убрать этот реф
     const inputRef = useRef<HTMLInputElement>(null)
     if (filterRequired) {
       filterOptions()
@@ -85,11 +90,11 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     function filterOptions() {
       const filteredOptions = options.filter(item =>
-        item.toLowerCase().includes(inputValue?.toLowerCase() ?? '')
+        item.toLowerCase().includes(value?.toString().toLowerCase() ?? '')
       )
       setCurrentOptions(filteredOptions)
 
-      if (!inputValue) {
+      if (!value) {
         setSelectedIndex(-1)
       }
     }
@@ -134,12 +139,12 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         e.preventDefault()
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
-          setInputValue(selectedOption)
+          setValue(name, selectedOption)
         } else if (
           currentOptions.length > 0 &&
           currentOptions[0]
             ?.toLowerCase()
-            .includes(inputValue?.toLowerCase() as string)
+            .includes(value?.toString().toLowerCase() as string)
         ) {
           setSelectedIndex(0)
         }
@@ -150,10 +155,13 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
-      setInputValue(value)
-      // console.log(' e.currentTarget.value: ', value)
-      // setValue(name, value)
-      // onChange?.(value)
+      setValue(name, value)
+
+      if (value === '') {
+        onChange(null)
+      } else {
+        onChange(value)
+      }
       !open && setOpen(true)
       setFilterRequired(true)
     }
@@ -162,19 +170,15 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const generatedId = useId()
     const finalId = id ?? generatedId
 
-    console.log(' value: ', value)
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
           <div className={cn(`relative w-[210px]`, parentClassName)}>
-            {/*<label htmlFor={finalId}>*/}
-            {/*  {(name?.charAt(0).toUpperCase() as string) + (name?.slice(1) as string)}*/}
-            {/*</label>*/}
             <input
               {...rest}
               id={finalId}
               ref={ref}
-              value={inputValue || ''}
+              value={value || ''}
               placeholder="Select an option..."
               onChange={handleOnChange}
               onKeyDown={handleKeyDown}
@@ -190,7 +194,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                   `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
                 )}
                 onClick={() => {
-                  setInputValue(undefined)
+                  setValue(name, '')
                   setOpen(false)
                   inputRef.current?.focus()
                 }}
@@ -198,7 +202,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 <Close
                   className={cn(
                     `!m-0`,
-                    inputValue
+                    value
                       ? `opacity-100 transition-all duration-1000 visible`
                       : `opacity-0 transition-all duration-500 invisible`
                   )}
@@ -238,7 +242,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 <div
                   key={item}
                   onClick={() => {
-                    setInputValue(item)
+                    // setValue(name, item)
+                    onChange(item as string)
                     setOpen(false)
                     setSelectedIndex(0)
                     inputRef.current?.focus()

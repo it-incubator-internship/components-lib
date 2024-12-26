@@ -15,8 +15,8 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const FormSchema = z.object({
-  country: z.string({ message: 'This field is required' }),
-  city: z.string({ message: 'This field is required' }),
+  country: z.string({ message: 'This field is required' }).min(3, '3'),
+  // city: z.string({ message: 'This field is required' }),
 })
 
 export type FormTypes = z.infer<typeof FormSchema>
@@ -34,6 +34,7 @@ export const Primary = {
     const onSubmit = handleSubmit(data => {
       console.log('submit data: ', data)
     })
+
     const { options } = args
     return (
       <div className={`h-screen grid place-items-center `}>
