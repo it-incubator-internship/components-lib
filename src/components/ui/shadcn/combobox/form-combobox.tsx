@@ -1,6 +1,5 @@
 import {} from 'react'
-import * as Popover from '@radix-ui/react-popover'
-import { Control, useController } from 'react-hook-form'
+import { Control, useController, UseFormSetValue } from 'react-hook-form'
 import { FormTypes } from '@/components/ui/shadcn/combobox/form-combobox.stories'
 import { ComboBox } from '@/components/ui/shadcn/combobox/combobox'
 
@@ -9,6 +8,7 @@ export type ComboboxFormFields = {
   parentClassName?: string
   control: Control<FormTypes, any>
   name: 'country' | 'city'
+  setValue: UseFormSetValue<{ country: string; city: string }>
 }
 
 export const FormCombobox = ({
@@ -16,6 +16,7 @@ export const FormCombobox = ({
   name,
   options,
   parentClassName,
+  setValue,
 }: ComboboxFormFields) => {
   const {
     field: { ref, name: fieldName, onChange, value },
@@ -30,10 +31,11 @@ export const FormCombobox = ({
       options={options}
       parentClassName={parentClassName}
       name={fieldName}
-      errorMsg={error?.message}
+      errorMsg={error?.message as string}
       ref={ref}
       value={value}
       onChange={onChange}
+      setValue={setValue}
     />
   )
 }

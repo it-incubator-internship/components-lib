@@ -14,17 +14,20 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
+import { UseFormSetValue } from 'react-hook-form'
 
 type ComboboxProps = ComponentPropsWithoutRef<'input'> & {
   // variant?: 'primary' | 'secondary' | 'outlined' | 'text'
   // asChild?: boolean
   // label?: ReactNode
-  // onChange: () => void
   // name: string
 
   options: string[]
   parentClassName?: string
-  errorMsg?: string
+  errorMsg: string
+  setValue: UseFormSetValue<{ country: string; city: string }>
+  name: 'country' | 'city'
+  onChange: (value: string | undefined) => void
 }
 
 /*
@@ -37,14 +40,16 @@ https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
 export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
   (
     {
-        options,
-        parentClassName,
-        name,
-        errorMsg,
-        onChange,
-        value,
-        id,
-        ...rest },
+      options,
+      parentClassName,
+      name,
+      errorMsg,
+      onChange,
+      value,
+      setValue,
+      id,
+      ...rest
+    },
     ref
   ) => {
     // region close
@@ -54,6 +59,10 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [selectedIndex, setSelectedIndex] = useState<number>(-1)
     const [currentOptions, setCurrentOptions] = useState<string[]>(options)
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
+
+    useEffect(() => {
+      setValue(name, inputValue as string)
+    }, [inputValue])
 
     useEffect(() => {
       if (selectedIndex >= 0) {
@@ -145,9 +154,11 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     }
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(e.currentTarget.value)
-      console.log(' e.currentTarget.value: ', e.currentTarget.value)
-      // onChange?.(e)
+      const value = e.currentTarget.value
+      setInputValue(value)
+      console.log(' e.currentTarget.value: ', value)
+      setValue(name, value)
+      onChange?.(value)
       !open && setOpen(true)
       setFilterRequired(true)
     }
@@ -155,9 +166,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     // endregion close
     const generatedId = useId()
     const finalId = id ?? generatedId
-    console.log(' errorMsg: ', errorMsg)
-    // @ts-ignore
-    console.log(' ref: ', ref?.current?.value)
+
+    console.log(' value: ', value)
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
@@ -170,7 +180,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               id={finalId}
               ref={ref}
               type="text"
-              value={inputValue ?? ''}
+              value={inputValue || ''}
               placeholder="Select an option..."
               onChange={handleOnChange}
               onKeyDown={handleKeyDown}

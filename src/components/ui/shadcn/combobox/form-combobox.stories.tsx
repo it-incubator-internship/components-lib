@@ -27,7 +27,7 @@ export const Primary = {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
   },
   render: args => {
-    const { handleSubmit, control } = useForm<FormTypes>({
+    const { setValue, handleSubmit, control } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
     })
 
@@ -48,6 +48,7 @@ export const Primary = {
               parentClassName={`mb-3.5`}
               control={control}
               name={'country'}
+              setValue={setValue}
             />
             <button
               className={cn(
