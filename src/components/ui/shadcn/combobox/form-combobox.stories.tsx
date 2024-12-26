@@ -33,11 +33,8 @@ export const Primary = {
     const {
       handleSubmit,
       control,
-      register,
-      formState: { errors },
     } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
-      defaultValues: {},
     })
 
     const onSubmit = handleSubmit(data => {
