@@ -17,6 +17,8 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
+import { Control } from 'react-hook-form'
+import { FormTypes } from '@/components/ui/shadcn/combobox/form-combobox.stories'
 
 type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   variant?: 'primary' | 'secondary' | 'outlined' | 'text'
@@ -25,6 +27,8 @@ type ComboboxProps = ComponentPropsWithoutRef<typeof Popover.Root> & {
   errorMsg?: string
   label?: ReactNode
   parentClassName?: string
+  control: Control<FormTypes, any>
+  name: string
 } & ComponentPropsWithoutRef<'input'>
 /*
 //
@@ -33,7 +37,7 @@ https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=10410
 https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
 */
 export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
-  ({ options, parentClassName, onChange, errorMsg, name, id, value, ...rest }, ref) => {
+  ({ options, parentClassName, errorMsg, name, id, ...rest }, ref) => {
     // region close
     const [inputValue, setInputValue] = useState<string | undefined>(undefined)
     const [open, setOpen] = useState<boolean>(false)
@@ -61,7 +65,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     }, [inputValue])
 
     const inputRef = useRef<HTMLInputElement>(null)
-
     if (filterRequired) {
       filterOptions()
       setFilterRequired(false)
@@ -121,7 +124,9 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
           setInputValue(selectedOption)
         } else if (
           currentOptions.length > 0 &&
-          currentOptions[0]?.toLowerCase().includes(inputValue?.toLowerCase() as string)
+          currentOptions[0]
+            ?.toLowerCase()
+            .includes(inputValue?.toLowerCase() as string)
         ) {
           setSelectedIndex(0)
         }
@@ -133,7 +138,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.currentTarget.value)
       console.log(' e.currentTarget.value: ', e.currentTarget.value)
-      onChange?.(e)
+      // onChange?.(e)
       !open && setOpen(true)
       setFilterRequired(true)
     }
@@ -194,7 +199,10 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               )}
             >
               <ArrowIosDownOutline
-                className={cn(`!m-0`, open ? `rotate-180 duration-300` : 'duration-300')}
+                className={cn(
+                  `!m-0`,
+                  open ? `rotate-180 duration-300` : 'duration-300'
+                )}
               />
             </Button>
           </div>
@@ -237,7 +245,9 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 </div>
               ))
             ) : (
-              <div style={{ padding: '8px', color: '#999' }}>No options found</div>
+              <div style={{ padding: '8px', color: '#999' }}>
+                No options found
+              </div>
             )}
           </Popover.Content>
         </Popover.Portal>

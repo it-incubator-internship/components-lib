@@ -1,10 +1,11 @@
 import { ComboBox } from './combobox'
 import { Meta, StoryObj } from '@storybook/react'
-import { useForm } from 'react-hook-form'
+import { useController, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from './cn'
 import { useState } from 'react'
+import { FormCombobox } from './form-combobox'
 
 const meta = {
   component: ComboBox,
@@ -28,16 +29,17 @@ export const Primary = {
   },
   render: args => {
     const [btnclicked, setBtnclicked] = useState(false)
+
     const {
       handleSubmit,
-
-      setValue,
+      control,
       register,
       formState: { errors },
     } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
       defaultValues: {},
     })
+
     const onSubmit = handleSubmit(data => {
       console.log('submit data: ', data)
     })
@@ -46,16 +48,21 @@ export const Primary = {
       <div className={`h-screen grid place-items-center `}>
         <div className={`text-center`}>
           <div className={`p-2`}>select element 1 and element 2</div>
-          <form onSubmit={onSubmit} className={`flex flex-col text-center items-center`}>
-            <ComboBox
-              {...register('country')}
-              errorMsg={errors.country?.message as string}
+          <form
+            onSubmit={onSubmit}
+            className={`flex flex-col text-center items-center`}
+          >
+            <FormCombobox
               options={options}
               parentClassName={`mb-3.5`}
+              control={control}
+              name={'country'}
             />
             <button
               onClick={() => setBtnclicked(true)}
-              className={cn(`cursor-pointer z-[1] p-1.5 rounded border-solid border-2`)}
+              className={cn(
+                `cursor-pointer z-[1] p-1.5 rounded border-solid border-2`
+              )}
             >
               submit
             </button>
