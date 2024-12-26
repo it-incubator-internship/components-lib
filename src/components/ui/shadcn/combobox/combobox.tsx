@@ -17,11 +17,6 @@ import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { UseFormSetValue } from 'react-hook-form'
 
 type ComboboxProps = ComponentPropsWithoutRef<'input'> & {
-  // variant?: 'primary' | 'secondary' | 'outlined' | 'text'
-  // asChild?: boolean
-  // label?: ReactNode
-  // name: string
-
   options: string[]
   parentClassName?: string
   errorMsg: string
@@ -156,9 +151,9 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
       setInputValue(value)
-      console.log(' e.currentTarget.value: ', value)
-      setValue(name, value)
-      onChange?.(value)
+      // console.log(' e.currentTarget.value: ', value)
+      // setValue(name, value)
+      // onChange?.(value)
       !open && setOpen(true)
       setFilterRequired(true)
     }
@@ -179,7 +174,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               {...rest}
               id={finalId}
               ref={ref}
-              type="text"
               value={inputValue || ''}
               placeholder="Select an option..."
               onChange={handleOnChange}
