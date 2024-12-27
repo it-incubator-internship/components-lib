@@ -15,8 +15,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const FormSchema = z.object({
-  country: z.string({ message: 'This field is required' })
-      // .min(3, '3'),
+  country: z
+    .string()
+    .nullable()
+    .refine(val => val !== null, 'This field is required'),
+  // .min(3, '3'),
   // если бы не эта #### ##### проблема у меня бы все работало!!!!!!!!!!!
   // если сюда добавить лишнее поле у тебя просто не будет работать онсабмит!!!!!!!!!!!
   // city: z.string({ message: 'This field is required' }),
@@ -55,9 +58,9 @@ export const Primary = {
             <FormCombobox
               options={options}
               parentClassName={`mb-3.5`}
-              control={control}
               name={'country'}
-              setValue={setValue}
+              control={control}
+              setValue={(value)=>setValue('country', value)}
               handleListOpen={handleListOpen}
             />
             <button

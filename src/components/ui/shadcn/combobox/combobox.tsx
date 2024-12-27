@@ -14,18 +14,17 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
-import { UseFormSetValue } from 'react-hook-form'
+import { EarthType } from './form-combobox'
 
-type EarthType = 'country'
 
-type ComboboxProps = ComponentPropsWithoutRef<'input'> & {
+type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>;
+type ComboboxProps = InputPropsWithoutValue & {
   options: string[]
   parentClassName?: string
   errorMsg: string
-  setValue: UseFormSetValue<{
-    country: string
-  }>
   name: EarthType
+  value: string | null
+  setValue: (value: string | null) => void
   onChange: (value: string | undefined | null) => void
   handleListOpen: (value: boolean) => void
 }
@@ -62,17 +61,17 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
 
     useEffect(() => {
-      setValue(name, value as string)
+      setValue(value)
     }, [name, value, setValue])
 
     useEffect(() => {
       if (selectedIndex >= 0) {
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
-          setValue(name, value as string)
+          setValue(value)
         }
       } else {
-        setValue(name as EarthType, '')
+        setValue(null)
       }
     }, [selectedIndex])
 
@@ -145,7 +144,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         e.preventDefault()
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
-          setValue(name, selectedOption)
+          setValue(selectedOption)
         } else if (
           currentOptions.length > 0 &&
           currentOptions[0]
@@ -161,7 +160,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
-      setValue(name, value)
+      setValue(value)
 
       if (value === '') {
         onChange(null)
@@ -200,7 +199,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                   `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
                 )}
                 onClick={() => {
-                  setValue(name, '')
+                  setValue(null)
                   setOpen(false)
                   inputRef.current?.focus()
                 }}

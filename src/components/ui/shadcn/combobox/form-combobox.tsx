@@ -3,12 +3,13 @@ import { Control, useController, UseFormSetValue } from 'react-hook-form'
 import { FormTypes } from '@/components/ui/shadcn/combobox/form-combobox.stories'
 import { ComboBox } from '@/components/ui/shadcn/combobox/combobox'
 
+export type EarthType = 'country'
 export type ComboboxFormFields = {
   options: string[]
   parentClassName?: string
   control: Control<FormTypes, any>
-  name: 'country'
-  setValue: UseFormSetValue<{ country: string }>
+  name: EarthType
+  setValue: (value: string | null) => void
   handleListOpen: (value: boolean) => void
 }
 
@@ -27,7 +28,7 @@ export const FormCombobox = ({
     control,
     name,
   })
-  console.log(' value: ', value)
+
   return (
     <ComboBox
       options={options}
