@@ -16,8 +16,7 @@ import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { EarthType } from './form-combobox'
 
-
-type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>;
+type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
 type ComboboxProps = InputPropsWithoutValue & {
   options: string[]
   parentClassName?: string
@@ -88,6 +87,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     // взять из контроллера и убрать этот реф
     const inputRef = useRef<HTMLInputElement>(null)
+
     if (filterRequired) {
       filterOptions()
       setFilterRequired(false)
@@ -178,7 +178,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
-          <div className={cn(`relative w-[210px]`, parentClassName)}>
+          <div className={cn(`relative w-[210px] mb-[25px]`, parentClassName)}>
             <input
               {...rest}
               id={finalId}
@@ -191,7 +191,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 `w-[210px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`
               )}
             />
-            {errorMsg && <p className={`text-red-500 text-sm`}>{errorMsg}</p>}
+            {errorMsg && <span className={`text-red-500 text-sm absolute bottom-[-19px] left-0`}>{errorMsg}</span>}
             {
               <Button
                 variant="ghost"

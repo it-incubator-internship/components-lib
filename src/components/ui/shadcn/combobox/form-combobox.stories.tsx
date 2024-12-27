@@ -57,7 +57,6 @@ export const Primary = {
           >
             <FormCombobox
               options={options}
-              parentClassName={`mb-3.5`}
               name={'country'}
               control={control}
               setValue={(value)=>setValue('country', value)}
