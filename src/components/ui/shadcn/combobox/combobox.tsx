@@ -180,7 +180,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         <Popover.Trigger asChild>
           <div
             className={cn(
-              `relative w-[210px] mb-[51px]`,
+              `relative w-[210px] h-[82px] mb-[51px]`,
               parentClassName
             )}
           >
@@ -198,7 +198,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
             />
             {error && (
               // <div className={`absolute h-[42px] bottom-0 left-0`}>
-                <p className={`text-red-500 text-sm`}>{error}</p>
+              <p className={`text-red-500 text-sm`}>{error}</p>
               // </div>
             )}
             {
@@ -246,7 +246,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 : `opacity-0 transition-all duration-500 invisible`,
               'bg-white border-[1px] border-solid border-[#ccc]',
               `rounded w-[210px] max-h-[150px] overflow-y-auto relative`,
-              open ? `z-[1]` : `z-[0]`
+              open ? `z-[1]` : `z-[0]`,
+              `absolute left-[-105px] top-[-40px]`
             )}
             onOpenAutoFocus={e => e.preventDefault()}
           >
