@@ -15,7 +15,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const FormSchema = z.object({
-  country: z.string({ message: 'This field is required' }).min(3, '3'),
+  country: z.string({ message: 'This field is required' })
+      // .min(3, '3'),
+  // если бы не эта #### ##### проблема у меня бы все работало!!!!!!!!!!!
+  // если сюда добавить лишнее поле у тебя просто не будет работать онсабмит!!!!!!!!!!!
   // city: z.string({ message: 'This field is required' }),
 })
 
