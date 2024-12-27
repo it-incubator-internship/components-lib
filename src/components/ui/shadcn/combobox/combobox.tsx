@@ -199,7 +199,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                   `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
                 )}
                 onClick={() => {
-                  setValue(null)
+                  setValue('')
                   setOpen(false)
                   inputRef.current?.focus()
                 }}
