@@ -27,6 +27,7 @@ export const Primary = {
     options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
   },
   render: args => {
+    const [listOpen, setListOpen] = useState<boolean>(false)
     const { setValue, handleSubmit, control } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
     })
@@ -34,6 +35,10 @@ export const Primary = {
     const onSubmit = handleSubmit(data => {
       console.log('submit data: ', data)
     })
+
+    const handleListOpen = (isOpen: boolean) => {
+      setListOpen(isOpen)
+    }
 
     const { options } = args
     return (
@@ -50,10 +55,12 @@ export const Primary = {
               control={control}
               name={'country'}
               setValue={setValue}
+              handleListOpen={handleListOpen}
             />
             <button
               className={cn(
-                `cursor-pointer z-[1] p-1.5 rounded border-solid border-2`
+                `cursor-pointer z-[1] p-1.5 rounded border-solid border-2`,
+                !listOpen ? `z-[1]` : `z-[0]`
               )}
             >
               submit

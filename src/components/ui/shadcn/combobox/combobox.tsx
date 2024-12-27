@@ -27,6 +27,7 @@ type ComboboxProps = ComponentPropsWithoutRef<'input'> & {
   }>
   name: EarthType
   onChange: (value: string | undefined | null) => void
+  handleListOpen: (value: boolean) => void
 }
 
 /*
@@ -47,6 +48,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       value,
       setValue,
       id,
+      handleListOpen,
       ...rest
     },
     ref
@@ -80,6 +82,10 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         setSelectedIndex(-1)
       }
     }, [value])
+
+    useEffect(() => {
+      handleListOpen(open)
+    }, [open])
 
     // взять из контроллера и убрать этот реф
     const inputRef = useRef<HTMLInputElement>(null)
@@ -224,16 +230,15 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
             </Button>
           </div>
         </Popover.Trigger>
-        <Popover.Portal
-        // forceMount
-        >
+        <Popover.Portal forceMount>
           <Popover.Content
             className={cn(
               open
                 ? `opacity-100 transition-all duration-500 visible `
                 : `opacity-0 transition-all duration-500 invisible`,
               'bg-white border-[1px] border-solid border-[#ccc]',
-              `rounded w-[210px] max-h-[150px] overflow-y-auto relative z-[${open ? 1 : 0}]`
+              `rounded w-[210px] max-h-[150px] overflow-y-auto relative`,
+              open ? `z-[1]` : `z-[0]`
             )}
             onOpenAutoFocus={e => e.preventDefault()}
           >
