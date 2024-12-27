@@ -11,7 +11,7 @@ export type ComboboxFormFields = {
   name: LocalityType
   setValue: (value: string | null) => void
   handleListOpen: (value: boolean) => void
-  clearErrors: (name: LocalityType) => void
+  error: string | undefined
 }
 
 export const FormCombobox = ({
@@ -21,21 +21,21 @@ export const FormCombobox = ({
   parentClassName,
   setValue,
   handleListOpen,
+  error,
 }: ComboboxFormFields) => {
   const {
     field: { ref, name: fieldName, onChange, value },
-    fieldState: { error },
   } = useController({
     control,
     name,
   })
-
+  console.log(' error: ', error)
   return (
     <ComboBox
       options={options}
       parentClassName={parentClassName}
       name={fieldName}
-      errorMsg={error?.message as string}
+      error={error}
       ref={ref}
       value={value}
       onChange={onChange}
