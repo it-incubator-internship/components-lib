@@ -19,13 +19,9 @@ const FormSchema = z.object({
     .string()
     .nullable()
     .refine(val => val !== null, 'This field is required')
-    .refine(val => options.includes(val as string), {
+    .refine(val => options.includes(val as string) || val === '', {
       message: 'This value must be one of the available options',
     }),
-  // .min(3, '3'),
-  // если бы не эта #### ##### проблема у меня бы все работало!!!!!!!!!!!
-  // если сюда добавить лишнее поле у тебя просто не будет работать онсабмит!!!!!!!!!!!
-  // city: z.string({ message: 'This field is required' }),
 })
 
 export type FormTypes = z.infer<typeof FormSchema>
@@ -37,7 +33,7 @@ export const Primary = {
   },
   render: args => {
     const [listOpen, setListOpen] = useState<boolean>(false)
-    const { setValue, handleSubmit, formState:{errors}, clearErrors, control } =
+    const { setValue, handleSubmit, clearErrors, control } =
       useForm<FormTypes>({
         resolver: zodResolver(FormSchema),
       })
@@ -64,8 +60,7 @@ export const Primary = {
               name={'country'}
               control={control}
               setValue={value => setValue('country', value)}
-              error={errors?.country?.message}
-              // clearErrors={value => clearErrors(value as LocalityType)}
+              clearErrors={value => clearErrors(value as LocalityType)}
               handleListOpen={handleListOpen}
             />
             <button

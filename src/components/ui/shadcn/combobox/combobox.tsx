@@ -21,6 +21,7 @@ type ComboboxProps = InputPropsWithoutValue & {
   options: string[]
   parentClassName?: string
   error: string | undefined
+  clearErrors: (value: LocalityType) => void
   name: LocalityType
   value: string | null
   setValue: (value: string | null) => void
@@ -103,9 +104,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         setSelectedIndex(-1)
       }
     }
-    // console.log(' inputValue: ', inputValue)
-    // console.log(' currentOptions: ', currentOptions)
-    // console.log(' selectedIndex: ', selectedIndex)
+    console.log(' currentOptions: ', currentOptions)
+    console.log(' selectedIndex: ', selectedIndex)
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'ArrowDown') {
@@ -141,6 +141,9 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       }
 
       if (e.key === 'Enter') {
+        if (options.includes(value as string)) {
+          return
+        }
         e.preventDefault()
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
@@ -154,7 +157,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
           setSelectedIndex(0)
         }
         setFilterRequired(true)
-        setOpen(prevValue => !prevValue)
+        // setOpen(prevValue => !prevValue)
       }
     }
 
@@ -256,8 +259,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 <div
                   key={item}
                   onClick={() => {
-                    // setValue(name, item)
-                    onChange(item as string)
+                    setValue(item)
+                    // onChange(item as string)
                     setOpen(false)
                     setSelectedIndex(0)
                     inputRef.current?.focus()
