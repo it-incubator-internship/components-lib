@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from './cn'
 import { useState } from 'react'
-import { FormCombobox } from './form-combobox'
+import {LocalityType, FormCombobox} from './form-combobox'
 
 const meta = {
   component: FormCombobox,
@@ -13,12 +13,13 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-
+const options = ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit']
 const FormSchema = z.object({
   country: z
     .string()
     .nullable()
-    .refine(val => val !== null, 'This field is required'),
+    .refine(val => val !== null, 'This field is required')
+    .refine(val => options.includes(val as string), { message: 'This value must be one of the available options' }),
   // .min(3, '3'),
   // если бы не эта #### ##### проблема у меня бы все работало!!!!!!!!!!!
   // если сюда добавить лишнее поле у тебя просто не будет работать онсабмит!!!!!!!!!!!
@@ -34,7 +35,7 @@ export const Primary = {
   },
   render: args => {
     const [listOpen, setListOpen] = useState<boolean>(false)
-    const { setValue, handleSubmit, control } = useForm<FormTypes>({
+    const { setValue, handleSubmit, clearErrors, control } = useForm<FormTypes>({
       resolver: zodResolver(FormSchema),
     })
 
@@ -59,7 +60,8 @@ export const Primary = {
               options={options}
               name={'country'}
               control={control}
-              setValue={(value)=>setValue('country', value)}
+              setValue={value => setValue('country', value)}
+              clearErrors={(value)=> clearErrors(value as LocalityType)}
               handleListOpen={handleListOpen}
             />
             <button
