@@ -14,8 +14,7 @@ import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { LocalityType } from './form-combobox'
-import { Simulate } from 'react-dom/test-utils'
-import input = Simulate.input
+import { FixedSizeList as List } from 'react-window'
 
 type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
 type ComboboxProps = InputPropsWithoutValue & {
@@ -45,6 +44,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     },
     ref
   ) => {
+    // region code
     const [open, setOpen] = useState<boolean>(false)
     const [selectedIndex, setSelectedIndex] = useState<number>(-1)
     const [currentOptions, setCurrentOptions] = useState<string[]>(options)
@@ -155,6 +155,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const generatedId = useId()
     const finalId = id ?? generatedId
 
+    // endregion code
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
@@ -236,28 +237,32 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
             onOpenAutoFocus={e => e.preventDefault()}
           >
             {currentOptions?.length > 0 ? (
-              currentOptions.map((item, index) => (
-                <div
-                  key={item}
-                  onClick={() => {
-                    setValue(item)
-                    setOpen(false)
-                    setSelectedIndex(0)
-                    setFilterRequired(true)
-                  }}
-                  className={cn(
-                    `hover:bg-theme-accent-900`,
-                    selectedIndex === index ? 'bg-success-700' : ''
-                  )}
-                  style={{
-                    padding: '8px',
-                    cursor: 'pointer',
-                    borderBottom: '1px solid #f0f0f0',
-                  }}
-                >
-                  {item}
-                </div>
-              ))
+              <List
+                height={149}
+                itemCount={currentOptions.length}
+                itemSize={41}
+                width={208}
+              >
+                {({ index, style }) => (
+                  <div
+                    onClick={() => {
+                      setValue(currentOptions[index]!)
+                      setOpen(false)
+                      setSelectedIndex(0)
+                      setFilterRequired(true)
+                    }}
+                    className={cn(
+                      `hover:bg-theme-accent-900 p-[8px] cursor-pointer `,
+                      selectedIndex === index ? 'bg-success-700' : '',
+                    )}
+                    style={{
+                      borderBottom: '1px solid #f0f0f0',
+                    }}
+                  >
+                    {currentOptions[index]}
+                  </div>
+                )}
+              </List>
             ) : (
               <div style={{ padding: '8px', color: '#999' }}>
                 No options found
