@@ -33,10 +33,11 @@ export const Primary = {
   },
   render: args => {
     const [listOpen, setListOpen] = useState<boolean>(false)
-    const { setValue, handleSubmit, clearErrors, control } =
-      useForm<FormTypes>({
+    const { setValue, handleSubmit, clearErrors, control } = useForm<FormTypes>(
+      {
         resolver: zodResolver(FormSchema),
-      })
+      }
+    )
 
     const onSubmit = handleSubmit(data => {
       console.log('submit data: ', data)
@@ -60,12 +61,13 @@ export const Primary = {
               name={'country'}
               control={control}
               setValue={value => setValue('country', value)}
-              clearErrors={value => clearErrors(value as LocalityType)}
+              // clearErrors={value => clearErrors(value as LocalityType)}
               handleListOpen={handleListOpen}
             />
             <button
+              tabIndex={2 }
               className={cn(
-                `cursor-pointer z-[1] p-1.5 rounded border-solid border-2`,
+                `cursor-pointer z-[1] p-1.5 rounded border-solid border-2 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50 `,
                 !listOpen ? `z-[1]` : `z-[0]`
               )}
             >

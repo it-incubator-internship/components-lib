@@ -15,16 +15,18 @@ import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { LocalityType } from './form-combobox'
+import { Simulate } from 'react-dom/test-utils'
+import input = Simulate.input
 
 type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
 type ComboboxProps = InputPropsWithoutValue & {
   options: string[]
   parentClassName?: string
   error: string | undefined
-  clearErrors: (value: LocalityType) => void
+  setValue?: (value: string | null) => void
+  clearErrors?: (value: LocalityType) => void
   name: LocalityType
   value: string | null
-  setValue: (value: string | null) => void
   onChange: (value: string | undefined | null) => void
   handleListOpen: (value: boolean) => void
 }
@@ -42,11 +44,11 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       options,
       parentClassName,
       name,
-      error,
-      onChange,
-      value,
-      setValue,
-      id,
+      // error,
+      // onChange,
+      // value,
+      // setValue,
+      // id,
       handleListOpen,
       ...rest
     },
@@ -55,14 +57,14 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     // region close
     // const [inputValue, setInputValue] = useState<string | undefined>(undefined)
     const [open, setOpen] = useState<boolean>(false)
-
+    const [value, setValue] = useState<string | null>(null)
     const [selectedIndex, setSelectedIndex] = useState<number>(-1)
     const [currentOptions, setCurrentOptions] = useState<string[]>(options)
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
 
-    useEffect(() => {
-      setValue(value)
-    }, [name, value, setValue])
+    // useEffect(() => {
+    //   setValue(value)
+    // }, [value])
 
     useEffect(() => {
       if (selectedIndex >= 0) {
@@ -104,7 +106,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         setSelectedIndex(-1)
       }
     }
-    console.log(' currentOptions: ', currentOptions)
+    console.log(' currentOption: ', currentOptions[selectedIndex])
     console.log(' selectedIndex: ', selectedIndex)
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -123,7 +125,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
           return prevIndex + 1
         })
       }
-
       if (e.key === 'ArrowUp') {
         e.preventDefault()
 
@@ -139,11 +140,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
           return prevIndex - 1
         })
       }
-
       if (e.key === 'Enter') {
-        if (options.includes(value as string)) {
-          return
-        }
         e.preventDefault()
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
@@ -154,10 +151,11 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
             ?.toLowerCase()
             .includes(value?.toString().toLowerCase() as string)
         ) {
+          setValue(currentOptions[0])
           setSelectedIndex(0)
         }
         setFilterRequired(true)
-        // setOpen(prevValue => !prevValue)
+        setOpen(prevValue => !prevValue)
       }
     }
 
@@ -165,18 +163,19 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       const value = e.currentTarget.value
       setValue(value)
 
-      if (value === '') {
-        onChange(null)
-      } else {
-        onChange(value)
-      }
+      // if (value === '') {
+      //   onChange(null)
+      // } else {
+      //   onChange(value)
+      // }
       !open && setOpen(true)
       setFilterRequired(true)
     }
 
     // endregion close
     const generatedId = useId()
-    const finalId = id ?? generatedId
+    const finalId = generatedId
+    // const finalId = id ?? generatedId
 
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
@@ -188,9 +187,10 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
             )}
           >
             <input
+              tabIndex={1}
               {...rest}
               id={finalId}
-              ref={ref}
+              ref={inputRef}
               value={value || ''}
               placeholder="Select an option..."
               onChange={handleOnChange}
@@ -199,11 +199,9 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 `w-[210px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`
               )}
             />
-            {error && (
-              // <div className={`absolute h-[42px] bottom-0 left-0`}>
-              <p className={`text-red-500 text-sm`}>{error}</p>
-              // </div>
-            )}
+            {/*{error && (*/}
+            {/*  <p className={`text-red-500 text-sm`}>{error}</p>*/}
+            {/*)}*/}
             {
               <Button
                 variant="ghost"
