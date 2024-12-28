@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from './cn'
 import { useState } from 'react'
-import { LocalityType, FormCombobox } from './form-combobox'
+import { FormCombobox } from './form-combobox'
 
 const meta = {
   component: FormCombobox,
@@ -14,6 +14,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 const options = ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit']
+
 const FormSchema = z.object({
   country: z
     .string()
@@ -33,11 +34,9 @@ export const Primary = {
   },
   render: args => {
     const [listOpen, setListOpen] = useState<boolean>(false)
-    const { setValue, handleSubmit, clearErrors, control } = useForm<FormTypes>(
-      {
-        resolver: zodResolver(FormSchema),
-      }
-    )
+    const { setValue, handleSubmit, control } = useForm<FormTypes>({
+      resolver: zodResolver(FormSchema),
+    })
 
     const onSubmit = handleSubmit(data => {
       console.log('submit data: ', data)
@@ -61,11 +60,9 @@ export const Primary = {
               name={'country'}
               control={control}
               setValue={value => setValue('country', value)}
-              // clearErrors={value => clearErrors(value as LocalityType)}
               handleListOpen={handleListOpen}
             />
             <button
-              tabIndex={2 }
               className={cn(
                 `cursor-pointer z-[1] p-1.5 rounded border-solid border-2 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:ring-opacity-50 `,
                 !listOpen ? `z-[1]` : `z-[0]`

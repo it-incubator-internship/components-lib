@@ -2,7 +2,6 @@ import React, {
   useState,
   KeyboardEvent,
   useEffect,
-  useRef,
   ChangeEvent,
   useId,
   forwardRef,
@@ -23,20 +22,12 @@ type ComboboxProps = InputPropsWithoutValue & {
   options: string[]
   parentClassName?: string
   error: string | undefined
-  setValue?: (value: string | null) => void
-  clearErrors?: (value: LocalityType) => void
+  setValue: (value: string | null) => void
   name: LocalityType
   value: string | null
-  onChange: (value: string | undefined | null) => void
+  onChange: (value: string | null) => void
   handleListOpen: (value: boolean) => void
 }
-
-/*
-//
-https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=10410
-// переход к юзконтроллеру тк форвадРеф  дальше использовать не получится
-https://youtu.be/w8dj8VCojsc?list=PL68yfJ7Vdq8kpRMRtd4-Mz8Mhv7SnJ43W&t=12571
-*/
 
 export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
   (
@@ -44,27 +35,20 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       options,
       parentClassName,
       name,
-      // error,
-      // onChange,
-      // value,
-      // setValue,
-      // id,
+      error,
+      onChange,
+      value,
+      setValue,
+      id,
       handleListOpen,
       ...rest
     },
     ref
   ) => {
-    // region close
-    // const [inputValue, setInputValue] = useState<string | undefined>(undefined)
     const [open, setOpen] = useState<boolean>(false)
-    const [value, setValue] = useState<string | null>(null)
     const [selectedIndex, setSelectedIndex] = useState<number>(-1)
     const [currentOptions, setCurrentOptions] = useState<string[]>(options)
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
-
-    // useEffect(() => {
-    //   setValue(value)
-    // }, [value])
 
     useEffect(() => {
       if (selectedIndex >= 0) {
@@ -88,9 +72,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       handleListOpen(open)
     }, [open])
 
-    // взять из контроллера и убрать этот реф
-    const inputRef = useRef<HTMLInputElement>(null)
-
     if (filterRequired) {
       filterOptions()
       setFilterRequired(false)
@@ -106,8 +87,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         setSelectedIndex(-1)
       }
     }
-    console.log(' currentOption: ', currentOptions[selectedIndex])
-    console.log(' selectedIndex: ', selectedIndex)
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'ArrowDown') {
@@ -163,34 +142,36 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       const value = e.currentTarget.value
       setValue(value)
 
-      // if (value === '') {
-      //   onChange(null)
-      // } else {
-      //   onChange(value)
-      // }
+      if (value === '') {
+        open && setOpen(false)
+        onChange(null)
+      } else {
+        onChange(value)
+      }
       !open && setOpen(true)
       setFilterRequired(true)
     }
 
-    // endregion close
     const generatedId = useId()
-    const finalId = generatedId
-    // const finalId = id ?? generatedId
+    const finalId = id ?? generatedId
 
     return (
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Popover.Trigger asChild>
           <div
             className={cn(
-              `relative w-[210px] h-[82px] mb-[51px]`,
+              `relative w-[210px] h-[82px] mb-[51px] text-start`,
               parentClassName
             )}
           >
+            <label htmlFor={finalId}>
+              {(name?.charAt(0).toUpperCase() as string) +
+                (name?.slice(1) as string)}
+            </label>
             <input
-              tabIndex={1}
               {...rest}
               id={finalId}
-              ref={inputRef}
+              ref={ref}
               value={value || ''}
               placeholder="Select an option..."
               onChange={handleOnChange}
@@ -199,19 +180,17 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                 `w-[210px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`
               )}
             />
-            {/*{error && (*/}
-            {/*  <p className={`text-red-500 text-sm`}>{error}</p>*/}
-            {/*)}*/}
+            {error && <p className={`text-red-500 text-sm`}>{error}</p>}
             {
               <Button
                 variant="ghost"
                 className={cn(
-                  `!top-[8px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+                  `!top-[31px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
                 )}
-                onClick={() => {
+                onClick={e => {
+                  e.preventDefault()
                   setValue('')
                   setOpen(false)
-                  inputRef.current?.focus()
                 }}
               >
                 <Close
@@ -225,9 +204,13 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               </Button>
             }
             <Button
+              onClick={e => {
+                e.preventDefault()
+                setOpen(value => !value)
+              }}
               variant="ghost"
               className={cn(
-                `!top-[8px] !right-[0] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+                `!top-[31px] !right-[0] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
               )}
             >
               <ArrowIosDownOutline
@@ -248,7 +231,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               'bg-white border-[1px] border-solid border-[#ccc]',
               `rounded w-[210px] max-h-[150px] overflow-y-auto relative`,
               open ? `z-[1]` : `z-[0]`,
-              `absolute left-[-105px] top-[-40px]`
+              `absolute left-[-105px] top-[-16px]`
             )}
             onOpenAutoFocus={e => e.preventDefault()}
           >
@@ -258,10 +241,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                   key={item}
                   onClick={() => {
                     setValue(item)
-                    // onChange(item as string)
                     setOpen(false)
                     setSelectedIndex(0)
-                    inputRef.current?.focus()
                     setFilterRequired(true)
                   }}
                   className={cn(
