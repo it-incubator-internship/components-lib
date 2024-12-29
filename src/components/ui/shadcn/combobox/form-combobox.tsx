@@ -1,26 +1,29 @@
 import {} from 'react'
-import { Control, useController, UseFormSetValue } from 'react-hook-form'
-import { FormTypes } from '@/components/ui/shadcn/combobox/form-combobox.stories'
+import {
+  Control, FieldPath,
+  FieldValues,
+  useController,
+} from 'react-hook-form'
 import { ComboBox } from '@/components/ui/shadcn/combobox/combobox'
 
 export type LocalityType = 'country'
-export type ComboboxFormFields = {
+export type ComboboxFormFields<T extends FieldValues> = {
   options: string[]
   parentClassName?: string
-  control: Control<FormTypes, any>
-  name: LocalityType
+  control: Control<T>
+  name: FieldPath<T>
   setValue: (value: string | null) => void
   handleListOpen: (value: boolean) => void
 }
 
-export const FormCombobox = ({
+export const FormCombobox = <T extends FieldValues>({
   control,
   name,
   options,
   parentClassName,
   setValue,
   handleListOpen,
-}: ComboboxFormFields) => {
+}: ComboboxFormFields<T>) => {
   const {
     formState: { errors },
     field: { ref, name: fieldName, onChange, value },
@@ -34,7 +37,7 @@ export const FormCombobox = ({
       options={options}
       parentClassName={parentClassName}
       name={fieldName}
-      error={errors?.country?.message}
+      error={errors?.country?.message?.toString()}
       ref={ref}
       value={value}
       onChange={onChange}

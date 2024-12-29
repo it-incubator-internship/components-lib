@@ -17,20 +17,21 @@ import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { LocalityType } from './form-combobox'
 import { FixedSizeList, FixedSizeList as List } from 'react-window'
 import s from './form-combobox.module.scss'
+import {FieldError, FieldPath, FieldValues} from "react-hook-form";
 
 type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
-type ComboboxProps = InputPropsWithoutValue & {
+type ComboboxProps<T extends FieldValues> = InputPropsWithoutValue & {
   options: string[]
   parentClassName?: string
-  error: string | undefined
   setValue: (value: string | null) => void
-  name: LocalityType
+  name: FieldPath<T>
+  error: string | undefined
   value: string | null
   onChange: (value: string | null) => void
   handleListOpen: (value: boolean) => void
 }
 
-export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
+export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps<FieldValues>>(
   (
     {
       options,
