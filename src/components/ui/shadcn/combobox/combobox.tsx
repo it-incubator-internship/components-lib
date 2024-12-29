@@ -5,6 +5,7 @@ import React, {
   ChangeEvent,
   useId,
   forwardRef,
+  useRef,
 } from 'react'
 import { ComponentPropsWithoutRef } from 'react'
 
@@ -72,6 +73,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       handleListOpen(open)
     }, [open])
 
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
     if (filterRequired) {
       filterOptions()
       setFilterRequired(false)
@@ -138,6 +141,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       }
     }
     console.log(' selectedIndex: ', selectedIndex)
+
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
       setValue(value)
@@ -173,7 +177,14 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
             <input
               {...rest}
               id={finalId}
-              ref={ref}
+              ref={node => {
+                inputRef.current = node
+                if (typeof ref === 'function') {
+                  ref(node)
+                } else if (ref) {
+                  ref.current = node
+                }
+              }}
               value={value || ''}
               placeholder="Select an option..."
               onChange={handleOnChange}
@@ -197,6 +208,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                   }
                   setValue('')
                   setOpen(false)
+                  inputRef.current?.focus()
                 }}
               >
                 <Close
