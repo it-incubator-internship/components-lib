@@ -16,6 +16,7 @@ import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { LocalityType } from './form-combobox'
 import { FixedSizeList as List } from 'react-window'
+import s from './form-combobox.module.scss'
 
 type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
 type ComboboxProps = InputPropsWithoutValue & {
@@ -269,12 +270,11 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                       setFilterRequired(true)
                     }}
                     className={cn(
-                      `hover:bg-theme-accent-900 p-[8px] h-[41px] cursor-pointer `,
-                      selectedIndex === index ? 'bg-success-700' : ''
+                      `hover:bg-theme-accent-900 p-[8px] h-[41px] cursor-pointer`,
+                      selectedIndex === index ? 'bg-success-700' : '',
+                        s.input
                     )}
-                    style={{
-                      borderBottom: '1px solid #f0f0f0',
-                    }}
+                    style={style}
                   >
                     {currentOptions[index]}
                   </div>
