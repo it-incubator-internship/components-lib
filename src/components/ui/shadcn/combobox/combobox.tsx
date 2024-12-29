@@ -137,7 +137,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         setOpen(prevValue => !prevValue)
       }
     }
-    console.log(' selectedIndex: ', selectedIndex);
+    console.log(' selectedIndex: ', selectedIndex)
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
       setValue(value)
@@ -187,10 +187,14 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               <Button
                 variant="ghost"
                 className={cn(
-                  `!top-[31px] !right-[25px] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+                  `!top-[35px] !right-[25px] !absolute !p-[1px] group !text-danger-100 hover:!text-danger-500`
                 )}
                 onClick={e => {
                   e.preventDefault()
+                  if (!value) {
+                    setOpen(value => !value)
+                    return
+                  }
                   setValue('')
                   setOpen(false)
                 }}
@@ -212,7 +216,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
               }}
               variant="ghost"
               className={cn(
-                `!top-[31px] !right-[0] !absolute !p-[5px] group !text-danger-100 hover:!text-danger-500`
+                `!top-[35px] !right-[5px] !absolute !p-[1px] group !text-danger-100 hover:!text-danger-500`
               )}
             >
               <ArrowIosDownOutline
@@ -254,7 +258,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                     }}
                     className={cn(
                       `hover:bg-theme-accent-900 p-[8px] h-[41px] cursor-pointer `,
-                      selectedIndex === index ? 'bg-success-700' : '',
+                      selectedIndex === index ? 'bg-success-700' : ''
                     )}
                     style={{
                       borderBottom: '1px solid #f0f0f0',
