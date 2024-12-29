@@ -15,7 +15,7 @@ import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { LocalityType } from './form-combobox'
-import { FixedSizeList as List } from 'react-window'
+import { FixedSizeList, FixedSizeList as List } from 'react-window'
 import s from './form-combobox.module.scss'
 
 type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
@@ -52,9 +52,13 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [currentOptions, setCurrentOptions] = useState<string[]>(options)
     const [filterRequired, setFilterRequired] = useState<boolean>(false)
 
+    const inputRef = useRef<HTMLInputElement | null>(null)
+    const listElRef = useRef<FixedSizeList | null>(null)
+
     useEffect(() => {
       if (selectedIndex >= 0) {
         const selectedOption = currentOptions[selectedIndex]
+        listElRef.current?.scrollToItem(selectedIndex)
         if (selectedOption) {
           setValue(value)
         }
@@ -74,7 +78,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       handleListOpen(open)
     }, [open])
 
-    const inputRef = useRef<HTMLInputElement | null>(null)
 
     if (filterRequired) {
       filterOptions()
@@ -256,6 +259,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
           >
             {currentOptions?.length > 0 ? (
               <List
+                ref={listElRef}
                 height={149}
                 itemCount={currentOptions.length}
                 itemSize={41}
@@ -272,7 +276,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                     className={cn(
                       `hover:bg-theme-accent-900 p-[8px] h-[41px] cursor-pointer`,
                       selectedIndex === index ? 'bg-success-700' : '',
-                        s.input
+                      s.input
                     )}
                     style={style}
                   >
