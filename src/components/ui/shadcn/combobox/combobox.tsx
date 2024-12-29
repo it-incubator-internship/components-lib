@@ -113,8 +113,8 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         }
 
         setSelectedIndex(prevIndex => {
-          if (prevIndex - 1 <= -1) {
-            return currentOptions.length - 1
+          if (prevIndex - 1 <= 0) {
+            return 0
           }
           return prevIndex - 1
         })
@@ -137,13 +137,14 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         setOpen(prevValue => !prevValue)
       }
     }
-
+    console.log(' selectedIndex: ', selectedIndex);
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.currentTarget.value
       setValue(value)
 
       if (value === '') {
         open && setOpen(false)
+        setSelectedIndex(-1)
         onChange(null)
       } else {
         onChange(value)
@@ -252,7 +253,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                       setFilterRequired(true)
                     }}
                     className={cn(
-                      `hover:bg-theme-accent-900 p-[8px] cursor-pointer `,
+                      `hover:bg-theme-accent-900 p-[8px] h-[41px] cursor-pointer `,
                       selectedIndex === index ? 'bg-success-700' : '',
                     )}
                     style={{

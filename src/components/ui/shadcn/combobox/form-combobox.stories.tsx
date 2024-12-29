@@ -13,7 +13,44 @@ const meta = {
 export default meta
 
 type Story = StoryObj<typeof meta>
-const options = ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit']
+const options= ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit']
+// const options = [
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+//   'Apricot',
+//   'Apple',
+//   'Grapes',
+//   'Pineapple',
+//   'Grapefruit',
+// ]
 
 const FormSchema = z.object({
   country: z
@@ -30,7 +67,7 @@ export type FormTypes = z.infer<typeof FormSchema>
 export const Primary = {
   // @ts-ignore
   args: {
-    options: ['Apricot', 'Apple', 'Grapes', 'Pineapple', 'Grapefruit'],
+    options: options,
   },
   render: args => {
     const [listOpen, setListOpen] = useState<boolean>(false)
