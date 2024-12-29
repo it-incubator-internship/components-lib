@@ -16,7 +16,7 @@ import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { FixedSizeList, FixedSizeList as List } from 'react-window'
 import s from './form-combobox.module.scss'
-import {FieldError, FieldPath, FieldValues} from "react-hook-form";
+import {FieldPath, FieldValues} from "react-hook-form";
 
 type InputPropsWithoutValue = Omit<ComponentPropsWithoutRef<'input'>, 'value'>
 type ComboboxProps<T extends FieldValues> = InputPropsWithoutValue & {
