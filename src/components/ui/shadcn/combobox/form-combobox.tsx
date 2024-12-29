@@ -6,7 +6,6 @@ import {
 } from 'react-hook-form'
 import { ComboBox } from '@/components/ui/shadcn/combobox/combobox'
 
-export type LocalityType = 'country'
 export type ComboboxFormFields<T extends FieldValues> = {
   options: string[]
   parentClassName?: string

@@ -14,7 +14,6 @@ import { cn } from '@/components/ui/shadcn/combobox/cn'
 import { Button } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
-import { LocalityType } from './form-combobox'
 import { FixedSizeList, FixedSizeList as List } from 'react-window'
 import s from './form-combobox.module.scss'
 import {FieldError, FieldPath, FieldValues} from "react-hook-form";
