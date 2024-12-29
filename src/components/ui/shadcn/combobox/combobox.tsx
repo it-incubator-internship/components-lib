@@ -78,7 +78,6 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
       handleListOpen(open)
     }, [open])
 
-
     if (filterRequired) {
       filterOptions()
       setFilterRequired(false)
@@ -131,6 +130,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
         const selectedOption = currentOptions[selectedIndex]
         if (selectedOption) {
           setValue(selectedOption)
+          onChange(selectedOption)
         } else if (
           currentOptions.length > 0 &&
           currentOptions[0]
@@ -270,6 +270,7 @@ export const ComboBox = forwardRef<HTMLInputElement, ComboboxProps>(
                     onClick={() => {
                       setValue(currentOptions[index]!)
                       setOpen(false)
+                      onChange(currentOptions[index]!)
                       setSelectedIndex(0)
                       setFilterRequired(true)
                     }}
