@@ -60,7 +60,7 @@ const options2: optionType[] = [
 ]
 
 const FakeForm = () => {
-  const [countriesValues, setCountriesValues] = useState<optionType[]>(options1)
+  // const [countriesValues, setCountriesValues] = useState<optionType[]>(options1)
 
   const [citiesValues, setCitiesValues] = useState<optionType[] | null>(options2)
 
