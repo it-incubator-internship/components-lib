@@ -339,7 +339,7 @@ export const ComboBox = forwardRef<
                               }}
                               className={cn(
                                   `hover:bg-dark-300 hover:text-theme-accent-500 p-[8px] h-[41px] cursor-pointer`,
-                                  selectedIndex === index ? 'bg-success-700' : '',
+                                  selectedIndex === index ? 'bg-dark-300 text-theme-accent-500' : '',
                               )}
                               style={style}
                           >
