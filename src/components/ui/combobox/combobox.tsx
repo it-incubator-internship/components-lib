@@ -14,7 +14,6 @@ import { Button, Label } from '@/components/ui'
 import Close from '@/assets/components/Close'
 import ArrowIosDownOutline from '@/assets/components/ArrowIosDownOutline'
 import { FixedSizeList, FixedSizeList as List } from 'react-window'
-import s from '../form/form-combobox/form-combobox.module.scss'
 import { FieldPath, FieldValues } from 'react-hook-form'
 import { cn } from '@/lib/utils'
 import { ThreeDotsSpinner } from '@/components/ui/three-dots-spinner/three-dots-spinner'
@@ -244,8 +243,10 @@ export const ComboBox = forwardRef<
                     onChange={handleOnChange}
                     onKeyDown={handleKeyDown}
                     className={cn(
-                        `w-[210px] h-[36px] p-2 pr-[48px] rounded cursor-text border-[1px] border-solid border-[#ccc]`,
-                        disabled && `disabled: cursor-red-close`
+                        `w-[210px] h-[36px] p-2 pr-[48px] cursor-text border-[1px] border-solid`,
+                        `focus:border-theme-accent-500 outline-none`,
+                        `rounded placeholder-light-900 text-light-100 bg-dark-500 `,
+                        disabled && `disabled: cursor-red-close`,
                     )}
                     disabled={disabled}
                 />
@@ -308,10 +309,10 @@ export const ComboBox = forwardRef<
                       open
                           ? `opacity-100 transition-all duration-500 visible `
                           : `opacity-0 transition-all duration-500 invisible`,
-                      'bg-white border-[1px] border-solid border-[#ccc]',
+                      'bg-dark-500 text-light-100 border-[1px] border-solid border-[#ccc]',
                       `rounded w-[210px] max-h-[164px] overflow-y-auto relative`,
                       open ? `z-[1]` : `z-[0]`,
-                      `absolute left-[-105px] top-[-16px]`
+                      `absolute left-[-105px] top-[-22px]`
                   )}
                   onOpenAutoFocus={e => e.preventDefault()}
               >
@@ -336,9 +337,8 @@ export const ComboBox = forwardRef<
                                 setFilterRequired(true)
                               }}
                               className={cn(
-                                  `hover:bg-theme-accent-900 p-[8px] h-[41px] cursor-pointer`,
+                                  `hover:bg-dark-300 hover:text-theme-accent-500 p-[8px] h-[41px] cursor-pointer`,
                                   selectedIndex === index ? 'bg-success-700' : '',
-                                  s.input
                               )}
                               style={style}
                           >
