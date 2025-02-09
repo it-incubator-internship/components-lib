@@ -325,6 +325,7 @@ export const ComboBox = forwardRef<
                         itemCount={currentOptions.length}
                         itemSize={41}
                         width={209}
+                        className={cn(`custom-scrollbar `)}
                     >
                       {({ index, style }) => (
                           <div
