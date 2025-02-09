@@ -256,7 +256,7 @@ export const ComboBox = forwardRef<
                   <Button
                       variant="ghost"
                       className={cn(
-                          `!top-[35px] !right-[25px] !absolute !p-[1px] group !text-danger-100 hover:!text-danger-500`,
+                          `!top-[35px] !right-[25px] !absolute !p-[1px] group !text-light-900 hover:!text-dark-100`,
                           disabled && `!hidden`
                       )}
                       onClick={e => {
@@ -289,7 +289,7 @@ export const ComboBox = forwardRef<
                     }}
                     variant="ghost"
                     className={cn(
-                        `!top-[35px] !right-[5px] !absolute !p-[1px] group !text-danger-100 hover:!text-danger-500`,
+                        `!top-[35px] !right-[5px] !absolute !p-[1px] group !text-light-900 hover:!text-dark-100`,
                         disabled && `disabled: cursor-red-close`
                     )}
                     disabled={disabled}
