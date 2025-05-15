@@ -8,33 +8,68 @@ import s from './select.module.scss'
 import { ChevronDown } from '@/assets/components/chevron-down'
 import { cn } from '@/lib/utils'
 
-const Select = ({
-  children,
-  placeholder,
-  triggerProps = {},
-  triggerIcon,
-  portal = true,
-  className,
-  ...props
-}: ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
-  className?: string
-  placeholder?: string
-  triggerIcon?: ReactNode
-  portal?: boolean
-  triggerProps?: Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, 'children'>
-}) => (
-  <SelectPrimitive.Root {...props}>
-    <SelectTrigger {...triggerProps}>
-      <div className={s.triggerLabel}>
-        {triggerIcon && triggerIcon}
-        <SelectValue placeholder={placeholder} />
-      </div>
-    </SelectTrigger>
-    <SelectContent className={className} portal={portal}>
-      {children}
-    </SelectContent>
-  </SelectPrimitive.Root>
-)
+interface SelectProps extends ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {
+  className?: string;
+  placeholder?: string;
+  triggerIcon?: ReactNode;
+  portal?: boolean;
+  triggerProps?: Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, 'children'>;
+  children: ReactNode;
+}
+
+// const Select = ({
+//   children,
+//   placeholder,
+//   triggerProps = {},
+//   triggerIcon,
+//   portal = true,
+//   className,
+//   ...props
+// }: ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
+//   className?: string
+//   placeholder?: string
+//   triggerIcon?: ReactNode
+//   portal?: boolean
+//   triggerProps?: Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, 'children'>
+// }) => (
+//   <SelectPrimitive.Root {...props}>
+//     <SelectTrigger {...triggerProps}>
+//       <div className={s.triggerLabel}>
+//         {triggerIcon && triggerIcon}
+//         <SelectValue placeholder={placeholder} />
+//       </div>
+//     </SelectTrigger>
+//     <SelectContent className={className} portal={portal}>
+//       {children}
+//     </SelectContent>
+//   </SelectPrimitive.Root>
+// )
+
+const Select = React.forwardRef<
+    React.ElementRef<typeof SelectPrimitive.Root>,
+    SelectProps
+>(({
+     children,
+     placeholder,
+     triggerProps = {},
+     triggerIcon,
+     portal = true,
+     className,
+     ...props
+   }) => (
+    <SelectPrimitive.Root {...props}>
+      <SelectTrigger {...triggerProps}>
+        <div className={s.triggerLabel}>
+          {triggerIcon && triggerIcon}
+          <SelectValue placeholder={placeholder} />
+        </div>
+      </SelectTrigger>
+      <SelectContent className={className} portal={portal}>
+        {children}
+      </SelectContent>
+    </SelectPrimitive.Root>
+));
+Select.displayName = 'Select';
 
 const SelectGroup = SelectPrimitive.Group
 
