@@ -66,7 +66,7 @@ export const Checkbox = forwardRef<ElementRef<RadixCheckboxProps>, CheckboxProps
             {children}
           </RadixLabel.Root>
         </div>
-        <div className={clsx(s.errorMsg, errorMsg && s.show)}>{errorMsg}</div>
+        {errorMsg && <div className={clsx(s.errorMsg, errorMsg && s.show)}>{errorMsg}</div>}
       </div>
     )
   }

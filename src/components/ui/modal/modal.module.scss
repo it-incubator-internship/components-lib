@@ -86,10 +86,33 @@
   padding: 0 24px;
 }
 
+.withAgreement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 24px 18px;
+
+  .btnBox {
+    margin: 0;
+  }
+}
+
+.withAgreementBlock {
+  display: flex;
+  align-items: center;
+
+  & > * {
+    cursor: pointer;
+  }
+}
 
 .btn {
   height: 36px !important;
   font-weight: 600 !important;
+
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .buttonConfirm {

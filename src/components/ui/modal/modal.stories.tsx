@@ -43,6 +43,32 @@ export const Default: Story = {
   },
 }
 
+export const WithAgreement: Story = {
+    name: 'With agreement modal',
+    render: args => {
+        const [modalIsOpen, setModalIsOpen] = useState(false)
+
+        function handleModalOpened() {
+            setModalIsOpen(true)
+        }
+
+        function handleModalClosed() {
+            setModalIsOpen(false)
+        }
+
+        return (
+            <div>
+                <Button variant={'secondary'} onClick={handleModalOpened}>
+                    Open modal
+                </Button>
+                <Modal {...args} title={'Email sent'} onClose={handleModalClosed} open={modalIsOpen} withAgreement agreementTitle={'I agree'}>
+                    {args.children}
+                </Modal>
+            </div>
+        )
+    },
+}
+
 export const FullWidthButton: Story = {
   name: 'Fullwidth button',
   render: args => {
