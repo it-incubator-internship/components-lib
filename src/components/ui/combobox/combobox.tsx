@@ -96,7 +96,7 @@ export const ComboBox = forwardRef<
 
       function filterOptions() {
         const filteredOptions = options.filter(item =>
-            item.label
+            item?.label
                 ?.toLowerCase()
                 .includes(value?.toString().toLowerCase() ?? '')
         )

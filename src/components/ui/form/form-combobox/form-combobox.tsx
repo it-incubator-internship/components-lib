@@ -4,7 +4,7 @@ import {ComboBox} from "@/components/ui";
 export type OptionsType = {
   label: string
   value: { id: number; name: string }
-}
+} | null
 
 export type ComboboxFormFields<T extends FieldValues> = {
   control: Control<T>
