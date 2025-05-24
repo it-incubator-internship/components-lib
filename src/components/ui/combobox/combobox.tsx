@@ -30,6 +30,7 @@ type ComboboxProps<T extends FieldValues> = InputPropsWithoutValue & {
   onChange: (value: string | null) => void
   handleListOpen?: (value: boolean) => void
   dataForComboboxHandler: (instance: OptionsType) => void
+  getDataForCombobox: (instance: OptionsType) => void
   onInputClick: () => void
   isLoading: boolean
   markedAsRequired?: boolean
@@ -96,7 +97,7 @@ export const ComboBox = forwardRef<
 
       function filterOptions() {
         const filteredOptions = options.filter(item =>
-            item?.label
+            item.label
                 ?.toLowerCase()
                 .includes(value?.toString().toLowerCase() ?? '')
         )
