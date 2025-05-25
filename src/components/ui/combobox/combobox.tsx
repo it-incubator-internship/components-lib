@@ -30,7 +30,6 @@ type ComboboxProps<T extends FieldValues> = InputPropsWithoutValue & {
   onChange: (value: string | null) => void
   handleListOpen?: (value: boolean) => void
   dataForComboboxHandler: (instance: OptionsType) => void
-  getDataForCombobox: (instance: OptionsType) => void
   onInputClick: () => void
   isLoading: boolean
   markedAsRequired?: boolean
